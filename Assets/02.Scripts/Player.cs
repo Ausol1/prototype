@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
 
     //--- 키보드 이동 관련 변수 
     float h =0.0f;
-    float m_JumpForce = 5.0f;
-    float m_MoveSpeed = 2.6f;
+    public float m_JumpForce = 10.0f;
+    public float m_MoveSpeed = 2.6f;
     Vector3 m_DirVec;
 
     private Rigidbody2D rb;
@@ -23,12 +23,18 @@ public class Player : MonoBehaviour
     public float shootForce = 10.0f;
     public float m_ShootCool = 0.5f;
     float ShootTimer = 0.0f;
+
+    //--- 애니매이션 관련 변수
+    SpriteRenderer SpriteRenderer;
+    Animator Anim;
    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
+        Anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -36,6 +42,7 @@ public class Player : MonoBehaviour
     {
         Move();
         Shooting();
+        Animation();
     }
 
     void Move()
@@ -64,6 +71,16 @@ public class Player : MonoBehaviour
             rb.linearVelocity = shootDir * shootForce;
 
             ShootTimer = m_ShootCool;
+        }
+    }
+
+    void Animation()
+    {
+        Anim.SetFloat("Speed", h);
+
+        if (h != 0.0f )
+        {
+            SpriteRenderer.flipX = h<0.0f;
         }
     }
 
