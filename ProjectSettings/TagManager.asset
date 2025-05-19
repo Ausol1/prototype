@@ -9,11 +9,12 @@ TagManager:
   - EnemyBullt
   - Enemy
   - MarkBullet
+  - Lava
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Lava
   - Water
   - UI
   - 

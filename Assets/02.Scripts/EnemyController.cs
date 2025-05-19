@@ -74,12 +74,16 @@ public class EnemyController : MonoBehaviour
         {
             isMark = true;
             MarkCool = 3.0f;
+            Destroy(coll.gameObject);
         }
 
-        if (isMark == true && coll.tag == "AllyBullet")
+        if (coll.tag == "AllyBullet")
         {
-            TakeDamage(10);
             Destroy(coll.gameObject);
+            if(isMark == true)
+            {
+                TakeDamage(10);
+            }
         }
 
     }

@@ -10,7 +10,8 @@ public class Player : MonoBehaviour
     float m_MaxHp = 200.0f;
     public float m_CurHp = 200.0f;
     public Image m_HpBar = null;
-    public float m_DamageCool = 2.0f;
+    public float m_DamageCool = 1.0f;
+    public float m_LavaCool = 0.25f;
 
     //--- 플레이어 움직임 관련 변수 
     float h = 0.0f;
@@ -73,6 +74,7 @@ public class Player : MonoBehaviour
             m_HpBar.fillAmount = m_CurHp / m_MaxHp;
 
         m_DamageCool -= Time.deltaTime;
+        m_LavaCool -= Time.deltaTime;
     }
 
     void Move()
@@ -130,8 +132,6 @@ public class Player : MonoBehaviour
             TakeDamage(10);
             Destroy(coll.gameObject);
         }
-
-
     }
 
     public void TakeDamage(float a_Value)
@@ -142,9 +142,6 @@ public class Player : MonoBehaviour
         m_CurHp -= a_Value;
         if (m_CurHp < 0.0f)
             m_CurHp = 0.0f;
-
-        if (m_HpBar != null)
-            m_HpBar.fillAmount = m_CurHp / m_MaxHp;
 
         if (m_CurHp <= 0.0f)
         {
@@ -161,7 +158,7 @@ public class Player : MonoBehaviour
                 ContactPoint2D contact = coll.contacts[i];
                 Vector2 normal = contact.normal;
 
-                if (normal.y > 0.5f)
+                if (normal.y > 0.2f)
                 {
                     isGrounded = true;
                     JumpCount = 2;
@@ -170,12 +167,20 @@ public class Player : MonoBehaviour
             }
         }
      
+    }
+
+    private void OnCollisionStay2D(Collision2D coll)
+    {
         if (m_DamageCool < 0 && coll.collider.CompareTag("Enemy"))
         {
             TakeDamage(30);
-            m_DamageCool = 2;
+            m_DamageCool = 1;
         }
-
+        if (m_LavaCool < 0 && coll.collider.CompareTag("Lava"))
+        {
+            TakeDamage(10);
+            m_LavaCool= 0.25f;
+        }
     }
 
     void OnCollisionExit2D(Collision2D coll)
