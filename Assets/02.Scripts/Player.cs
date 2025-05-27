@@ -112,6 +112,29 @@ public class Player : MonoBehaviour
         bool t = h == 0.0f;
         Anim.SetBool("speed", t);
 
+        // 점프/낙하 애니메이션 처리
+        if (!isGrounded)
+        {
+            if (rb.linearVelocity.y > 0.1f)
+            {
+                // 상승 중 (점프 애니메이션)
+                Anim.SetBool("isJumping", true);
+                Anim.SetBool("isFalling", false);
+            }
+            else if (rb.linearVelocity.y < -0.1f)
+            {
+                // 하강 중 (떨어지는 애니메이션)
+                Anim.SetBool("isJumping", false);
+                Anim.SetBool("isFalling", true);
+            }
+        }
+        else
+        {
+            // 땅에 있을 때
+            Anim.SetBool("isJumping", false);
+            Anim.SetBool("isFalling", false);
+        }
+
         if (h != 0.0f)
         {
             SpriteRenderer.flipX = h < 0.0f;
@@ -166,7 +189,23 @@ public class Player : MonoBehaviour
                 }
             }
         }
-     
+        if (coll.collider.CompareTag("Player") && coll.collider.gameObject != this.gameObject)
+        {
+            for (int i = 0; i < coll.contacts.Length; i++)
+            {
+                ContactPoint2D contact = coll.contacts[i];
+                Vector2 normal = contact.normal;
+
+                // 충분히 위에서 밟았을 때만
+                if (normal.y > 0.8f)
+                {
+                    isGrounded = true;
+                    JumpCount = 2;
+                    break;
+                }
+            }
+        }
+
     }
 
     private void OnCollisionStay2D(Collision2D coll)

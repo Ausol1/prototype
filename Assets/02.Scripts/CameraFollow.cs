@@ -12,6 +12,7 @@ public class CameraFollow : MonoBehaviour
 
     public Camera mainCamera;  // 메인 카메라
 
+
     void LateUpdate()
     {
         // 두 캐릭터의 중간 위치 계산
