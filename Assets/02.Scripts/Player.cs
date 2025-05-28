@@ -112,28 +112,28 @@ public class Player : MonoBehaviour
         bool t = h == 0.0f;
         Anim.SetBool("speed", t);
 
-        // 점프/낙하 애니메이션 처리
-        if (!isGrounded)
-        {
-            if (rb.linearVelocity.y > 0.1f)
-            {
-                // 상승 중 (점프 애니메이션)
-                Anim.SetBool("isJumping", true);
-                Anim.SetBool("isFalling", false);
-            }
-            else if (rb.linearVelocity.y < -0.1f)
-            {
-                // 하강 중 (떨어지는 애니메이션)
-                Anim.SetBool("isJumping", false);
-                Anim.SetBool("isFalling", true);
-            }
-        }
-        else
-        {
-            // 땅에 있을 때
-            Anim.SetBool("isJumping", false);
-            Anim.SetBool("isFalling", false);
-        }
+        //// 점프/낙하 애니메이션 처리
+        //if (!isGrounded)
+        //{
+        //    if (rb.linearVelocity.y > 0.1f)
+        //    {
+        //        // 상승 중 (점프 애니메이션)
+        //        Anim.SetBool("isJumping", true);
+        //        Anim.SetBool("isFalling", false);
+        //    }
+        //    else if (rb.linearVelocity.y < -0.1f)
+        //    {
+        //        // 하강 중 (떨어지는 애니메이션)
+        //        Anim.SetBool("isJumping", false);
+        //        Anim.SetBool("isFalling", true);
+        //    }
+        //}
+        //else
+        //{
+        //    // 땅에 있을 때
+        //    Anim.SetBool("isJumping", false);
+        //    Anim.SetBool("isFalling", false);
+        //}
 
         if (h != 0.0f)
         {
@@ -215,11 +215,7 @@ public class Player : MonoBehaviour
             TakeDamage(30);
             m_DamageCool = 1;
         }
-        if (m_LavaCool < 0 && coll.collider.CompareTag("Lava"))
-        {
-            TakeDamage(10);
-            m_LavaCool= 0.25f;
-        }
+
     }
 
     void OnCollisionExit2D(Collision2D coll)
@@ -227,4 +223,15 @@ public class Player : MonoBehaviour
         if (coll.collider.CompareTag("Ground"))
             isGrounded = false;
     }
+
+    private void OnTriggerStay2D(Collider2D coll)
+    {
+        if (m_LavaCool < 0 && coll.CompareTag("Lava"))
+        {
+            TakeDamage(10);
+            m_LavaCool = 0.25f;
+        }
+    }
 }
+
+
