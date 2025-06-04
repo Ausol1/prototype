@@ -6,10 +6,11 @@ TagManager:
   tags:
   - Ground
   - AllyBullet
-  - EnemyBullt
   - Enemy
   - MarkBullet
   - Lava
+  - Fire
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Lava
   - Water
   - UI
-  - 
+  - Ground
   - 
   - 
   - 
@@ -46,6 +47,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 2869929265
     locked: 0
   m_RenderingLayers:
   - Default

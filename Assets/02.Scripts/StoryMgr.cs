@@ -10,6 +10,7 @@ public class StoryMgr : MonoBehaviour
     public TextMeshProUGUI sonText;
     public float typingSpeed = 0.1f;
     public Image FadeImage; // 검은색 이미지(알파 1)로 캔버스에 추가 필요
+    public Button skipButton; // 스킵 버튼 추가 필요   
 
     // 화자와 대사를 함께 저장
     [System.Serializable]
@@ -29,6 +30,10 @@ public class StoryMgr : MonoBehaviour
     void Start()
     {
         StartCoroutine(FadeIn());
+        skipButton.onClick.AddListener(() => 
+        {
+           SceneManager.LoadScene("Stage_1");
+        });
     }
 
     IEnumerator FadeIn()

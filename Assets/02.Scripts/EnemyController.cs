@@ -3,106 +3,183 @@ using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
-    float m_MaxHp = 100.0f;
-    public float m_CurHp = 100.0f;
-    public Image m_HpBar = null;
+    [Header("HP")]
+    public float maxHp = 100f;
+    private float curHp;
+    public Image hpBar;
 
-    bool isMark = false;
-    float MarkCool = 0.0f;
-
+    [Header("Target & Range")]
     public Transform player1;
     public Transform player2;
-    public float moveSpeed = 2.0f;
+    private Transform target;
+    public float traceRangeX = 10f;
+    public float traceRangeY = 3f;
+    public float attackRange = 5f;
 
-    private Transform targetPlayer;
+    [Header("Move")]
+    public float moveSpeed = 2f;
+    private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
 
-    private SpriteRenderer[] spriteRenderers;
-    private Color[] originalColors;
+    [Header("Ground Check")]
+    public Transform groundCheck;
+    public float groundCheckDistance = 0.1f;
+    public LayerMask groundLayer;
 
-    void Start()
+    [Header("Shoot")]
+    public Transform shootPos;
+    public GameObject bulletPrefab;
+    public float fireRate = 2f;
+    private float fireCooldown = 0f;
+
+    [Header("Mark")]
+    private bool isMarked = false;
+    private float markTimer = 0f;
+    public float markDuration = 3f;
+
+    private void Start()
     {
-        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-        originalColors = new Color[spriteRenderers.Length];
-        for (int i = 0; i < spriteRenderers.Length; i++)
+        curHp = maxHp;
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+        UpdateTarget();
+        HandleMark();
+        MoveAndTrack();
+        HandleShooting();
+        UpdateHpBar();
+    }
+
+    private void UpdateTarget()
+    {
+        float d1 = Vector2.Distance(transform.position, player1.position);
+        float d2 = Vector2.Distance(transform.position, player2.position);
+        target = d1 < d2 ? player1 : player2;
+    }
+
+    private void HandleMark()
+    {
+        if (isMarked)
         {
-            originalColors[i] = spriteRenderers[i].color;
+            markTimer -= Time.deltaTime;
+            spriteRenderer.color = Color.green;
+
+            if (markTimer <= 0f)
+            {
+                isMarked = false;
+                spriteRenderer.color = Color.white;
+            }
         }
     }
 
-    void Update()
+    private void MoveAndTrack()
     {
-        // ∞≈∏Æ ∞ËªÍ
-        float distToP1 = Vector2.Distance(transform.position, player1.position);
-        float distToP2 = Vector2.Distance(transform.position, player2.position);
+        if (target == null) return;
 
-        // ∞°±ÓøÓ «√∑π¿ÃæÓ º±≈√
-        if (distToP1 < distToP2)
+        Vector2 diff = target.position - transform.position;
+        float dx = Mathf.Abs(diff.x);
+        float dy = Mathf.Abs(diff.y);
+        bool shouldChase = dx <= traceRangeX && dy <= traceRangeY;
+
+        //if (shouldChase)
+        //{
+        //    int dir = diff.x > 0 ? 1 : -1;
+        //    rb.linearVelocity = new Vector2(moveSpeed * dir, rb.linearVelocity.y);
+        //    spriteRenderer.flipX = dir < 0;
+        //} 
+        if (shouldChase)
         {
-            targetPlayer = player1;
+            int dir = diff.x > 0 ? 1 : -1;
+
+            // ÎÇ≠Îñ†Îü¨ÏßÄ Ï≤¥ÌÅ¨
+            Vector2 groundCheckPos = groundCheck.position + Vector3.right * dir * 0.3f;
+            bool isGroundAhead = Physics2D.Raycast(groundCheckPos, Vector2.down, groundCheckDistance, groundLayer);
+
+            if (isGroundAhead)
+            {
+                rb.linearVelocity = new Vector2(moveSpeed * dir, rb.linearVelocity.y);
+                spriteRenderer.flipX = dir < 0;
+            }
+            else
+            {
+                rb.linearVelocity = new Vector2(0, rb.linearVelocity.y); // ÎÇ≠Îñ†Îü¨ÏßÄÎ©¥ Ï†ïÏßÄ
+            }
         }
         else
         {
-            targetPlayer = player2;
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
+    }
 
-        // µ˚∂Û∞°±‚
-        Vector2 dir = (targetPlayer.position - transform.position).normalized;
-        transform.position += (Vector3)(dir * moveSpeed * Time.deltaTime);
+    private void HandleShooting()
+    {
+        if (target == null) return;
 
-        if (isMark)
+        float dx = Mathf.Abs(target.position.x - transform.position.x);
+        if (dx <= attackRange)
         {
-            for (int i = 0; i < spriteRenderers.Length; i++)
+            fireCooldown -= Time.deltaTime;
+            if (fireCooldown <= 0f)
             {
-                spriteRenderers[i].color = Color.green;
-            }
-            MarkCool -= Time.deltaTime;
-
-            if (MarkCool <= 0.0f)
-            {
-                isMark = false;
-                for (int i = 0; i < spriteRenderers.Length; i++)
+                Vector2 shootDir = (target.position.x < transform.position.x) ? Vector2.left : Vector2.right;
+                GameObject bullet = Instantiate(bulletPrefab, shootPos.position, Quaternion.identity);
+                Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+                if (rb != null)
                 {
-                    spriteRenderers[i].color = Color.white;
+                    rb.linearVelocity = shootDir * 8f;
                 }
+                fireCooldown = fireRate;
             }
         }
     }
 
-    void OnTriggerEnter2D(Collider2D coll)
+    private void UpdateHpBar()
     {
-        if(coll.tag == "MarkBullet")
+        if (hpBar != null)
         {
-            isMark = true;
-            MarkCool = 3.0f;
-            Destroy(coll.gameObject);
+            hpBar.fillAmount = curHp / maxHp;
         }
-
-        if (coll.tag == "AllyBullet")
-        {
-            Destroy(coll.gameObject);
-            if(isMark == true)
-            {
-                TakeDamage(10);
-            }
-        }
-
     }
 
-    public void TakeDamage(float a_Value)
+    public void TakeDamage(float damage)
     {
-        if (m_CurHp <= 0.0f)
-            return;
+        if (!isMarked) return;
 
-        m_CurHp -= a_Value;
-        if (m_CurHp < 0.0f)
-            m_CurHp = 0.0f;
-
-        if (m_HpBar != null)
-            m_HpBar.fillAmount = m_CurHp / m_MaxHp;
-
-        if (m_CurHp <= 0.0f)
+        curHp -= damage;
+        if (curHp <= 0f)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("MarkBullet"))
+        {
+            isMarked = true;
+            markTimer = markDuration;
+            Destroy(collision.gameObject);
+        }
+        else if (collision.CompareTag("AllyBullet"))
+        {
+            Destroy(collision.gameObject);
+            TakeDamage(10f);
+        }
+    }
+    public void FlipAllChildrenHorizontally()
+    {
+        foreach (Transform child in transform)
+        {
+            Vector3 localPos = child.localPosition;
+            localPos.x = -localPos.x;
+            child.localPosition = localPos;
+
+            Vector3 localScale = child.localScale;
+            localScale.x = -localScale.x;
+            child.localScale = localScale;
         }
     }
 }
