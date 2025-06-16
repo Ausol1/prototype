@@ -10,7 +10,8 @@ TagManager:
   - MarkBullet
   - Lava
   - Fire
-  - EnemyBullet
+  - RokectBullet
+  - SmallMonster
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
+  - Player
   - 
   - 
   - 

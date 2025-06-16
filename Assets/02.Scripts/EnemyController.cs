@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour
     public float moveSpeed = 2f;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    private Animator animator; // 추가
 
     [Header("Ground Check")]
     public Transform groundCheck;
@@ -37,11 +38,22 @@ public class EnemyController : MonoBehaviour
     private float markTimer = 0f;
     public float markDuration = 3f;
 
+    [Header("Mark Sprites")]
+    public Sprite normalSprite;
+    public Sprite markedSprite;
+
     private void Start()
     {
         curHp = maxHp;
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        animator = GetComponentInChildren<Animator>(); // 추가
+
+        if (spriteRenderer != null && normalSprite != null)
+            spriteRenderer.sprite = normalSprite;
+
+        if (animator != null)
+            animator.enabled = true; // 기본 상태에서 애니메이션 활성화
     }
 
     private void Update()
@@ -65,12 +77,22 @@ public class EnemyController : MonoBehaviour
         if (isMarked)
         {
             markTimer -= Time.deltaTime;
-            spriteRenderer.color = Color.green;
+
+            if (animator != null)
+                animator.enabled = false; // 마크드 상태에서 애니메이션 비활성화
+
+            if (spriteRenderer != null && markedSprite != null)
+                spriteRenderer.sprite = markedSprite;
 
             if (markTimer <= 0f)
             {
                 isMarked = false;
-                spriteRenderer.color = Color.white;
+
+                if (spriteRenderer != null && normalSprite != null)
+                    spriteRenderer.sprite = normalSprite;
+
+                if (animator != null)
+                    animator.enabled = true; // 마크 해제 시 애니메이션 다시 활성화
             }
         }
     }
@@ -84,12 +106,6 @@ public class EnemyController : MonoBehaviour
         float dy = Mathf.Abs(diff.y);
         bool shouldChase = dx <= traceRangeX && dy <= traceRangeY;
 
-        //if (shouldChase)
-        //{
-        //    int dir = diff.x > 0 ? 1 : -1;
-        //    rb.linearVelocity = new Vector2(moveSpeed * dir, rb.linearVelocity.y);
-        //    spriteRenderer.flipX = dir < 0;
-        //} 
         if (shouldChase)
         {
             int dir = diff.x > 0 ? 1 : -1;

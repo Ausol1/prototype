@@ -6,13 +6,18 @@ public class GameMgr : MonoBehaviour
 {
     [SerializeField] private GameObject gateObject; // 게이트 오브젝트 할당
     [SerializeField] private GameObject gameOverPanel; // GameOver 패널 오브젝트 할당
+    [SerializeField] private GameObject gamePausePanel; // GameOver 패널 오브젝트 할당
 
     //--- 싱글턴 패턴
     public static GameMgr Inst = null;
 
     private int playerInGateCount = 0;
     private int totalPlayers = 2; // 플레이어 수
-                                  // 버튼 오브젝트를 에디터에서 할당할 수 있도록 public으로 선언
+    private int deadPlayerCount = 0;
+
+    public int currentStage = 1;
+
+    // 버튼 오브젝트를 에디터에서 할당할 수 있도록 public으로 선언
     public Button restartButton;
     public Button exitButton;
     private void Awake()
@@ -37,6 +42,14 @@ public class GameMgr : MonoBehaviour
             if (!gateObject.activeSelf)
                 gateObject.SetActive(true);
         }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (gamePausePanel != null)
+            {
+                gamePausePanel.SetActive(!gamePausePanel.activeSelf);
+                Time.timeScale = gamePausePanel.activeSelf ? 0.0f : 1.0f; // 패널 활성화 시 게임 일시정지
+            }
+        }
     }
 
     // 게이트에 플레이어가 닿았을 때 호출
@@ -57,10 +70,25 @@ public class GameMgr : MonoBehaviour
     // 플레이어가 죽었을 때 호출
     public void OnPlayerDead()
     {
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(true);
+        deadPlayerCount++;
+        if (deadPlayerCount >= 2)
+        {
+            GameOver();
+        }
+    }
 
-        Time.timeScale = 0.0f;
+    public void OnPlayerRevive()
+    {
+        if (deadPlayerCount > 0)
+            deadPlayerCount--;
+    }
+    private void GameOver()
+    {
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true); // GameOver 패널 활성화
+            Time.timeScale = 0.0f; // 게임 일시정지
+        }
     }
 
     // RE 버튼 (Restart)
@@ -75,6 +103,12 @@ public class GameMgr : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         SceneManager.LoadScene("TitleScene");
+    }
+
+    public void OnStart()
+    { 
+        if (gamePausePanel != null)
+            gamePausePanel.SetActive(false); // 게임 시작 시 GamePause 패널 비활성화
     }
 
 }
