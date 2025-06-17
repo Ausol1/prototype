@@ -435,7 +435,19 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Yellow Slime_0: -5346023277746062881
+      Yellow Slime_1: -6478673221943021530
+      Yellow Slime_10: 2303978997108453086
+      Yellow Slime_11: 9186733651055902221
+      Yellow Slime_2: 279305339804987062
+      Yellow Slime_3: 4058924205936208227
+      Yellow Slime_4: -5989361242807985917
+      Yellow Slime_5: 6716882440037797031
+      Yellow Slime_6: 3266673994425185116
+      Yellow Slime_7: 3488312837653854515
+      Yellow Slime_8: -7820002957816614739
+      Yellow Slime_9: -8776923263056157407
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

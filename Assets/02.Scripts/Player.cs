@@ -57,6 +57,7 @@ public class Player : MonoBehaviour
     public float suckForce = 10f;
     public float consumeDistance = 0.5f;
     public LayerMask smallMonsterLayer;
+    public Image vacuumImage;
 
     // --- 현재 무기 상태 ---
     private float currentShootTimer = 0.0f;
@@ -185,13 +186,6 @@ public class Player : MonoBehaviour
         isReloading = false; // 재장전 상태 초기화
         currentShootTimer = 0; // 발사 쿨타임 초기화
 
-        // m_Gun 오브젝트 활성화/비활성화
-        // 이 부분은 m_Gun이 각 무기 모델을 담고 있다고 가정합니다.
-        // 예를 들어 DefaultGun 모델, RocketLauncher 모델을 m_Gun에 할당하고 필요한 시점에 활성화/비활성화
-        // 복잡해지면 IWeapon 인터페이스처럼 각 무기 GameObject를 Player에 할당하고 switch문으로 활성화/비활성화 하는게 더 좋음
-        // 지금은 m_Gun이 하나의 오브젝트(Placeholder)라고 가정하고, 실제 총 모델은 애니메이터/스프라이트로 변경될 수 있다고 가정.
-        // 만약 m_Gun에 여러 무기 프리팹을 할당해야 한다면, 이 로직은 더 복잡해집니다.
-        // 여기서는 m_Gun을 플레이어 손에 붙는 '컨테이너'로 보고, 실제 비주얼은 애니메이션이나 자식 오브젝트로 제어한다고 가정합니다.
     }
     void Update()
     {
@@ -229,6 +223,34 @@ public class Player : MonoBehaviour
         {
             if (reviveImage != null)
                 reviveImage.gameObject.SetActive(false);
+        }
+
+        if (vacuumImage != null)
+        {
+            // VacuumCleaner 무기일 때만 토글
+            if (currentWeaponType == WeaponType.VacuumCleaner && !isDead)
+            {
+                bool isActive = Input.GetKey(shootKey);
+                vacuumImage.gameObject.SetActive(isActive);
+
+                if (isActive)
+                {
+                    // 1. 이미지 플립
+                    Vector3 scale = vacuumImage.rectTransform.localScale;
+                    scale.x = (SpriteRenderer != null && SpriteRenderer.flipX) ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
+                    vacuumImage.rectTransform.localScale = scale;
+
+                    // 2. 위치 반전 (플레이어 기준)
+                    Vector3 pos = vacuumImage.rectTransform.localPosition;
+                    float baseX = Mathf.Abs(pos.x); // 기준값(양수)
+                    pos.x = (SpriteRenderer != null && SpriteRenderer.flipX) ? -baseX : baseX;
+                    vacuumImage.rectTransform.localPosition = pos;
+                }
+            }
+            else
+            {
+                vacuumImage.gameObject.SetActive(false);
+            }
         }
 
         Move();
@@ -354,26 +376,34 @@ public class Player : MonoBehaviour
     }
     void OperateVacuumCleaner()
     {
-        // 청소기는 탄창이나 쿨타임 개념이 없으므로, Input.GetKey(shootKey) 동안 지속적으로 작동
+        // 플레이어가 바라보는 방향(오른쪽/왼쪽) 기준
+        Vector2 forward = (SpriteRenderer != null && SpriteRenderer.flipX) ? Vector2.left : Vector2.right;
+        float halfAngle = 30f; // 30도/2
+
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(m_ShootPos.position, suckRadius, smallMonsterLayer);
 
         foreach (Collider2D hit in hitColliders)
         {
-            // SmallMonster 태그를 가진 몬스터만 처리
             if (hit.CompareTag("SmallMonster"))
             {
-                Rigidbody2D monsterRb = hit.GetComponent<Rigidbody2D>();
-                if (monsterRb != null)
-                {
-                    // 플레이어 방향으로 몬스터 끌어당기기
-                    Vector2 directionToPlayer = (m_ShootPos.position - hit.transform.position).normalized;
-                    monsterRb.AddForce(directionToPlayer * suckForce, ForceMode2D.Force);
+                Vector2 toTarget = (hit.transform.position - m_ShootPos.position).normalized;
+                float angle = Vector2.Angle(forward, toTarget);
 
-                    // 특정 거리 이내로 들어오면 몬스터 제거
-                    if (Vector2.Distance(m_ShootPos.position, hit.transform.position) < consumeDistance)
+                if (angle <= halfAngle)
+                {
+                    Rigidbody2D monsterRb = hit.GetComponent<Rigidbody2D>();
+                    if (monsterRb != null)
                     {
-                        Destroy(hit.gameObject);
-                        // 몬스터 제거 시 점수 획득 등의 추가 로직 여기 구현
+                        // 플레이어 방향으로 몬스터 끌어당기기
+                        Vector2 directionToPlayer = (m_ShootPos.position - hit.transform.position).normalized;
+                        monsterRb.AddForce(directionToPlayer * suckForce, ForceMode2D.Force);
+
+                        // 특정 거리 이내로 들어오면 몬스터 제거
+                        if (Vector2.Distance(m_ShootPos.position, hit.transform.position) < consumeDistance)
+                        {
+                            Destroy(hit.gameObject);
+                            // 몬스터 제거 시 점수 획득 등의 추가 로직 여기 구현
+                        }
                     }
                 }
             }
@@ -406,6 +436,8 @@ public class Player : MonoBehaviour
         reviveProgress = 0f;
         if (reviveBar != null)
             reviveBar.fillAmount = 0f;
+
+        TextHp.text = m_MaxHp.ToString("F0") + " / " + m_CurHp.ToString("F0");
 
         rb.linearVelocity = Vector2.zero; // 죽는 순간 속도 정지
 
@@ -531,24 +563,34 @@ public class Player : MonoBehaviour
         }
         else if (coll.CompareTag("Fire"))
         {
-            TakeDamage(50);
+            TakeDamage(30);
         }
         // 플레이어 트리거 감지 부분 (reviveDetectionTrigger에만 들어갈 수 있도록 에디터에서 설정)
-        else if (coll.CompareTag("Player") && coll.gameObject != this.gameObject)
+        else if (coll.CompareTag("Player1") && coll.gameObject != this.gameObject)
         {
-            // 이 콜라이더가 reviveDetectionTrigger 인스턴스와 같은지 확인 (선택 사항, 더 견고하게)
-            // 또는 OnTriggerEnter2D가 reviveDetectionTrigger에만 할당되도록 유니티에서 설정
             if (coll == otherPlayer?.mainPlayerCollider) // 다른 플레이어의 메인 콜라이더가 내 트리거에 진입했을 때
             {
                 isOverlappingWithOther = true;
                 // Debug.Log(this.name + ": 다른 플레이어가 나에게 접근! (트리거)");
             }
         }
+        else if (coll.CompareTag("Player2") && coll.gameObject != this.gameObject)
+        {
+            if (coll == otherPlayer?.mainPlayerCollider) // 다른 플레이어의 메인 콜라이더가 내 트리거에 진입했을 때
+            {
+                isOverlappingWithOther = true;
+                // Debug.Log(this.name + ": 다른 플레이어가 나에게 접근! (트리거)");
+            }
+        }
+        if(coll.CompareTag("JumpBoost"))
+        {
+            m_JumpForce += 5.0f; // 점프력 증가
+        }
     }
 
     private void OnTriggerExit2D(Collider2D coll)
     {
-        if (coll.CompareTag("Player") && coll.gameObject != this.gameObject)
+        if (coll.CompareTag("Player1") && coll.gameObject != this.gameObject)
         {
             if (coll == otherPlayer?.mainPlayerCollider) // 다른 플레이어의 메인 콜라이더가 내 트리거에서 나갔을 때
             {
@@ -556,10 +598,22 @@ public class Player : MonoBehaviour
                 reviveProgress = 0f;
                 if (reviveBar != null)
                     reviveBar.fillAmount = 0f;
-                // Debug.Log(this.name + ": 다른 플레이어가 나에게서 벗어남! (트리거)");
             }
         }
-        // ... 기존 코드(EnemyBullet, Fire 등) 생략 ...
+        if (coll.CompareTag("Player2") && coll.gameObject != this.gameObject)
+        {
+            if (coll == otherPlayer?.mainPlayerCollider) // 다른 플레이어의 메인 콜라이더가 내 트리거에서 나갔을 때
+            {
+                isOverlappingWithOther = false;
+                reviveProgress = 0f;
+                if (reviveBar != null)
+                    reviveBar.fillAmount = 0f;
+            }
+        }
+        if(coll.CompareTag("JumpBoost"))
+        {
+            m_JumpForce -= 5.0f; // 점프력 감소
+        }   
     }
 
     private void OnTriggerStay2D(Collider2D coll)
@@ -593,11 +647,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D coll)
     {
-        if (m_DamageCool < 0 && coll.collider.CompareTag("Enemy"))
-        {
-            TakeDamage(30);
-            m_DamageCool = 1;
-        }
+
     }
 
     private void OnCollisionExit2D(Collision2D coll)
@@ -605,4 +655,18 @@ public class Player : MonoBehaviour
         if (coll.collider.CompareTag("Ground"))
             isGrounded = false;
     }
+
+#if UNITY_EDITOR
+    void OnDrawGizmosSelected()
+    {
+        // 진공청소기 범위 시각화 (파란색 반투명 원)
+        if (m_ShootPos != null && currentWeaponType == WeaponType.VacuumCleaner)
+        {
+            Gizmos.color = new Color(0f, 0.5f, 1f, 0.3f);
+            Gizmos.DrawWireSphere(m_ShootPos.position, suckRadius);
+            Gizmos.color = new Color(0f, 0.5f, 1f, 0.1f);
+            Gizmos.DrawSphere(m_ShootPos.position, suckRadius);
+        }
+    }
+#endif
 }

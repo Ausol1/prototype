@@ -10,8 +10,12 @@ TagManager:
   - MarkBullet
   - Lava
   - Fire
-  - RokectBullet
   - SmallMonster
+  - EnemyBullet
+  - RocketBullet
+  - Player1
+  - Player2
+  - JumpBoost
   layers:
   - Default
   - TransparentFX
@@ -21,7 +25,7 @@ TagManager:
   - UI
   - Ground
   - Player
-  - 
+  - Enemy
   - 
   - 
   - 

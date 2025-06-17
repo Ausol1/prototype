@@ -951,7 +951,7 @@ GameObject:
   - component: {fileID: 1264746298}
   m_Layer: 0
   m_Name: Player1
-  m_TagString: Player
+  m_TagString: Player1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1004,7 +1004,7 @@ GameObject:
   - component: {fileID: 1863350219}
   m_Layer: 0
   m_Name: Player2
-  m_TagString: Player
+  m_TagString: Player2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1704,6 +1704,8 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   leftLimit: -33
   rightLimit: 40
+  bottomLimit: -4
+  topLimit: -4
   mainCamera: {fileID: 519420031}
 --- !u!114 &519420034
 MonoBehaviour:
@@ -9272,7 +9274,7 @@ MonoBehaviour:
   m_BulletPrefab: {fileID: 4604661909989111262, guid: cda2380196d91db42bfa20fe8be78093, type: 3}
   m_ShootPos: {fileID: 228943118}
   m_Gun: {fileID: 62174248}
-  shootForce: 10
+  shootForce: 20
   m_ShootCool: 0.5
   defaultBulletPrefab: {fileID: 4604661909989111262, guid: cda2380196d91db42bfa20fe8be78093, type: 3}
   defaultGunShootForce: 10
@@ -9290,6 +9292,7 @@ MonoBehaviour:
   smallMonsterLayer:
     serializedVersion: 2
     m_Bits: 0
+  vacuumImage: {fileID: 0}
   currentWeaponType: 0
   BulletCount: {fileID: 1115336899}
   isDead: 0
@@ -12431,6 +12434,7 @@ MonoBehaviour:
   smallMonsterLayer:
     serializedVersion: 2
     m_Bits: 0
+  vacuumImage: {fileID: 0}
   currentWeaponType: 0
   BulletCount: {fileID: 25522005}
   isDead: 0

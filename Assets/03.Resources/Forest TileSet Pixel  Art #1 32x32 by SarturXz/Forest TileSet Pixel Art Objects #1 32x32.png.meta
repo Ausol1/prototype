@@ -310,7 +310,14 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Forest TileSet Pixel Art Objects #1 32x32_0: -8823753232662198475
+      Forest TileSet Pixel Art Objects #1 32x32_1: -4320814675771762860
+      Forest TileSet Pixel Art Objects #1 32x32_2: -474294851901875517
+      Forest TileSet Pixel Art Objects #1 32x32_3: 3217823043827666999
+      Forest TileSet Pixel Art Objects #1 32x32_4: 924418228852863922
+      Forest TileSet Pixel Art Objects #1 32x32_5: 3007370684679979639
+      Forest TileSet Pixel Art Objects #1 32x32_6: -5692245801012008242
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

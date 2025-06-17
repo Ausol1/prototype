@@ -12,6 +12,7 @@ public class SlimeController : MonoBehaviour
     public float traceRangeY = 5f;  // 플레이어를 추적하는 Y 범위
     public float attackRange = 1f;  // 슬라임은 근접 공격 (점프해서 닿기)
     public float attackDamage = 10f; // 플레이어에게 줄 데미지
+    public float attackDgeSmall = 5f; // 작은 슬라임이 플레이어에게 줄 데미지 (분열된 슬라임)
 
     [Header("Move - Jump Only")]
     public float jumpForce = 8f; // 점프 높이
@@ -40,24 +41,29 @@ public class SlimeController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>(); // 슬라임 스프라이트 렌더러
-        animator = GetComponent<Animator>(); // Animator가 있다면
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+        jumpTimer = jumpInterval;
 
-        jumpTimer = jumpInterval; // 첫 점프까지의 시간 초기화
-
-        // 초기 슬라임은 "Enemy" 태그를 가집니다. (Unity 에디터에서 설정)
-        // 분열된 슬라임은 SetAsSplitSlime() 호출 시 "SmallMonster"로 변경됩니다.
-        if (!isSplitSlime) // 초기 생성되는 큰 슬라임
+        if (!isSplitSlime)
         {
             gameObject.tag = "Enemy";
         }
 
-        // 플레이어 트랜스폼 할당 확인 (에디터에서 직접 할당 권장)
+        // 플레이어 트랜스폼 동적 할당
+        if (player1 == null)
+        {
+            GameObject p1 = GameObject.FindWithTag("Player1");
+            if (p1 != null) player1 = p1.transform;
+        }
+        if (player2 == null)
+        {
+            GameObject p2 = GameObject.FindWithTag("Player2");
+            if (p2 != null) player2 = p2.transform;
+        }
         if (player1 == null || player2 == null)
         {
             Debug.LogWarning("Player 1 또는 Player 2 트랜스폼이 할당되지 않았습니다! 플레이어 추적이 제대로 작동하지 않을 수 있습니다.", this);
-            // 플레이어를 찾는 대체 로직 (GameManager에서 관리하는 것이 더 좋음)
-            // player1 = GameObject.FindWithTag("Player1Tag").transform; // 예시
         }
     }
 
@@ -79,7 +85,6 @@ public class SlimeController : MonoBehaviour
 
     private void Update()
     {
-
         UpdateTarget(); // 플레이어 추적
         CheckGround(); // 지면 확인
         HandleJumpMove(); // 점프 이동 로직
@@ -100,10 +105,36 @@ public class SlimeController : MonoBehaviour
     {
         if (player1 == null || player2 == null) return;
 
-        // 두 플레이어 중 더 가까운 플레이어를 타겟으로 설정
-        float d1 = Vector2.Distance(transform.position, player1.position);
-        float d2 = Vector2.Distance(transform.position, player2.position);
-        target = d1 < d2 ? player1 : player2;
+        // 두 플레이어와의 거리 계산
+        Vector2 pos = transform.position;
+        Vector2 p1 = player1.position;
+        Vector2 p2 = player2.position;
+
+        float dx1 = Mathf.Abs(pos.x - p1.x);
+        float dy1 = Mathf.Abs(pos.y - p1.y);
+        float dx2 = Mathf.Abs(pos.x - p2.x);
+        float dy2 = Mathf.Abs(pos.y - p2.y);
+
+        bool p1InRange = dx1 <= traceRangeX && dy1 <= traceRangeY;
+        bool p2InRange = dx2 <= traceRangeX && dy2 <= traceRangeY;
+
+        if (p1InRange && p2InRange)
+        {
+            // 둘 다 범위 안이면 더 가까운 쪽 추적
+            target = (dx1 * dx1 + dy1 * dy1) < (dx2 * dx2 + dy2 * dy2) ? player1 : player2;
+        }
+        else if (p1InRange)
+        {
+            target = player1;
+        }
+        else if (p2InRange)
+        {
+            target = player2;
+        }
+        else
+        {
+            target = null; // 둘 다 범위 밖이면 추적 안 함
+        }
     }
 
     private void CheckGround()
@@ -145,7 +176,15 @@ public class SlimeController : MonoBehaviour
     // 플레이어와 접촉 시 데미지 (슬라임의 공격)
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player1"))
+        {
+            Player player = collision.gameObject.GetComponent<Player>();
+            if (player != null)
+            {
+                player.TakeDamage(attackDamage);
+            }
+        }
+        if (collision.gameObject.CompareTag("Player2"))
         {
             Player player = collision.gameObject.GetComponent<Player>();
             if (player != null)
