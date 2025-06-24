@@ -182,7 +182,7 @@ public class EnemyController : MonoBehaviour
         else if (collision.CompareTag("AllyBullet"))
         {
             Destroy(collision.gameObject);
-            TakeDamage(10f);
+            TakeDamage(20f);
         }
     }
     public void FlipAllChildrenHorizontally()

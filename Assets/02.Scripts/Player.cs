@@ -24,8 +24,19 @@ public class Player : MonoBehaviour
     Vector3 m_DirVec;
 
     private Rigidbody2D rb;
+
+    // --- 바닥 체크용 변수 추가 ---
+    [Header("Ground Check")]
+    public Transform groundCheck1;
+    public Transform groundCheck2;
+    public float groundCheckDistance = 0.1f;
+    public LayerMask groundLayer;
     public bool isGrounded = false;
-    public int JumpCount = 0;
+    private bool isDoubleJumpAvailable = false;
+
+    [Header("Knockback")]
+    public float knockbackForce = 8f;
+    public float knockbackUpForce = 3f;
 
     //--- 총 관련 변수
     public GameObject m_BulletPrefab = null;
@@ -252,6 +263,17 @@ public class Player : MonoBehaviour
                 vacuumImage.gameObject.SetActive(false);
             }
         }
+        // Raycast로 바닥 체크
+        bool wasGrounded = isGrounded;
+        bool grounded1 = Physics2D.Raycast(groundCheck1.position, Vector2.down, groundCheckDistance, groundLayer);
+        bool grounded2 = Physics2D.Raycast(groundCheck2.position, Vector2.down, groundCheckDistance, groundLayer);
+        isGrounded = grounded1 || grounded2;
+
+        // 바닥에 새로 닿았을 때 더블점프 리셋
+        if (!wasGrounded && isGrounded)
+        {
+            isDoubleJumpAvailable = true;
+        }
 
         Move();
         //Shooting();
@@ -464,7 +486,7 @@ public class Player : MonoBehaviour
     {
         if (isDead)
         {
-            rb.linearVelocity = Vector2.zero; // 죽었을 때 즉시 정지
+            rb.linearVelocity = Vector2.zero;
             return;
         }
 
@@ -473,43 +495,21 @@ public class Player : MonoBehaviour
         if (Input.GetKey(rightKey)) h = 1.0f;
         rb.linearVelocity = new Vector2(h * m_MoveSpeed, rb.linearVelocity.y);
 
-        if (Input.GetKeyDown(jumpKey) && JumpCount > 0)
+        // 점프 입력 처리 (더블점프)
+        if (Input.GetKeyDown(jumpKey))
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, m_JumpForce);
-            JumpCount--;
+            if (isGrounded)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, m_JumpForce);
+                isDoubleJumpAvailable = true; // 바닥에서 점프하면 더블점프 가능
+            }
+            else if (isDoubleJumpAvailable)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, m_JumpForce);
+                isDoubleJumpAvailable = false; // 더블점프 기회 소진
+            }
         }
     }
-
-    //void Shooting()
-    //{
-    //    ShootTimer -= Time.deltaTime;
-
-    //    if (isReloading)
-    //        return;
-
-    //    if (Input.GetKey(shootKey) && ShootTimer <= 0f && m_BulletCurrentCount > 0)
-    //    {
-    //        GameObject bullet = Instantiate(m_BulletPrefab, m_ShootPos.position, Quaternion.identity);
-    //        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-
-    //        Vector2 shootDir = SpriteRenderer.flipX ? Vector2.left : Vector2.right;
-    //        rb.linearVelocity = shootDir * shootForce;
-    //        ShootTimer = m_ShootCool;
-    //        m_BulletCurrentCount--;
-    //    }
-    //    if (Input.GetKeyDown(reloadKey) || m_BulletCurrentCount <= 0)
-    //    {
-    //        isReloading = true;
-    //        Invoke("Reload", m_ReloadTime);
-    //    }
-    //}
-
-    //void Reload()
-    //{
-    //    m_BulletCurrentCount = m_BulletMaxCount;
-    //    isReloading = false;
-    //}
-
     void Animation()
     {
         Anim.SetFloat("Speed", h);
@@ -546,10 +546,24 @@ public class Player : MonoBehaviour
         if (m_CurHp < 0.0f)
             m_CurHp = 0.0f;
 
+        if (this is Player)
+            ApplyKnockback();
+
         if (m_CurHp <= 0.0f)
         {
             Die();
         }
+    }
+
+    void ApplyKnockback()
+    {
+        if (rb == null) return;
+
+        // 플레이어가 바라보는 반대 방향으로 넉백
+        float dir = (SpriteRenderer != null && SpriteRenderer.flipX) ? 1f : -1f;
+        Vector2 knockback = new Vector2(dir * knockbackForce, knockbackUpForce);
+        rb.linearVelocity = Vector2.zero;
+        rb.AddForce(knockback, ForceMode2D.Impulse);
     }
 
     // 트리거는 reviveDetectionTrigger에만 반응하도록 설정 (유니티 에디터에서)
@@ -628,21 +642,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.collider.CompareTag("Ground"))
-        {
-            for (int i = 0; i < coll.contacts.Length; i++)
-            {
-                ContactPoint2D contact = coll.contacts[i];
-                Vector2 normal = contact.normal;
-
-                if (normal.y > 0.1f)
-                {
-                    isGrounded = true;
-                    JumpCount = 2;
-                    break;
-                }
-            }
-        }
+       
     }
 
     private void OnCollisionStay2D(Collision2D coll)
@@ -652,8 +652,6 @@ public class Player : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D coll)
     {
-        if (coll.collider.CompareTag("Ground"))
-            isGrounded = false;
     }
 
 #if UNITY_EDITOR

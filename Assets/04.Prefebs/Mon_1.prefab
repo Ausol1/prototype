@@ -265,8 +265,8 @@ GameObject:
   - component: {fileID: 3770771002035485463}
   - component: {fileID: 6949694218624689135}
   - component: {fileID: 700298225804121124}
-  - component: {fileID: 6581049731551571906}
   - component: {fileID: 6657002806893741652}
+  - component: {fileID: 7466625629488389749}
   m_Layer: 0
   m_Name: Mon_1
   m_TagString: Enemy
@@ -385,9 +385,9 @@ MonoBehaviour:
   hpBar: {fileID: 4056207041180974867}
   player1: {fileID: 0}
   player2: {fileID: 0}
-  traceRangeX: 10
+  traceRangeX: 20
   traceRangeY: 3
-  attackRange: 5
+  attackRange: 10
   moveSpeed: 2
   groundCheck: {fileID: 844492764135071960}
   groundCheckDistance: 0.1
@@ -400,8 +400,35 @@ MonoBehaviour:
   markDuration: 3
   normalSprite: {fileID: -1540426309290004842, guid: e9123c550de532c4da620c16ddddbfd6, type: 3}
   markedSprite: {fileID: -2966200626249415253, guid: 6b254c089797aab4d8e91f98131b6aed, type: 3}
---- !u!70 &6581049731551571906
-CapsuleCollider2D:
+--- !u!50 &6657002806893741652
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7285664702200831829}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!61 &7466625629488389749
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -434,36 +461,18 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.5}
-  m_Size: {x: 1, y: 1}
-  m_Direction: 0
---- !u!50 &6657002806893741652
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7285664702200831829}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Offset: {x: -0.013549805, y: 0.52709985}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.79946136, y: 0.9458003}
+  m_EdgeRadius: 0
 --- !u!1 &7479816642465857247
 GameObject:
   m_ObjectHideFlags: 0

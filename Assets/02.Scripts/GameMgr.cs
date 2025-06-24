@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class GameMgr : MonoBehaviour
 {
-    [SerializeField] private GameObject gateObject; // 게이트 오브젝트 할당
-    [SerializeField] private GameObject gameOverPanel; // GameOver 패널 오브젝트 할당
-    [SerializeField] private GameObject gamePausePanel; // GameOver 패널 오브젝트 할당
+    [SerializeField] private GameObject gateObject; 
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject gamePausePanel;
 
     //--- 싱글턴 패턴
     public static GameMgr Inst = null;
@@ -17,7 +17,6 @@ public class GameMgr : MonoBehaviour
 
     public int currentStage = 1;
 
-    // 버튼 오브젝트를 에디터에서 할당할 수 있도록 public으로 선언
     public Button restartButton;
     public Button exitButton;
     private void Awake()
@@ -37,7 +36,7 @@ public class GameMgr : MonoBehaviour
     void Update()
     {
         // "Enemy" 태그를 가진 오브젝트가 없으면 게이트 오브젝트 활성화
-        if (gateObject != null && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        if (gateObject != null && GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && GameObject.FindGameObjectsWithTag("SnallMonster").Length == 0)
         {
             if (!gateObject.activeSelf)
                 gateObject.SetActive(true);
@@ -47,7 +46,7 @@ public class GameMgr : MonoBehaviour
             if (gamePausePanel != null)
             {
                 gamePausePanel.SetActive(!gamePausePanel.activeSelf);
-                Time.timeScale = gamePausePanel.activeSelf ? 0.0f : 1.0f; // 패널 활성화 시 게임 일시정지
+                Time.timeScale = gamePausePanel.activeSelf ? 0.0f : 1.0f; 
             }
         }
     }
@@ -60,9 +59,24 @@ public class GameMgr : MonoBehaviour
             player.SetActive(false); // 플레이어 비활성화(사라짐)
             playerInGateCount++;
 
-            if (playerInGateCount >= totalPlayers)
+            if (playerInGateCount >= totalPlayers && currentStage == 1)
             {
                 SceneManager.LoadScene("Stage_2");
+                currentStage = 2; 
+            }
+            else if (playerInGateCount >= totalPlayers && currentStage == 2)
+            {
+                SceneManager.LoadScene("Stage_3");
+                currentStage = 3;
+            }
+            else if (playerInGateCount >= totalPlayers && currentStage == 3)
+            {
+                SceneManager.LoadScene("Stage_4");
+                currentStage = 4; 
+            }
+            else if (playerInGateCount >= totalPlayers && currentStage == 4)
+            {
+                SceneManager.LoadScene("TitleScene"); 
             }
         }
     }
@@ -108,7 +122,8 @@ public class GameMgr : MonoBehaviour
     public void OnStart()
     { 
         if (gamePausePanel != null)
-            gamePausePanel.SetActive(false); // 게임 시작 시 GamePause 패널 비활성화
+            gamePausePanel.SetActive(false); 
+        Time.timeScale = 1.0f; // 게임 시작 시 시간 흐름 재개
     }
 
 }
