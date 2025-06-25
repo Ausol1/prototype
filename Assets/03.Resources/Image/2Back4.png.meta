@@ -176,6 +176,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: 2Back4_0
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 0
+        width: 259
+        height: 270
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 380bdfa699787744387ffa84e47e1fc2
+      internalID: 1429757231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -190,6 +212,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      2Back4_0: 1429757231
       2Back4_1: 2913749890153265900
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
