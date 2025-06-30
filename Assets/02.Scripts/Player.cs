@@ -7,7 +7,8 @@ public class Player : MonoBehaviour
     public enum PlayerType { Player1, Player2 }
     public PlayerType playerType = PlayerType.Player1;
 
-    public enum WeaponType { DefaultGun, RocketLauncher, VacuumCleaner }
+    // WeaponType에 SawtoothGun 추가
+    public enum WeaponType { DefaultGun, RocketLauncher, VacuumCleaner, SawtoothGun }
 
     //--- 플레이어 변수
     float m_MaxHp = 100.0f;
@@ -39,12 +40,14 @@ public class Player : MonoBehaviour
     public float knockbackUpForce = 3f;
 
     //--- 총 관련 변수
-    public GameObject m_BulletPrefab = null;
+    public GameObject m_BulletPrefab = null; // 이 변수는 이제 사용되지 않을 수 있지만, 원본 코드를 유지합니다.
     public Transform m_ShootPos;
     public GameObject m_Gun = null;
-    public float shootForce = 10.0f;
-    public float m_ShootCool = 0.5f;
-    float ShootTimer = 0.0f;
+    public Image m_ReloadImage = null;
+    float reloadTimer = 0.0f;
+    public float shootForce = 10.0f; // 이 변수는 이제 사용되지 않을 수 있지만, 원본 코드를 유지합니다.
+    public float m_ShootCool = 0.5f; // 이 변수는 이제 사용되지 않을 수 있지만, 원본 코드를 유지합니다.
+    float ShootTimer = 0.0f; // 이 변수는 이제 사용되지 않을 수 있지만, 원본 코드를 유지합니다.
 
     // --- 각 총 종류별 스탯 (DefaultGun) ---
     [Header("Default Gun Stats")]
@@ -70,6 +73,14 @@ public class Player : MonoBehaviour
     public LayerMask smallMonsterLayer;
     public Image vacuumImage;
 
+    // --- 각 총 종류별 스탯 (SawtoothGun) 추가 ---
+    [Header("Sawtooth Gun Stats")]
+    public GameObject sawtoothBulletPrefab;
+    public float sawtoothGunShootForce = 12.0f;
+    public float sawtoothGunFireRate = 0.7f;
+    public int sawtoothGunMaxCount = 5;
+    public float sawtoothGunReloadTime = 1.8f;
+
     // --- 현재 무기 상태 ---
     private float currentShootTimer = 0.0f;
     private int currentBulletCount;
@@ -85,7 +96,7 @@ public class Player : MonoBehaviour
 
     // --- 부활 관련 변수 추가 ---
     public bool isDead = false;
-    private bool isBeingRevived = false;
+    private bool isBeingRevived = false; // 이 변수는 현재 사용되지 않지만, 원본 코드를 유지합니다.
     private float reviveProgress = 0f;
     public float reviveRequired = 10f; // 스페이스 연타 10회 필요
     private Player otherPlayer; // 다른 플레이어 참조를 Update에서 사용하려면 필요합니다.
@@ -97,7 +108,7 @@ public class Player : MonoBehaviour
 
     // *** 추가된 변수 ***
     public Collider2D mainPlayerCollider; // 플레이어의 주 Collider (몸체)
-    public Collider2D reviveDetectionTrigger; // 부활 감지용 Trigger Collider
+    public Collider2D reviveDetectionTrigger; // 부활 감지용 Trigger Collider (현재 코드에서는 직접 사용되지 않지만, 에디터 설정용으로 유지)
 
     //---애니메이션 관련 변수
     SpriteRenderer SpriteRenderer;
@@ -116,42 +127,31 @@ public class Player : MonoBehaviour
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Anim = GetComponent<Animator>();
 
-        // Collider들이 inspector에서 할당되었는지 확인합니다.
         if (mainPlayerCollider == null)
         {
             Debug.LogError("mainPlayerCollider가 할당되지 않았습니다. Player GameObject의 주 Collider를 여기에 드래그해주세요.");
-            mainPlayerCollider = GetComponent<Collider2D>(); // 기본값으로 첫 Collider를 할당 시도
+            mainPlayerCollider = GetComponent<Collider2D>();
         }
-        if (reviveDetectionTrigger == null)
-        {
-            Debug.LogError("reviveDetectionTrigger가 할당되지 않았습니다. Player GameObject의 자식에 Is Trigger가 체크된 Collider를 추가하고 여기에 드래그해주세요.");
-            // 자식 오브젝트에서 "ReviveTrigger"라는 이름의 Collider2D를 찾거나, 새롭게 추가하는 것을 권장합니다.
-            // 예를 들어, 아래처럼 찾을 수 있습니다. (적절한 자식 오브젝트 이름으로 변경)
-            // reviveDetectionTrigger = transform.Find("ReviveTriggerObject")?.GetComponent<Collider2D>();
-        }
-
-
-        // Physics2D.IgnoreCollision 로직 수정
         foreach (var otherPlayerComp in FindObjectsByType<Player>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
             if (otherPlayerComp == this) continue;
 
-            // 현재 플레이어의 메인 Collider와 다른 플레이어의 메인 Collider만 충돌 무시
             if (mainPlayerCollider != null && otherPlayerComp.mainPlayerCollider != null)
             {
                 Physics2D.IgnoreCollision(mainPlayerCollider, otherPlayerComp.mainPlayerCollider, true);
             }
-
-            // 다른 플레이어 참조 설정 (여기서는 첫 번째 찾은 다른 플레이어를 할당)
-            // 실제 게임에서는 맵에 플레이어가 2명만 존재한다고 가정합니다.
-            // 더 견고하게 하려면 GameMgr 등에서 플레이어 참조를 관리하는 것이 좋습니다.
             otherPlayer = otherPlayerComp;
         }
 
         if (reviveBar != null)
         {
             reviveBar.fillAmount = 0f;
-            reviveImage.gameObject.SetActive(false); // 시작 시 숨김
+            reviveImage.gameObject.SetActive(false);
+        }
+        if (m_ReloadImage != null)
+        {
+            m_ReloadImage.fillAmount = 0f;
+            m_ReloadImage.gameObject.SetActive(false);
         }
 
         if (playerType == PlayerType.Player1)
@@ -173,6 +173,7 @@ public class Player : MonoBehaviour
 
         InitializeWeaponStats();
     }
+
     void InitializeWeaponStats()
     {
         switch (currentWeaponType)
@@ -188,27 +189,38 @@ public class Player : MonoBehaviour
                 currentReloadTime = rocketReloadTime;
                 break;
             case WeaponType.VacuumCleaner:
-                currentMaxBulletCount = 0; // 청소기는 탄창 개념 없음
-                currentFireRate = 0; // 청소기는 발사 쿨타임 개념 없음
-                currentReloadTime = 0; // 청소기는 재장전 개념 없음
+                currentMaxBulletCount = 0;
+                currentFireRate = 0;
+                currentReloadTime = 0;
+                break;
+            // SawtoothGun 초기화 로직 추가
+            case WeaponType.SawtoothGun:
+                currentMaxBulletCount = sawtoothGunMaxCount;
+                currentFireRate = sawtoothGunFireRate;
+                currentReloadTime = sawtoothGunReloadTime;
                 break;
         }
-        currentBulletCount = currentMaxBulletCount; // 시작 시 탄창 가득 채움
-        isReloading = false; // 재장전 상태 초기화
-        currentShootTimer = 0; // 발사 쿨타임 초기화
+        currentBulletCount = currentMaxBulletCount;
+        isReloading = false;
+        currentShootTimer = 0;
 
+        // vacuumImage 숨김 처리 추가 (무기 변경 시)
+        if (vacuumImage != null)
+        {
+            vacuumImage.gameObject.SetActive(false);
+        }
+        UpdateBulletUI();
     }
+
     void Update()
     {
         if (isDead)
         {
-            // 죽은 플레이어만 부활 UI를 관리
             if (isOverlappingWithOther && otherPlayer != null && !otherPlayer.isDead)
             {
                 if (reviveImage != null)
-                    reviveImage.gameObject.SetActive(true); // 겹치면 부활 UI 표시
+                    reviveImage.gameObject.SetActive(true);
 
-                // 부활 진행
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     reviveProgress += 1f;
@@ -224,21 +236,34 @@ public class Player : MonoBehaviour
             {
                 if (reviveImage != null)
                 {
-                    reviveImage.gameObject.SetActive(false); // 겹치지 않으면 숨김
-                    reviveBar.fillAmount = 0f; // 진행도 초기화
+                    reviveImage.gameObject.SetActive(false);
+                    reviveBar.fillAmount = 0f;
                 }
             }
             return;
         }
-        else // 살아있는 플레이어는 부활 UI 숨김
+
+        // 살아있는 플레이어는 부활 UI 숨김 (죽은 플레이어 로직 위에 있으니 한번 더 확인)
+        if (reviveImage != null)
+            reviveImage.gameObject.SetActive(false);
+
+
+        if (isReloading && m_ReloadImage != null)
         {
-            if (reviveImage != null)
-                reviveImage.gameObject.SetActive(false);
+            reloadTimer += Time.deltaTime;
+            m_ReloadImage.fillAmount = Mathf.Clamp01(reloadTimer / currentReloadTime);
+            if (reloadTimer >= currentReloadTime)
+            {
+                m_ReloadImage.fillAmount = 1f;
+            }
+        }
+        else if (m_ReloadImage != null && !isReloading)
+        {
+            m_ReloadImage.fillAmount = 0f;
         }
 
         if (vacuumImage != null)
         {
-            // VacuumCleaner 무기일 때만 토글
             if (currentWeaponType == WeaponType.VacuumCleaner && !isDead)
             {
                 bool isActive = Input.GetKey(shootKey);
@@ -246,14 +271,12 @@ public class Player : MonoBehaviour
 
                 if (isActive)
                 {
-                    // 1. 이미지 플립
                     Vector3 scale = vacuumImage.rectTransform.localScale;
                     scale.x = (SpriteRenderer != null && SpriteRenderer.flipX) ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
                     vacuumImage.rectTransform.localScale = scale;
 
-                    // 2. 위치 반전 (플레이어 기준)
                     Vector3 pos = vacuumImage.rectTransform.localPosition;
-                    float baseX = Mathf.Abs(pos.x); // 기준값(양수)
+                    float baseX = Mathf.Abs(pos.x);
                     pos.x = (SpriteRenderer != null && SpriteRenderer.flipX) ? -baseX : baseX;
                     vacuumImage.rectTransform.localPosition = pos;
                 }
@@ -263,28 +286,25 @@ public class Player : MonoBehaviour
                 vacuumImage.gameObject.SetActive(false);
             }
         }
-        // Raycast로 바닥 체크
+
         bool wasGrounded = isGrounded;
         bool grounded1 = Physics2D.Raycast(groundCheck1.position, Vector2.down, groundCheckDistance, groundLayer);
         bool grounded2 = Physics2D.Raycast(groundCheck2.position, Vector2.down, groundCheckDistance, groundLayer);
         isGrounded = grounded1 || grounded2;
 
-        // 바닥에 새로 닿았을 때 더블점프 리셋
         if (!wasGrounded && isGrounded)
         {
             isDoubleJumpAvailable = true;
         }
 
         Move();
-        //Shooting();
         Animation();
-        // --- 무기 관련 타이머 업데이트 ---
+
         if (currentShootTimer > 0)
         {
             currentShootTimer -= Time.deltaTime;
         }
 
-        // --- 무기 입력 처리 호출 ---
         HandleWeaponInput();
 
         if (m_HpBar != null)
@@ -296,13 +316,14 @@ public class Player : MonoBehaviour
         m_DamageCool -= Time.deltaTime;
         m_LavaCool -= Time.deltaTime;
     }
+
     void UpdateBulletUI()
     {
         if (BulletCount != null)
         {
             if (currentWeaponType == WeaponType.VacuumCleaner)
             {
-                BulletCount.text = "∞"; // 청소기는 무한대
+                BulletCount.text = "∞";
             }
             else
             {
@@ -310,24 +331,20 @@ public class Player : MonoBehaviour
             }
         }
     }
-    // --- 무기 입력 처리 함수 ---
+
     void HandleWeaponInput()
     {
-        // 죽었거나 재장전 중이면 아무것도 못함
         if (isDead || isReloading) return;
 
-        // 플레이어 방향
         Vector2 shootDir = (SpriteRenderer != null && SpriteRenderer.flipX) ? Vector2.left : Vector2.right;
 
         switch (currentWeaponType)
         {
             case WeaponType.DefaultGun:
-                // 발사
                 if (Input.GetKey(shootKey) && currentShootTimer <= 0f && currentBulletCount > 0)
                 {
                     FireDefaultGun(shootDir);
                 }
-                // 재장전
                 if (Input.GetKeyDown(reloadKey) || (currentBulletCount <= 0 && !isReloading))
                 {
                     StartReload();
@@ -335,12 +352,10 @@ public class Player : MonoBehaviour
                 break;
 
             case WeaponType.RocketLauncher:
-                // 발사
-                if (Input.GetKeyDown(shootKey) && currentShootTimer <= 0f && currentBulletCount > 0) // 로켓은 KeyDown (한 발씩)
+                if (Input.GetKeyDown(shootKey) && currentShootTimer <= 0f && currentBulletCount > 0)
                 {
                     FireRocketLauncher(shootDir);
                 }
-                // 재장전
                 if (Input.GetKeyDown(reloadKey) || (currentBulletCount <= 0 && !isReloading))
                 {
                     StartReload();
@@ -348,15 +363,25 @@ public class Player : MonoBehaviour
                 break;
 
             case WeaponType.VacuumCleaner:
-                // 청소기는 발사 버튼을 누르고 있는 동안 작동
                 if (Input.GetKey(shootKey))
                 {
                     OperateVacuumCleaner();
                 }
-                // 청소기는 재장전 없음
+                break;
+            // SawtoothGun 발사 및 재장전 로직 추가
+            case WeaponType.SawtoothGun:
+                if (Input.GetKey(shootKey) && currentShootTimer <= 0f && currentBulletCount > 0)
+                {
+                    FireSawtoothGun(shootDir);
+                }
+                if (Input.GetKeyDown(reloadKey) || (currentBulletCount <= 0 && !isReloading))
+                {
+                    StartReload();
+                }
                 break;
         }
     }
+
     void FireDefaultGun(Vector2 direction)
     {
         if (defaultBulletPrefab != null && m_ShootPos != null)
@@ -370,13 +395,13 @@ public class Player : MonoBehaviour
             currentBulletCount--;
             currentShootTimer = defaultGunShootCool;
 
-            // 탄창이 0이 되면 자동 재장전 시작
             if (currentBulletCount <= 0)
             {
                 StartReload();
             }
         }
     }
+
     void FireRocketLauncher(Vector2 direction)
     {
         if (rocketPrefab != null && m_ShootPos != null)
@@ -396,11 +421,11 @@ public class Player : MonoBehaviour
             }
         }
     }
+
     void OperateVacuumCleaner()
     {
-        // 플레이어가 바라보는 방향(오른쪽/왼쪽) 기준
         Vector2 forward = (SpriteRenderer != null && SpriteRenderer.flipX) ? Vector2.left : Vector2.right;
-        float halfAngle = 30f; // 30도/2
+        float halfAngle = 30f;
 
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(m_ShootPos.position, suckRadius, smallMonsterLayer);
 
@@ -416,54 +441,89 @@ public class Player : MonoBehaviour
                     Rigidbody2D monsterRb = hit.GetComponent<Rigidbody2D>();
                     if (monsterRb != null)
                     {
-                        // 플레이어 방향으로 몬스터 끌어당기기
                         Vector2 directionToPlayer = (m_ShootPos.position - hit.transform.position).normalized;
                         monsterRb.AddForce(directionToPlayer * suckForce, ForceMode2D.Force);
 
-                        // 특정 거리 이내로 들어오면 몬스터 제거
                         if (Vector2.Distance(m_ShootPos.position, hit.transform.position) < consumeDistance)
                         {
                             Destroy(hit.gameObject);
-                            // 몬스터 제거 시 점수 획득 등의 추가 로직 여기 구현
                         }
                     }
                 }
             }
         }
     }
-    void StartReload()
-    {
-        if (currentWeaponType == WeaponType.VacuumCleaner) return; // 청소기는 재장전 없음
 
-        if (!isReloading)
+    // SawtoothGun 발사 함수 추가
+    void FireSawtoothGun(Vector2 direction)
+    {
+        if (sawtoothBulletPrefab != null && m_ShootPos != null)
         {
-            isReloading = true;
-            Invoke("ReloadComplete", currentReloadTime);
-            Debug.Log("재장전 시작!");
+            GameObject bladeBullet = Instantiate(sawtoothBulletPrefab, m_ShootPos.position, Quaternion.identity);
+            Rigidbody2D bladeRb = bladeBullet.GetComponent<Rigidbody2D>();
+            if (bladeRb != null)
+            {
+                bladeRb.linearVelocity = direction * sawtoothGunShootForce;
+            }
+            currentBulletCount--;
+            currentShootTimer = sawtoothGunFireRate;
+
+            if (currentBulletCount <= 0)
+            {
+                StartReload();
+            }
         }
     }
+
+    void StartReload()
+    {
+        if (currentWeaponType == WeaponType.VacuumCleaner) return;
+
+        if (!isReloading && currentBulletCount < currentMaxBulletCount)
+        {
+            isReloading = true;
+            reloadTimer = 0.0f;
+            Invoke("ReloadComplete", currentReloadTime);
+            Debug.Log("재장전 시작!");
+            if (m_ReloadImage != null)
+            {
+                m_ReloadImage.gameObject.SetActive(true);
+            }
+        }
+    }
+
     void ReloadComplete()
     {
         currentBulletCount = currentMaxBulletCount;
         isReloading = false;
         Debug.Log("재장전 완료!");
+        if (m_ReloadImage != null)
+        {
+            m_ReloadImage.gameObject.SetActive(false);
+            m_ReloadImage.fillAmount = 0f;
+            reloadTimer = 0f;
+        }
+        UpdateBulletUI();
     }
+
     void Die()
     {
         isDead = true;
         m_CurHp = 0.0f;
         if (Anim != null)
             Anim.SetTrigger("Die");
-        // 부활 게이지 초기화
+
         reviveProgress = 0f;
         if (reviveBar != null)
             reviveBar.fillAmount = 0f;
 
         TextHp.text = m_MaxHp.ToString("F0") + " / " + m_CurHp.ToString("F0");
 
-        rb.linearVelocity = Vector2.zero; // 죽는 순간 속도 정지
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.simulated = false;
 
-        // 게임 오버 체크는 GameMgr에서 두 명 다 죽었을 때만 호출
         if (GameMgr.Inst != null)
             GameMgr.Inst.OnPlayerDead();
     }
@@ -471,15 +531,21 @@ public class Player : MonoBehaviour
     void Revive()
     {
         isDead = false;
-        m_CurHp = m_MaxHp * 0.5f; // 부활 시 체력 절반
+        m_CurHp = m_MaxHp * 0.5f;
         reviveProgress = 0f;
         if (reviveBar != null)
             reviveBar.fillAmount = 0f;
-        if (m_Gun != null) m_Gun.SetActive(true);
+        if (reviveImage != null)
+            reviveImage.gameObject.SetActive(false);
+        if (m_Gun != null) m_Gun.SetActive(true); // 죽었을 때 총 비활성화 로직이 없어서 추가 안함. 필요시 Die()에 m_Gun.SetActive(false) 추가
+
+        // 부활 시 Rigidbody2D 상태 복구
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.simulated = true;
+
+
         if (GameMgr.Inst != null)
             GameMgr.Inst.OnPlayerRevive();
-        //if (Anim != null)
-        //    Anim.SetTrigger("Revive");
     }
 
     void Move()
@@ -495,21 +561,21 @@ public class Player : MonoBehaviour
         if (Input.GetKey(rightKey)) h = 1.0f;
         rb.linearVelocity = new Vector2(h * m_MoveSpeed, rb.linearVelocity.y);
 
-        // 점프 입력 처리 (더블점프)
         if (Input.GetKeyDown(jumpKey))
         {
             if (isGrounded)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, m_JumpForce);
-                isDoubleJumpAvailable = true; // 바닥에서 점프하면 더블점프 가능
+                isDoubleJumpAvailable = true;
             }
             else if (isDoubleJumpAvailable)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, m_JumpForce);
-                isDoubleJumpAvailable = false; // 더블점프 기회 소진
+                isDoubleJumpAvailable = false;
             }
         }
     }
+
     void Animation()
     {
         Anim.SetFloat("Speed", h);
@@ -520,7 +586,6 @@ public class Player : MonoBehaviour
         {
             SpriteRenderer.flipX = h < 0.0f;
 
-            // 총 위치 및 이미지 반전
             Vector3 shootPos = m_ShootPos.localPosition;
             shootPos.x = h > 0f ? Mathf.Abs(shootPos.x) : -Mathf.Abs(shootPos.x);
             m_ShootPos.localPosition = shootPos;
@@ -546,8 +611,7 @@ public class Player : MonoBehaviour
         if (m_CurHp < 0.0f)
             m_CurHp = 0.0f;
 
-        if (this is Player)
-            ApplyKnockback();
+        ApplyKnockback();
 
         if (m_CurHp <= 0.0f)
         {
@@ -559,17 +623,14 @@ public class Player : MonoBehaviour
     {
         if (rb == null) return;
 
-        // 플레이어가 바라보는 반대 방향으로 넉백
         float dir = (SpriteRenderer != null && SpriteRenderer.flipX) ? 1f : -1f;
         Vector2 knockback = new Vector2(dir * knockbackForce, knockbackUpForce);
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(knockback, ForceMode2D.Impulse);
     }
 
-    // 트리거는 reviveDetectionTrigger에만 반응하도록 설정 (유니티 에디터에서)
     void OnTriggerEnter2D(Collider2D coll)
     {
-        // EnemyBullet, Fire, Lava 등은 기존대로 작동
         if (coll.CompareTag("EnemyBullet"))
         {
             TakeDamage(10);
@@ -579,26 +640,23 @@ public class Player : MonoBehaviour
         {
             TakeDamage(30);
         }
-        // 플레이어 트리거 감지 부분 (reviveDetectionTrigger에만 들어갈 수 있도록 에디터에서 설정)
         else if (coll.CompareTag("Player1") && coll.gameObject != this.gameObject)
         {
-            if (coll == otherPlayer?.mainPlayerCollider) // 다른 플레이어의 메인 콜라이더가 내 트리거에 진입했을 때
+            if (coll == otherPlayer?.mainPlayerCollider)
             {
                 isOverlappingWithOther = true;
-                // Debug.Log(this.name + ": 다른 플레이어가 나에게 접근! (트리거)");
             }
         }
         else if (coll.CompareTag("Player2") && coll.gameObject != this.gameObject)
         {
-            if (coll == otherPlayer?.mainPlayerCollider) // 다른 플레이어의 메인 콜라이더가 내 트리거에 진입했을 때
+            if (coll == otherPlayer?.mainPlayerCollider)
             {
                 isOverlappingWithOther = true;
-                // Debug.Log(this.name + ": 다른 플레이어가 나에게 접근! (트리거)");
             }
         }
-        if(coll.CompareTag("JumpBoost"))
+        if (coll.CompareTag("JumpBoost"))
         {
-            m_JumpForce += 5.0f; // 점프력 증가
+            m_JumpForce += 5.0f;
         }
     }
 
@@ -606,7 +664,7 @@ public class Player : MonoBehaviour
     {
         if (coll.CompareTag("Player1") && coll.gameObject != this.gameObject)
         {
-            if (coll == otherPlayer?.mainPlayerCollider) // 다른 플레이어의 메인 콜라이더가 내 트리거에서 나갔을 때
+            if (coll == otherPlayer?.mainPlayerCollider)
             {
                 isOverlappingWithOther = false;
                 reviveProgress = 0f;
@@ -616,7 +674,7 @@ public class Player : MonoBehaviour
         }
         if (coll.CompareTag("Player2") && coll.gameObject != this.gameObject)
         {
-            if (coll == otherPlayer?.mainPlayerCollider) // 다른 플레이어의 메인 콜라이더가 내 트리거에서 나갔을 때
+            if (coll == otherPlayer?.mainPlayerCollider)
             {
                 isOverlappingWithOther = false;
                 reviveProgress = 0f;
@@ -624,10 +682,10 @@ public class Player : MonoBehaviour
                     reviveBar.fillAmount = 0f;
             }
         }
-        if(coll.CompareTag("JumpBoost"))
+        if (coll.CompareTag("JumpBoost"))
         {
-            m_JumpForce -= 5.0f; // 점프력 감소
-        }   
+            m_JumpForce -= 5.0f;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D coll)
@@ -639,10 +697,9 @@ public class Player : MonoBehaviour
         }
     }
 
-
     private void OnCollisionEnter2D(Collision2D coll)
     {
-       
+
     }
 
     private void OnCollisionStay2D(Collision2D coll)
@@ -657,7 +714,6 @@ public class Player : MonoBehaviour
 #if UNITY_EDITOR
     void OnDrawGizmosSelected()
     {
-        // 진공청소기 범위 시각화 (파란색 반투명 원)
         if (m_ShootPos != null && currentWeaponType == WeaponType.VacuumCleaner)
         {
             Gizmos.color = new Color(0f, 0.5f, 1f, 0.3f);

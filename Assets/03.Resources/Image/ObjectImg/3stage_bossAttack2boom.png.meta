@@ -1,0 +1,516 @@
+fileFormatVersion: 2
+guid: c3cc930b2d58b274ab08bd6bcb5474aa
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3812363981423619198
+    second: 3stage_bossAttack2boom_0
+  - first:
+      213: -7705097540683963442
+    second: 3stage_bossAttack2boom_1
+  - first:
+      213: 3154171449218172331
+    second: 3stage_bossAttack2boom_2
+  - first:
+      213: 7347968800006487607
+    second: 3stage_bossAttack2boom_3
+  - first:
+      213: -1227869573240054670
+    second: 3stage_bossAttack2boom_4
+  - first:
+      213: -5680363763796165983
+    second: 3stage_bossAttack2boom_5
+  - first:
+      213: -2449346696582827373
+    second: 3stage_bossAttack2boom_6
+  - first:
+      213: 7631577043427794632
+    second: 3stage_bossAttack2boom_7
+  - first:
+      213: 322123655413381062
+    second: 3stage_bossAttack2boom_8
+  - first:
+      213: 2162701584214895122
+    second: 3stage_bossAttack2boom_9
+  - first:
+      213: -5353694978794034823
+    second: 3stage_bossAttack2boom_10
+  - first:
+      213: 5834258356658787131
+    second: 3stage_bossAttack2boom_11
+  - first:
+      213: 366278060111946709
+    second: 3stage_bossAttack2boom_12
+  - first:
+      213: 1315481427509221074
+    second: 3stage_bossAttack2boom_13
+  - first:
+      213: -7483238690489845781
+    second: 3stage_bossAttack2boom_14
+  - first:
+      213: 6144885191711332877
+    second: 3stage_bossAttack2boom_15
+  - first:
+      213: -4074138088619896556
+    second: 3stage_bossAttack2boom_16
+  - first:
+      213: 8977434327308097869
+    second: 3stage_bossAttack2boom_17
+  - first:
+      213: 2275990769849698102
+    second: 3stage_bossAttack2boom_18
+  - first:
+      213: -7630971587677205472
+    second: 3stage_bossAttack2boom_19
+  - first:
+      213: -5946447304788627610
+    second: 3stage_bossAttack2boom_20
+  - first:
+      213: 6322835453739843646
+    second: 3stage_bossAttack2boom_21
+  - first:
+      213: -1995092268459672639
+    second: 3stage_bossAttack2boom_22
+  - first:
+      213: -596971101299718772
+    second: 3stage_bossAttack2boom_23
+  - first:
+      213: 2793164952006501801
+    second: 3stage_bossAttack2boom_24
+  - first:
+      213: -3903524056032431655
+    second: 3stage_bossAttack2boom_25
+  - first:
+      213: 5034808742241791202
+    second: 3stage_bossAttack2boom_26
+  - first:
+      213: 4445856491874418429
+    second: 3stage_bossAttack2boom_27
+  - first:
+      213: 7380144319436603165
+    second: 3stage_bossAttack2boom_28
+  - first:
+      213: 474013383821076385
+    second: 3stage_bossAttack2boom_29
+  - first:
+      213: -5728597879205767482
+    second: 3stage_bossAttack2boom_30
+  - first:
+      213: -8388062585765982829
+    second: 3stage_bossAttack2boom_31
+  - first:
+      213: 4213216018889620390
+    second: 3stage_bossAttack2boom_32
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 3stage_bossAttack2boom_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec3ebcf2c9ef11590800000000000000
+      internalID: -7705097540683963442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3stage_bossAttack2boom_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba50457b83ed5cb20800000000000000
+      internalID: 3154171449218172331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3stage_bossAttack2boom_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73e3a0141ba39f560800000000000000
+      internalID: 7347968800006487607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3stage_bossAttack2boom_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27c1480f02bb5fee0800000000000000
+      internalID: -1227869573240054670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3stage_bossAttack2boom_5
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1aabdefa04b4b21b0800000000000000
+      internalID: -5680363763796165983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3stage_bossAttack2boom_6
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 392776a182c220ed0800000000000000
+      internalID: -2449346696582827373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3stage_bossAttack2boom_7
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ce1a8d13eec8e960800000000000000
+      internalID: 7631577043427794632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3stage_bossAttack2boom_8
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c73aa602c9687400800000000000000
+      internalID: 322123655413381062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3stage_bossAttack2boom_9
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21aad42e1a5730e10800000000000000
+      internalID: 2162701584214895122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3stage_bossAttack2boom_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4111ced7ef0c577c0800000000000000
+      internalID: -4074138088619896556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3stage_bossAttack2boom_10
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 906902085afb70d48b9c4319dc676034
+      internalID: -5353694978794034823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 742392ef20609134794b3ea5f46b2a36
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      3stage_bossAttack2boom_0: -4074138088619896556
+      3stage_bossAttack2boom_1: -7705097540683963442
+      3stage_bossAttack2boom_10: -5353694978794034823
+      3stage_bossAttack2boom_11: 5834258356658787131
+      3stage_bossAttack2boom_12: 366278060111946709
+      3stage_bossAttack2boom_13: 1315481427509221074
+      3stage_bossAttack2boom_14: -7483238690489845781
+      3stage_bossAttack2boom_15: 6144885191711332877
+      3stage_bossAttack2boom_17: 8977434327308097869
+      3stage_bossAttack2boom_18: 2275990769849698102
+      3stage_bossAttack2boom_19: -7630971587677205472
+      3stage_bossAttack2boom_2: 3154171449218172331
+      3stage_bossAttack2boom_20: -5946447304788627610
+      3stage_bossAttack2boom_21: 6322835453739843646
+      3stage_bossAttack2boom_22: -1995092268459672639
+      3stage_bossAttack2boom_23: -596971101299718772
+      3stage_bossAttack2boom_24: 2793164952006501801
+      3stage_bossAttack2boom_25: -3903524056032431655
+      3stage_bossAttack2boom_26: 5034808742241791202
+      3stage_bossAttack2boom_27: 4445856491874418429
+      3stage_bossAttack2boom_28: 7380144319436603165
+      3stage_bossAttack2boom_29: 474013383821076385
+      3stage_bossAttack2boom_3: 7347968800006487607
+      3stage_bossAttack2boom_30: -5728597879205767482
+      3stage_bossAttack2boom_31: -8388062585765982829
+      3stage_bossAttack2boom_32: 4213216018889620390
+      3stage_bossAttack2boom_4: -1227869573240054670
+      3stage_bossAttack2boom_5: -5680363763796165983
+      3stage_bossAttack2boom_6: -2449346696582827373
+      3stage_bossAttack2boom_7: 7631577043427794632
+      3stage_bossAttack2boom_8: 322123655413381062
+      3stage_bossAttack2boom_9: 2162701584214895122
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

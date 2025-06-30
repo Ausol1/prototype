@@ -16,6 +16,9 @@ TagManager:
   - Player1
   - Player2
   - JumpBoost
+  - MiddleBoss
+  - Sawtooth
+  - Stone
   layers:
   - Default
   - TransparentFX

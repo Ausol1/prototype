@@ -36,7 +36,9 @@ public class GameMgr : MonoBehaviour
     void Update()
     {
         // "Enemy" 태그를 가진 오브젝트가 없으면 게이트 오브젝트 활성화
-        if (gateObject != null && GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && GameObject.FindGameObjectsWithTag("SnallMonster").Length == 0)
+        if (gateObject != null && GameObject.FindGameObjectsWithTag("Enemy").Length == 0 &&
+            GameObject.FindGameObjectsWithTag("SmallMonster").Length == 0 &&
+            GameObject.FindGameObjectsWithTag("MiddleBoss").Length == 0)
         {
             if (!gateObject.activeSelf)
                 gateObject.SetActive(true);
