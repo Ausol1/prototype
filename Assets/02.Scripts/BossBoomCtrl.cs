@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class BossBoomCtrl : MonoBehaviour
 {
     public float riseSpeed = 4f;
@@ -8,6 +9,16 @@ public class BossBoomCtrl : MonoBehaviour
     private Animator anim;
     private bool explodedByPlayer = false;
     private bool boomAnimStarted = false;
+
+    private SpriteRenderer spriteRenderer;
+    private BoxCollider2D boxCollider;
+    private Sprite lastSprite;
+
+    void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        boxCollider = GetComponent<BoxCollider2D>();
+    }
 
     void Start()
     {
@@ -37,6 +48,22 @@ public class BossBoomCtrl : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
+        // 애니메이션 실행 중일 때 콜라이더 크기 갱신
+        if (spriteRenderer != null && spriteRenderer.sprite != lastSprite)
+        {
+            UpdateColliderToSprite();
+            lastSprite = spriteRenderer.sprite;
+        }
+    }
+
+    void UpdateColliderToSprite()
+    {
+        if (spriteRenderer.sprite == null) return;
+
+        Bounds spriteBounds = spriteRenderer.sprite.bounds;
+        boxCollider.size = spriteBounds.size;
+        boxCollider.offset = spriteBounds.center;
     }
 
     void Explode()

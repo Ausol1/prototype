@@ -48,9 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lanes:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 3683593575633624643}
+  - {fileID: 7096795623003853161}
+  - {fileID: 7614226474249512808}
   VinePrefab: {fileID: 6534380646290613371, guid: 0563f10e9cc7f46409d75bb760cc7822, type: 3}
   TrapPrefab: {fileID: 7901899639354881062, guid: c324ddb5a187bf544bf0d703610fed09, type: 3}
 --- !u!1001 &1296513895206742927
@@ -115,6 +115,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4596352418316119308, guid: 795a5e06c290004479cf063cd68925af, type: 3}
   m_PrefabInstance: {fileID: 1296513895206742927}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7096795623003853161 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8323433316314708710, guid: 795a5e06c290004479cf063cd68925af, type: 3}
+  m_PrefabInstance: {fileID: 1296513895206742927}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1885297552481492366
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -177,6 +182,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4596352418316119308, guid: 795a5e06c290004479cf063cd68925af, type: 3}
   m_PrefabInstance: {fileID: 1885297552481492366}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7614226474249512808 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8323433316314708710, guid: 795a5e06c290004479cf063cd68925af, type: 3}
+  m_PrefabInstance: {fileID: 1885297552481492366}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4655603087105025189
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -234,6 +244,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 795a5e06c290004479cf063cd68925af, type: 3}
+--- !u!1 &3683593575633624643 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8323433316314708710, guid: 795a5e06c290004479cf063cd68925af, type: 3}
+  m_PrefabInstance: {fileID: 4655603087105025189}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9175381083119028649 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4596352418316119308, guid: 795a5e06c290004479cf063cd68925af, type: 3}

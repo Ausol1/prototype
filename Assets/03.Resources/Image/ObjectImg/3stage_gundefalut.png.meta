@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      3stage_gundefalut_0: -6151053489294408733
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

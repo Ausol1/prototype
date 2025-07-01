@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      2stage_Jumpboost_0: 5282934247553668127
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

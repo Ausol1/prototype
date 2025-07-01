@@ -13,6 +13,9 @@ public class GroundWaveGenerator : MonoBehaviour
     private GameObject player1;
     private GameObject player2;
 
+    // 이전 구름의 레인 활성 상태 저장 (처음엔 모두 true)
+    private bool[] prevActiveLanes = new bool[] { true, true, true };
+
     void Start()
     {
         player1 = GameObject.FindWithTag("Player1");
@@ -40,12 +43,12 @@ public class GroundWaveGenerator : MonoBehaviour
         GameObject groundWave = Instantiate(prefab);
         groundWave.transform.position = new Vector3(0.0f, height, 0.0f);
 
-        // GroundGenerator의 SetHideLane 사용
+        // GroundGenerator의 SetHideLane 사용 (이전 레인 정보 전달)
         GroundGenerator laneGen = groundWave.GetComponent<GroundGenerator>();
         if (laneGen != null)
         {
             int hideCount = Random.Range(0, 3); // 0~2개 레인 비활성화
-            laneGen.SetHideLane(hideCount);
+            prevActiveLanes = laneGen.SetHideLane(hideCount, prevActiveLanes);
         }
     }
 }
