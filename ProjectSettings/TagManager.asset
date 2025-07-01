@@ -19,6 +19,7 @@ TagManager:
   - MiddleBoss
   - Sawtooth
   - Stone
+  - BlockVine
   layers:
   - Default
   - TransparentFX

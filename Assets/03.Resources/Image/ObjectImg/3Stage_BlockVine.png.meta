@@ -1,52 +1,10 @@
 fileFormatVersion: 2
-guid: 519f820387eef4f4f9608b54b79e8979
+guid: 689056ebc50d3844f8c7d87775a9129a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7916478327223948026
-    second: 2Back4_0
-  - first:
-      213: 2913749890153265900
-    second: 2Back4_1
-  - first:
-      213: 155285903824778742
-    second: 2Back4_2
-  - first:
-      213: -2117814745451810624
-    second: 2Back4_3
-  - first:
-      213: 696697885086484732
-    second: 2Back4_4
-  - first:
-      213: 5461969729421386079
-    second: 2Back4_5
-  - first:
-      213: 1815111104116997303
-    second: 2Back4_6
-  - first:
-      213: -7755263410234489948
-    second: 2Back4_7
-  - first:
-      213: 2180703058740391199
-    second: 2Back4_8
-  - first:
-      213: -8222117344715462397
-    second: 2Back4_9
-  - first:
-      213: 2105778860226463524
-    second: 2Back4_10
-  - first:
-      213: 8618886768256676832
-    second: 2Back4_11
-  - first:
-      213: 123017918429130834
-    second: 2Back4_12
-  - first:
-      213: -5651095347539805916
-    second: 2Back4_13
-  - first:
-      213: -4224891280399805267
-    second: 2Back4_14
+      213: 1443956692045457840
+    second: 3Stage_BlockVine_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -79,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -93,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -139,7 +97,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -152,7 +110,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: Android
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -168,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 2Back4_1
+      name: 3Stage_BlockVine_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 2560
-        height: 270
+        width: 400
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cea3bee5618bf6820800000000000000
-      internalID: 2913749890153265900
+      spriteID: 0b9ea6406f6f90410800000000000000
+      internalID: 1443956692045457840
       vertices: []
       indices: 
       edges: []
@@ -193,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 8d8fd38c29a1b6e4c8418795d85d7f19
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -203,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      2Back4_1: 2913749890153265900
+      3Stage_BlockVine_0: 1443956692045457840
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

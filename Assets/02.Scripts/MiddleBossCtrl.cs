@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI; // UI 관련 컴포넌트를 사용하기 위해 추가
 
 public class MiddleBossCtrl : MonoBehaviour
@@ -164,6 +165,6 @@ public class MiddleBossCtrl : MonoBehaviour
     }
     void Clear()
     {
-        Debug.Log("Middle Boss Cleared!");
+        SceneManager.LoadScene("EndingScene"); // ClearScene으로 이동
     }
 }

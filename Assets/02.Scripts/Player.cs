@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections; // Coroutine을 사용하기 위해 추가
 
 public class Player : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class Player : MonoBehaviour
     float h = 0.0f;
     public float m_JumpForce = 10.0f;
     public float m_MoveSpeed = 2.6f;
-    Vector3 m_DirVec; // 사용되지 않지만 원본 유지
+    Vector3 m_DirVec;
 
     private Rigidbody2D rb;
 
@@ -40,14 +41,14 @@ public class Player : MonoBehaviour
     public float knockbackUpForce = 3f;
 
     //--- 총 관련 변수 (카타나에서는 사용되지 않음)
-    public GameObject m_BulletPrefab = null; // 사용되지 않음
-    public Transform m_ShootPos; // 카타나 공격 시 팔의 위치 기준점
-    public GameObject m_Gun = null; // 카타나 모델 할당에 사용 가능
-    public Image m_ReloadImage = null; // 사용되지 않음
-    float reloadTimer = 0.0f; // 사용되지 않음
-    public float shootForce = 10.0f; // 사용되지 않음
-    public float m_ShootCool = 0.5f; // 사용되지 않음
-    float ShootTimer = 0.0f; // 사용되지 않음
+    public GameObject m_BulletPrefab = null;
+    public Transform m_ShootPos;
+    public GameObject m_Gun = null;
+    public Image m_ReloadImage = null;
+    float reloadTimer = 0.0f;
+    public float shootForce = 10.0f;
+    public float m_ShootCool = 0.5f;
+    float ShootTimer = 0.0f;
 
     // --- 각 총 종류별 스탯 (DefaultGun) ---
     [Header("Default Gun Stats")]
@@ -84,37 +85,39 @@ public class Player : MonoBehaviour
     // --- 카타나 스탯 및 관련 변수 추가 ---
     [Header("Katana Stats")]
     public float katanaAttackCooldown = 0.7f; // 공격 후 쿨타임
+    public float katanaColliderActiveDuration = 0.2f; // <-- 카타나 콜라이더가 활성화될 지속 시간 (조정 필요)
     public Collider2D katanaAttackCollider; // 카타나의 공격 범위 Collider (Is Trigger 체크)
-    private bool isAttacking = false; // 카타나 공격 중인지 여부 (애니메이션 이벤트로 제어)
+    private bool isAttacking = false; // 카타나 공격 중인지 여부 (코드로 제어)
 
     // --- 현재 무기 상태 ---
-    private float currentShootTimer = 0.0f; // 총기류 쿨타임, 카타나 공격 쿨타임에 재활용
-    private int currentBulletCount; // 카타나에서는 사용되지 않음
-    private bool isReloading = false; // 카타나에서는 사용되지 않음
-    private int currentMaxBulletCount; // 카타나에서는 사용되지 않음
-    private float currentReloadTime; // 카타나에서는 사용되지 않음
-    private float currentFireRate; // 카타나에서는 AttackCooldown으로 재활용
+    private float currentShootTimer = 0.0f;
+    private int currentBulletCount;
+    private bool isReloading = false;
+    private int currentMaxBulletCount;
+    private float currentReloadTime;
+    private float currentFireRate;
 
     [Header("Weapon Configuration")]
     public WeaponType currentWeaponType;
 
-    public TextMeshProUGUI BulletCount; // 카타나에서는 "∞" 또는 "---" 표시
+    public TextMeshProUGUI BulletCount;
 
     // --- 부활 관련 변수 추가 ---
     public bool isDead = false;
-    private bool isBeingRevived = false; // 사용되지 않지만 원본 유지
+    private bool isBeingRevived = false;
     private float reviveProgress = 0f;
-    public float reviveRequired = 10f; // 스페이스 연타 10회 필요
+    public float reviveRequired = 10f;
     private Player otherPlayer;
     private bool isOverlappingWithOther = false;
+    private Coroutine blinkCoroutine; // 깜빡임 코루틴 핸들
 
     // 부활 UI
     public Image reviveImage;
     public Image reviveBar;
 
-    // Collider 참조 (죽은 플레이어끼리 충돌 무시, 다른 플레이어 감지용)
+    // Collider 참조
     public Collider2D mainPlayerCollider;
-    public Collider2D reviveDetectionTrigger; // 현재 코드에서는 직접 사용되지 않지만, 에디터 설정용으로 유지
+    public Collider2D reviveDetectionTrigger;
 
     //---애니메이션 관련 변수
     SpriteRenderer SpriteRenderer;
@@ -124,8 +127,8 @@ public class Player : MonoBehaviour
     private KeyCode leftKey;
     private KeyCode rightKey;
     private KeyCode jumpKey;
-    private KeyCode shootKey; // 카타나 공격 키로 사용
-    private KeyCode reloadKey; // 카타나에서는 사용되지 않음
+    private KeyCode shootKey;
+    private KeyCode reloadKey;
 
     void Start()
     {
@@ -192,10 +195,9 @@ public class Player : MonoBehaviour
 
     void InitializeWeaponStats()
     {
-        // 애니메이션 초기화 (안전하게 모든 관련 Bool을 false로)
         if (Anim != null)
         {
-            Anim.SetBool("IsKatanaEquipped", false); // 항상 초기화 시 false로 설정
+            Anim.SetBool("IsKatanaEquipped", false);
             Anim.SetFloat("Speed", 0);
             Anim.SetBool("speed", true);
         }
@@ -206,7 +208,6 @@ public class Player : MonoBehaviour
                 currentMaxBulletCount = defaultGunBulletMaxCount;
                 currentFireRate = defaultGunShootCool;
                 currentReloadTime = defaultGunReloadTime;
-                // 총기류 모델 활성화
                 if (m_Gun != null) m_Gun.SetActive(true);
                 break;
             case WeaponType.RocketLauncher:
@@ -228,13 +229,10 @@ public class Player : MonoBehaviour
                 if (m_Gun != null) m_Gun.SetActive(true);
                 break;
             case WeaponType.Katana:
-                // 카타나는 총기 관련 변수 사용 안함
                 currentMaxBulletCount = 0;
-                currentFireRate = katanaAttackCooldown; // 카타나 공격 쿨타임으로 사용
-                currentReloadTime = 0; // 재장전 없음
-                // 카타나 장착 시 m_Gun (카타나 모델) 활성화
+                currentFireRate = katanaAttackCooldown;
+                currentReloadTime = 0;
                 if (m_Gun != null) m_Gun.SetActive(true);
-                // 카타나 장착 시 애니메이터 파라미터 설정
                 if (Anim != null)
                 {
                     Anim.SetBool("IsKatanaEquipped", true);
@@ -243,18 +241,17 @@ public class Player : MonoBehaviour
         }
         currentBulletCount = currentMaxBulletCount;
         isReloading = false;
-        isAttacking = false; // 카타나 공격 상태 초기화
+        isAttacking = false;
         currentShootTimer = 0;
 
         if (vacuumImage != null)
         {
             vacuumImage.gameObject.SetActive(false);
         }
-        if (m_ReloadImage != null) // 재장전 이미지도 무기 변경 시 숨김
+        if (m_ReloadImage != null)
         {
             m_ReloadImage.gameObject.SetActive(false);
         }
-        // 무기가 카타나가 아닐 때 카타나 공격 콜라이더 비활성화
         if (katanaAttackCollider != null && currentWeaponType != WeaponType.Katana)
         {
             katanaAttackCollider.enabled = false;
@@ -293,11 +290,10 @@ public class Player : MonoBehaviour
             return;
         }
 
-        // 살아있는 플레이어는 부활 UI 숨김
         if (reviveImage != null)
             reviveImage.gameObject.SetActive(false);
 
-        if (currentWeaponType != WeaponType.Katana) // 카타나는 재장전 UI 사용 안함
+        if (currentWeaponType != WeaponType.Katana)
         {
             if (isReloading && m_ReloadImage != null)
             {
@@ -313,7 +309,7 @@ public class Player : MonoBehaviour
                 m_ReloadImage.fillAmount = 0f;
             }
         }
-        else // 카타나를 들었을 때 재장전 이미지는 항상 꺼져있도록 함
+        else
         {
             if (m_ReloadImage != null)
             {
@@ -358,7 +354,7 @@ public class Player : MonoBehaviour
         }
 
         Move();
-        Animation(); // 애니메이션 함수 호출
+        Animation();
 
         if (currentShootTimer > 0)
         {
@@ -381,7 +377,7 @@ public class Player : MonoBehaviour
     {
         if (BulletCount != null)
         {
-            if (currentWeaponType == WeaponType.VacuumCleaner || currentWeaponType == WeaponType.Katana) // 카타나도 무한대
+            if (currentWeaponType == WeaponType.VacuumCleaner || currentWeaponType == WeaponType.Katana)
             {
                 BulletCount.text = "∞";
             }
@@ -394,7 +390,7 @@ public class Player : MonoBehaviour
 
     void HandleWeaponInput()
     {
-        if (isDead || isReloading) return; // 카타나 공격 중에도 다른 액션 허용 (isAttacking 체크 제거)
+        if (isDead || isReloading) return;
 
         Vector2 shootDir = (SpriteRenderer != null && SpriteRenderer.flipX) ? Vector2.left : Vector2.right;
 
@@ -439,14 +435,11 @@ public class Player : MonoBehaviour
                     StartReload();
                 }
                 break;
-            // 카타나 공격 로직 추가
             case WeaponType.Katana:
-                // isAttacking 체크를 추가하여 공격 애니메이션 중 중복 공격 방지
                 if (Input.GetKeyDown(shootKey) && currentShootTimer <= 0f && !isAttacking)
                 {
                     AttackKatana();
                 }
-                // 카타나는 재장전 키 사용 안함
                 break;
         }
     }
@@ -543,43 +536,47 @@ public class Player : MonoBehaviour
         }
     }
 
-    // 카타나 공격 함수 (애니메이션 트리거만 발동)
     void AttackKatana()
     {
-        currentShootTimer = katanaAttackCooldown; // 공격 쿨타임 설정
+        currentShootTimer = katanaAttackCooldown;
 
         if (Anim != null)
         {
-            Anim.SetTrigger("KatanaAttack"); // 카타나 공격 애니메이션 트리거
+            Anim.SetTrigger("KatanaAttack");
         }
-        // Collider 활성화/비활성화는 애니메이션 이벤트에서 처리됩니다.
+
+        // --- 코드 기반 콜라이더 및 isAttacking 제어 시작 ---
+        StartCoroutine(KatanaAttackRoutine());
+        // --- 코드 기반 콜라이더 및 isAttacking 제어 끝 ---
     }
 
-    // 애니메이션 이벤트용 함수: 카타나 공격 콜라이더 활성화
-    public void EnableKatanaCollider()
+    // 코루틴을 사용하여 공격 애니메이션 지속 시간 동안 콜라이더를 활성화
+    IEnumerator KatanaAttackRoutine()
     {
+        // 공격 시작 시
+        isAttacking = true;
         if (katanaAttackCollider != null)
         {
             katanaAttackCollider.enabled = true;
-            isAttacking = true; // 공격 애니메이션 시작과 함께 플래그 설정
             // Debug.Log("카타나 공격 콜라이더 활성화!");
         }
-    }
 
-    // 애니메이션 이벤트용 함수: 카타나 공격 콜라이더 비활성화
-    public void DisableKatanaCollider()
-    {
+        // 콜라이더 활성화를 원하는 시간만큼 대기
+        yield return new WaitForSeconds(katanaColliderActiveDuration);
+
+        // 공격 종료 시
         if (katanaAttackCollider != null)
         {
             katanaAttackCollider.enabled = false;
-            isAttacking = false; // 공격 애니메이션 종료와 함께 플래그 해제
             // Debug.Log("카타나 공격 콜라이더 비활성화!");
         }
+        isAttacking = false;
     }
+
 
     void StartReload()
     {
-        if (currentWeaponType == WeaponType.VacuumCleaner || currentWeaponType == WeaponType.Katana) return; // 청소기, 카타나는 재장전 없음
+        if (currentWeaponType == WeaponType.VacuumCleaner || currentWeaponType == WeaponType.Katana) return;
 
         if (!isReloading && currentBulletCount < currentMaxBulletCount)
         {
@@ -628,6 +625,11 @@ public class Player : MonoBehaviour
 
         if (GameMgr.Inst != null)
             GameMgr.Inst.OnPlayerDead();
+
+        // 깜빡임 코루틴 시작
+        if (blinkCoroutine != null)
+            StopCoroutine(blinkCoroutine);
+        blinkCoroutine = StartCoroutine(BlinkOnDeath());
     }
 
     void Revive()
@@ -644,15 +646,39 @@ public class Player : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.simulated = true;
 
+        // 깜빡임 코루틴 정지 및 알파 복구
+        if (blinkCoroutine != null)
+            StopCoroutine(blinkCoroutine);
+        SetSpriteAlpha(1f);
+
         if (GameMgr.Inst != null)
             GameMgr.Inst.OnPlayerRevive();
+    }
+    void SetSpriteAlpha(float alpha)
+    {
+        if (SpriteRenderer != null)
+        {
+            Color c = SpriteRenderer.color;
+            c.a = alpha;
+            SpriteRenderer.color = c;
+        }
+    }
+
+    // 깜빡임 코루틴
+    IEnumerator BlinkOnDeath()
+    {
+        while (isDead)
+        {
+            SetSpriteAlpha(0.3f);
+            yield return new WaitForSeconds(0.15f);
+            SetSpriteAlpha(1f);
+            yield return new WaitForSeconds(0.15f);
+        }
     }
 
     void Move()
     {
-        // 죽었거나 카타나 공격 애니메이션 중에는 이동 불가 (isAttacking은 애니메이션 이벤트를 통해 설정)
-        // Anim.GetCurrentAnimatorStateInfo(0).IsName("KatanaAttack") 로 현재 재생 중인 애니메이션 상태를 직접 확인
-        if (isDead || (currentWeaponType == WeaponType.Katana && Anim.GetCurrentAnimatorStateInfo(0).IsName("KatanaAttack")))
+        if (isDead || isAttacking)
         {
             rb.linearVelocity = Vector2.zero;
             return;
@@ -678,31 +704,24 @@ public class Player : MonoBehaviour
         }
     }
 
-    // 애니메이션 제어 함수
     void Animation()
     {
-        // 죽었거나 카타나 공격 애니메이션이 재생 중일 때는 다른 애니메이션을 업데이트하지 않습니다.
-        if (isDead || (currentWeaponType == WeaponType.Katana && Anim.GetCurrentAnimatorStateInfo(0).IsName("KatanaAttack")))
+        if (isDead || isAttacking)
         {
-            // 필요하다면 여기에서 Speed와 speed 파라미터를 강제로 정지 상태로 설정할 수 있습니다.
-            // Anim.SetFloat("Speed", 0);
-            // Anim.SetBool("speed", true);
+            Anim.SetFloat("Speed", 0);
+            Anim.SetBool("speed", true);
             return;
         }
 
-        // 기존의 Speed와 speed 파라미터를 사용하여 Idle/Walk를 제어합니다.
         Anim.SetFloat("Speed", Mathf.Abs(h));
-        bool t = h == 0.0f; // h가 0일 때 true (정지), 아니면 false (움직임)
+        bool t = h == 0.0f;
         Anim.SetBool("speed", t);
 
-        // --- 추가: 카타나 장착 여부 애니메이터 파라미터 설정 ---
-        // 이 파라미터는 애니메이터에서 Base Layer 내의 상태 전환에 사용됩니다.
         if (Anim != null)
         {
             Anim.SetBool("IsKatanaEquipped", currentWeaponType == WeaponType.Katana);
         }
 
-        // 방향 플립 로직 (기존과 동일)
         if (h != 0.0f)
         {
             SpriteRenderer.flipX = h < 0.0f;
@@ -750,12 +769,11 @@ public class Player : MonoBehaviour
         rb.AddForce(knockback, ForceMode2D.Impulse);
     }
 
-    // WeaponType을 변경하는 공용 함수 (외부 스크립트에서 호출 가능)
     public void ChangeWeapon(WeaponType newWeapon)
     {
         currentWeaponType = newWeapon;
-        CancelInvoke("ReloadComplete"); // 혹시 모를 재장전 Invoke 취소
-        InitializeWeaponStats(); // 새로운 무기에 맞춰 스탯 및 UI 초기화
+        CancelInvoke("ReloadComplete");
+        InitializeWeaponStats();
         Debug.Log($"무기 변경: {newWeapon}");
     }
 
@@ -789,16 +807,11 @@ public class Player : MonoBehaviour
             m_JumpForce += 5.0f;
         }
 
-        // 카타나 공격 중 "Vine" 태그에 닿았을 때
-        // isAttacking 플래그는 애니메이션 이벤트를 통해 정확하게 제어됩니다.
         if (currentWeaponType == WeaponType.Katana && isAttacking)
         {
-            if (coll.CompareTag("Vine"))
+            if (coll.CompareTag("BlockVine"))
             {
-                // Debug.Log($"카타나로 덩굴 '{coll.gameObject.name}'을 잘랐습니다!");
-                // VineCtrl을 통해 자르는 로직 호출 (가정)
-                // coll.GetComponent<VineCtrl>()?.CutVine(); // 실제 VineCtrl이 있다면 이렇게 호출
-                Destroy(coll.gameObject); // 테스트용으로 직접 파괴
+                Destroy(coll.gameObject,0.2f);
             }
         }
     }
@@ -842,12 +855,10 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
-
     }
 
     private void OnCollisionStay2D(Collision2D coll)
     {
-
     }
 
     private void OnCollisionExit2D(Collision2D coll)
@@ -857,7 +868,6 @@ public class Player : MonoBehaviour
 #if UNITY_EDITOR
     void OnDrawGizmosSelected()
     {
-        // 진공청소기 범위 시각화 (파란색 반투명 원)
         if (m_ShootPos != null && currentWeaponType == WeaponType.VacuumCleaner)
         {
             Gizmos.color = new Color(0f, 0.5f, 1f, 0.3f);
@@ -865,7 +875,6 @@ public class Player : MonoBehaviour
             Gizmos.color = new Color(0f, 0.5f, 1f, 0.1f);
             Gizmos.DrawSphere(m_ShootPos.position, suckRadius);
         }
-        // 카타나 공격 범위 시각화 Gizmos는 콜라이더 직접 사용 방식으로 인해 제거되었습니다.
     }
 #endif
 }

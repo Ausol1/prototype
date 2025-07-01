@@ -71,7 +71,7 @@ public class GroundGenerator : MonoBehaviour
             if (Lanes[i].activeSelf)
             {
                 float rand = Random.value;
-                if (rand < 0.2f) // 20% È®·ü·Î Vine
+                if (VinePrefab !=null&&rand < 0.2f) // 20% È®·ü·Î Vine
                 {
                     SpawnVine(Lanes[i].transform.position);
                 }
@@ -91,8 +91,9 @@ public class GroundGenerator : MonoBehaviour
 
     void SpawnVine(Vector3 pos)
     {
+        float randomX = Random.Range(-1f, 1f);
         GameObject go = Instantiate(VinePrefab);
-        go.transform.position = pos + Vector3.down * 0.8f;
+        go.transform.position = new Vector3(pos.x + randomX, pos.y - 0.3f, pos.z);
     }
 
     void SpawnTrap(Vector3 pos)

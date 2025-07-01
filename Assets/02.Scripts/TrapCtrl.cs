@@ -35,14 +35,14 @@ public class TrapCtrl : MonoBehaviour
                 anim.SetBool("Trap", true); // bool 파라미터로 트리거
             }
         }
+    }
 
-        // 애니메이션이 끝났는지 체크 (Trap 파라미터를 false로 돌림)
-        if (isAnimating)
-        {
-            isAnimating = false;
-            anim.SetBool("Trap", false);
-            isTriggered = false; // 다시 트리거 가능
-        }
+    // 애니메이션 이벤트에서 호출할 함수
+    public void OnTrapAnimEnd()
+    {
+        anim.SetBool("Trap", false);
+        isAnimating = false;
+        isTriggered = false;
     }
 
     void LateUpdate()

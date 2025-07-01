@@ -6,6 +6,7 @@ public class GroundWaveGenerator : MonoBehaviour
 {
     public GameObject GroundWavePrefabA; // 땅 프리팹 A
     public GameObject GroundWavePrefabB; // 땅 프리팹 B
+    public GameObject WallPrefab;        // 벽 프리팹 추가
     public float groundSpacing = 2.5f;   // 땅층 간격
     public float createRange = 10.0f;    // 플레이어 위로 생성할 범위
 
@@ -42,6 +43,13 @@ public class GroundWaveGenerator : MonoBehaviour
         GameObject prefab = (Random.value < 0.5f) ? GroundWavePrefabA : GroundWavePrefabB;
         GameObject groundWave = Instantiate(prefab);
         groundWave.transform.position = new Vector3(0.0f, height, 0.0f);
+
+        // 20% 확률 + y좌표 10f 이상일 때만 벽 생성
+        if (WallPrefab != null && height >= 10f && Random.value < 0.2f)
+        {
+            GameObject wall = Instantiate(WallPrefab);
+            wall.transform.position = new Vector3(0.0f, height, 0.0f);
+        }
 
         // GroundGenerator의 SetHideLane 사용 (이전 레인 정보 전달)
         GroundGenerator laneGen = groundWave.GetComponent<GroundGenerator>();

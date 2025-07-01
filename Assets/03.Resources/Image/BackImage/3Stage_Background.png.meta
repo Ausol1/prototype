@@ -129,12 +129,12 @@ TextureImporter:
       name: 3Stage_Background_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 28
         y: 0
-        width: 485
+        width: 457
         height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 01912cfd3f65a4748b63178ac4177acd
     internalID: 0
     vertices: []
     indices: 
