@@ -36,13 +36,17 @@ public class Player : MonoBehaviour
     public bool isGrounded = false;
     private bool isDoubleJumpAvailable = false;
 
+    [Header("Layer Settings")]
+    public string playerAliveLayerName = "Player"; // 살아있을 때의 레이어 이름
+    public string playerDeadLayerName = "Player_Dead"; // 죽었을 때의 레이어 이름
+
     [Header("Knockback")]
     public float knockbackForce = 8f;
     public float knockbackUpForce = 3f;
 
     //--- 총 관련 변수 (카타나에서는 사용되지 않음)
     public GameObject m_BulletPrefab = null;
-    public Transform m_ShootPos;
+    public Transform m_ShootPos; // 총알/흡입 효과가 시작될 위치
     public GameObject m_Gun = null;
     public Image m_ReloadImage = null;
     float reloadTimer = 0.0f;
@@ -68,11 +72,12 @@ public class Player : MonoBehaviour
 
     // --- 각 총 종류별 스탯 (VacuumCleaner) ---
     [Header("Vacuum Cleaner Stats")]
-    public float suckRadius = 3f;
-    public float suckForce = 10f;
-    public float consumeDistance = 0.5f;
-    public LayerMask smallMonsterLayer;
-    public Image vacuumImage;
+    // 흡수 이미지를 가지고 있고 판정을 하는 게임 오브젝트 (VacuumObject)
+    public GameObject vacuumObject; // <--- 변경: 이제 이 GameObject가 흡수 이미지와 콜라이더를 가짐
+    public float suckRadius = 3f; // 흡입 범위 (Gizmo 용도로 유지, 실제 콜라이더 크기로 조절)
+    public float suckForce = 10f; // 흡입력
+    public float consumeDistance = 0.5f; // 소멸 거리
+    public LayerMask smallMonsterLayer; // 흡수할 대상 레이어
 
     // --- 각 총 종류별 스탯 (SawtoothGun) ---
     [Header("Sawtooth Gun Stats")]
@@ -85,7 +90,7 @@ public class Player : MonoBehaviour
     // --- 카타나 스탯 및 관련 변수 추가 ---
     [Header("Katana Stats")]
     public float katanaAttackCooldown = 0.7f; // 공격 후 쿨타임
-    public float katanaColliderActiveDuration = 0.2f; // <-- 카타나 콜라이더가 활성화될 지속 시간 (조정 필요)
+    public float katanaColliderActiveDuration = 0.2f; // 카타나 콜라이더가 활성화될 지속 시간
     public Collider2D katanaAttackCollider; // 카타나의 공격 범위 Collider (Is Trigger 체크)
     private bool isAttacking = false; // 카타나 공격 중인지 여부 (코드로 제어)
 
@@ -167,10 +172,14 @@ public class Player : MonoBehaviour
             m_ReloadImage.fillAmount = 0f;
             m_ReloadImage.gameObject.SetActive(false);
         }
-        if (vacuumImage != null)
+
+        // VacuumObject 초기 비활성화
+        if (vacuumObject != null) // <--- 변경: vacuumObject 사용
         {
-            vacuumImage.gameObject.SetActive(false);
+            vacuumObject.SetActive(false);
+            Debug.Log($"[{playerType}] VacuumObject 초기 비활성화.");
         }
+
 
         // 카타나 공격 콜라이더 초기 비활성화
         if (katanaAttackCollider != null)
@@ -225,10 +234,10 @@ public class Player : MonoBehaviour
                 if (m_Gun != null) m_Gun.SetActive(true);
                 break;
             case WeaponType.VacuumCleaner:
-                currentMaxBulletCount = 0;
-                currentFireRate = 0;
-                currentReloadTime = 0;
-                if (m_Gun != null) m_Gun.SetActive(true);
+                currentMaxBulletCount = 0; // 진공청소기는 총알 개념 없음
+                currentFireRate = 0; // 쿨타임 개념 없음
+                currentReloadTime = 0; // 재장전 개념 없음
+                if (m_Gun != null) m_Gun.SetActive(true); // 총 모델은 필요하다면 활성화
                 break;
             case WeaponType.SawtoothGun:
                 currentMaxBulletCount = sawtoothGunMaxCount;
@@ -252,9 +261,10 @@ public class Player : MonoBehaviour
         isAttacking = false;
         currentShootTimer = 0;
 
-        if (vacuumImage != null)
+        // VacuumObject 비활성화
+        if (vacuumObject != null)
         {
-            vacuumImage.gameObject.SetActive(false);
+            vacuumObject.SetActive(false);
         }
         if (m_ReloadImage != null)
         {
@@ -270,17 +280,12 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // **이전 답변에서 제시했던 중요한 수정입니다: isDead 상태일 때 reviveImage를 비활성화하는 불필요한 코드 이동**
-        // Update() 함수 시작 부분에서 reviveImage를 무조건 false로 만드는 코드가 부활 UI를 꺼버리는 원인이었습니다.
-        // 이 코드를 isDead 상태일 때만 처리하도록 옮깁니다.
-        // 기존: if (reviveImage != null) reviveImage.gameObject.SetActive(false);
-        // 이 코드는 아래 isDead 블록 내에서만 필요합니다.
 
         if (isDead)
         {
             if (isOverlappingWithOther && otherPlayer != null && !otherPlayer.isDead)
             {
-                if (reviveImage != null && !reviveImage.gameObject.activeSelf) // 이미 활성화되어 있지 않을 때만 로그
+                if (reviveImage != null && !reviveImage.gameObject.activeSelf)
                 {
                     reviveImage.gameObject.SetActive(true);
                     Debug.Log($"[{playerType}] 죽은 플레이어 ({playerType}) 근처에 다른 플레이어({otherPlayer.playerType}) 진입, reviveImage 활성화 시도. isOverlappingWithOther: {isOverlappingWithOther}");
@@ -301,7 +306,7 @@ public class Player : MonoBehaviour
             }
             else // 다른 플레이어가 근처에 없거나, 다른 플레이어가 죽었을 때
             {
-                if (reviveImage != null && reviveImage.gameObject.activeSelf) // 활성화되어 있을 때만 비활성화
+                if (reviveImage != null && reviveImage.gameObject.activeSelf)
                 {
                     reviveImage.gameObject.SetActive(false);
                     reviveBar.fillAmount = 0f;
@@ -338,30 +343,31 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (vacuumImage != null)
+        // VacuumObject 활성화/비활성화 및 위치/스케일 조정
+        if (vacuumObject != null) // <--- VacuumObject를 직접 사용
         {
-            if (currentWeaponType == WeaponType.VacuumCleaner && !isDead) // isDead 조건은 위에 이미 처리됨. 여기서는 안전장치
+            if (currentWeaponType == WeaponType.VacuumCleaner && !isDead)
             {
                 bool isActive = Input.GetKey(shootKey);
-                vacuumImage.gameObject.SetActive(isActive);
+                vacuumObject.SetActive(isActive); // <--- VacuumObject 활성화/비활성화
 
                 if (isActive)
                 {
-                    Vector3 scale = vacuumImage.rectTransform.localScale;
+                    // VacuumObject의 스케일 (방향 뒤집기)
+                    Vector3 scale = vacuumObject.transform.localScale;
                     scale.x = (SpriteRenderer != null && SpriteRenderer.flipX) ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
-                    vacuumImage.rectTransform.localScale = scale;
+                    vacuumObject.transform.localScale = scale;
 
-                    Vector3 pos = vacuumImage.rectTransform.localPosition;
-                    float baseX = Mathf.Abs(pos.x);
-                    pos.x = (SpriteRenderer != null && SpriteRenderer.flipX) ? -baseX : baseX;
-                    vacuumImage.rectTransform.localPosition = pos;
+                    // VacuumObject의 위치 (m_ShootPos에 따라) - m_ShootPos의 자식이라면 이 코드는 불필요함
+                    // vacuumObject.transform.position = m_ShootPos.position;
                 }
             }
             else
             {
-                vacuumImage.gameObject.SetActive(false);
+                vacuumObject.SetActive(false);
             }
         }
+
 
         bool wasGrounded = isGrounded;
         bool grounded1 = Physics2D.Raycast(groundCheck1.position, Vector2.down, groundCheckDistance, groundLayer);
@@ -439,10 +445,8 @@ public class Player : MonoBehaviour
                 break;
 
             case WeaponType.VacuumCleaner:
-                if (Input.GetKey(shootKey))
-                {
-                    OperateVacuumCleaner();
-                }
+                // 흡수 로직은 OnTriggerStay2D에서 직접 처리하므로 여기서는 Input.GetKey(shootKey)만 감지합니다.
+                // Input.GetKey(shootKey)가 true일 때 vacuumObject가 활성화되므로 별도의 호출이 필요 없습니다.
                 break;
 
             case WeaponType.SawtoothGun:
@@ -504,38 +508,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    void OperateVacuumCleaner()
-    {
-        Vector2 forward = (SpriteRenderer != null && SpriteRenderer.flipX) ? Vector2.left : Vector2.right;
-        float halfAngle = 30f;
-
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(m_ShootPos.position, suckRadius, smallMonsterLayer);
-
-        foreach (Collider2D hit in hitColliders)
-        {
-            if (hit.CompareTag("SmallMonster"))
-            {
-                Vector2 toTarget = (hit.transform.position - m_ShootPos.position).normalized;
-                float angle = Vector2.Angle(forward, toTarget);
-
-                if (angle <= halfAngle)
-                {
-                    Rigidbody2D monsterRb = hit.GetComponent<Rigidbody2D>();
-                    if (monsterRb != null)
-                    {
-                        Vector2 directionToPlayer = (m_ShootPos.position - hit.transform.position).normalized;
-                        monsterRb.AddForce(directionToPlayer * suckForce, ForceMode2D.Force);
-
-                        if (Vector2.Distance(m_ShootPos.position, hit.transform.position) < consumeDistance)
-                        {
-                            Destroy(hit.gameObject);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     void FireSawtoothGun(Vector2 direction)
     {
         if (sawtoothBulletPrefab != null && m_ShootPos != null)
@@ -565,15 +537,11 @@ public class Player : MonoBehaviour
             Anim.SetTrigger("KatanaAttack");
         }
 
-        // --- 코드 기반 콜라이더 및 isAttacking 제어 시작 ---
         StartCoroutine(KatanaAttackRoutine());
-        // --- 코드 기반 콜라이더 및 isAttacking 제어 끝 ---
     }
 
-    // 코루틴을 사용하여 공격 애니메이션 지속 시간 동안 콜라이더를 활성화
     IEnumerator KatanaAttackRoutine()
     {
-        // 공격 시작 시
         isAttacking = true;
         if (katanaAttackCollider != null)
         {
@@ -581,10 +549,8 @@ public class Player : MonoBehaviour
             Debug.Log($"[{playerType}] 카타나 공격 콜라이더 활성화!");
         }
 
-        // 콜라이더 활성화를 원하는 시간만큼 대기
         yield return new WaitForSeconds(katanaColliderActiveDuration);
 
-        // 공격 종료 시
         if (katanaAttackCollider != null)
         {
             katanaAttackCollider.enabled = false;
@@ -592,7 +558,6 @@ public class Player : MonoBehaviour
         }
         isAttacking = false;
     }
-
 
     void StartReload()
     {
@@ -639,30 +604,52 @@ public class Player : MonoBehaviour
 
         TextHp.text = m_MaxHp.ToString("F0") + " / " + m_CurHp.ToString("F0");
 
-        rb.linearVelocity = Vector2.zero;
-        rb.angularVelocity = 0f;
-        rb.bodyType = RigidbodyType2D.Kinematic; // 중력 영향만 끄고, 시뮬레이션은 유지
-        // rb.simulated = false; // <<< 이 줄을 주석 처리했습니다. (이전 답변에서 제안한 가장 유력한 원인)
-        Debug.Log($"[{playerType}] Rigidbody2D bodyType을 Kinematic으로 설정. Simulated 상태: {rb.simulated}");
+        // --- 사망 시 물리적 처리 (낙하 및 충돌 레이어 변경) ---
+        rb.linearVelocity = Vector2.zero; // 현재 선형 속도를 0으로 초기화
+        rb.angularVelocity = 0f;        // 현재 각속도를 0으로 초기화
+        rb.simulated = true; // Rigidbody2D 시뮬레이션 활성화 (Dynamic일 경우 기본적으로 true)
+        Debug.Log($"[{playerType}] Rigidbody2D bodyType을 Dynamic으로 유지. Simulated 상태: {rb.simulated}");
 
-        // 메인 플레이어 콜라이더 비활성화 (다른 물체와의 충돌 방지)
+        // 죽었을 때 플레이어 레이어를 변경하여 몬스터와 충돌하지 않도록 함
+        gameObject.layer = LayerMask.NameToLayer(playerDeadLayerName);
+        Debug.Log($"[{playerType}] 레이어를 {playerDeadLayerName}로 변경했습니다.");
+
+        // 메인 콜라이더는 활성 상태 유지 (바닥 충돌을 위해)
         if (mainPlayerCollider != null)
         {
-            mainPlayerCollider.enabled = false;
-            Debug.Log($"[{playerType}] mainPlayerCollider 비활성화.");
+            mainPlayerCollider.enabled = true; // 이 부분은 원래대로 활성화 유지 (핵심 변경!)
+            Debug.Log($"[{playerType}] mainPlayerCollider 활성화 상태 유지.");
         }
-        // 부활 감지 트리거는 계속 활성화되어야 함
+
+        // 부활 감지 트리거는 활성화 유지
         if (reviveDetectionTrigger != null)
         {
-            reviveDetectionTrigger.enabled = true; // 혹시 모르니 명시적으로 활성화
+            reviveDetectionTrigger.enabled = true;
             Debug.Log($"[{playerType}] reviveDetectionTrigger 활성화 상태: {reviveDetectionTrigger.enabled}");
         }
 
+        // --- 사망 시 모든 관련 이벤트 중단 ---
+        CancelInvoke("ReloadComplete");
+        isReloading = false;
+        if (m_ReloadImage != null)
+        {
+            m_ReloadImage.gameObject.SetActive(false);
+            m_ReloadImage.fillAmount = 0f;
+            reloadTimer = 0f;
+        }
+        if (vacuumObject != null)
+        {
+            vacuumObject.SetActive(false);
+        }
+        isAttacking = false;
+        if (katanaAttackCollider != null)
+        {
+            katanaAttackCollider.enabled = false;
+        }
 
         if (GameMgr.Inst != null)
             GameMgr.Inst.OnPlayerDead();
 
-        // 깜빡임 코루틴 시작
         if (blinkCoroutine != null)
         {
             StopCoroutine(blinkCoroutine);
@@ -678,7 +665,7 @@ public class Player : MonoBehaviour
         isDead = false;
         m_CurHp = m_MaxHp * 0.5f;
         reviveProgress = 0f;
-        isboom = false; // isboom도 리셋
+        isboom = false;
         Debug.Log($"[{playerType}] isboom 리셋. isboom: {isboom}");
 
         if (reviveBar != null)
@@ -687,19 +674,20 @@ public class Player : MonoBehaviour
             reviveImage.gameObject.SetActive(false);
         if (m_Gun != null) m_Gun.SetActive(true);
 
-        rb.bodyType = RigidbodyType2D.Dynamic; // 원래대로 Dynamic으로 복구
-        rb.simulated = true; // 시뮬레이션 다시 활성화 (이 줄은 굳이 없어도 Dynamic으로 바뀌면 자동으로 true가 됨)
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.simulated = true;
         Debug.Log($"[{playerType}] Rigidbody2D bodyType을 Dynamic으로 설정. Simulated 상태: {rb.simulated}");
 
-        // 메인 플레이어 콜라이더 다시 활성화
+        // 부활 시 원래 플레이어 레이어로 되돌림
+        gameObject.layer = LayerMask.NameToLayer(playerAliveLayerName);
+        Debug.Log($"[{playerType}] 레이어를 {playerAliveLayerName}로 되돌렸습니다.");
+
         if (mainPlayerCollider != null)
         {
             mainPlayerCollider.enabled = true;
             Debug.Log($"[{playerType}] mainPlayerCollider 다시 활성화.");
         }
-        // 부활 감지 트리거는 계속 활성화되어 있어야 하므로 특별히 비활성화할 필요 없음.
 
-        // 깜빡임 코루틴 정지 및 알파 복구
         if (blinkCoroutine != null)
         {
             StopCoroutine(blinkCoroutine);
@@ -712,7 +700,6 @@ public class Player : MonoBehaviour
             GameMgr.Inst.OnPlayerRevive();
         Debug.Log($"[{playerType}] Revive() 함수 종료. isDead: {isDead}, m_CurHp: {m_CurHp}");
     }
-
     void SetSpriteAlpha(float alpha)
     {
         if (SpriteRenderer != null)
@@ -720,7 +707,6 @@ public class Player : MonoBehaviour
             Color c = SpriteRenderer.color;
             c.a = alpha;
             SpriteRenderer.color = c;
-            // Debug.Log($"[{playerType}] 스프라이트 알파 설정: {alpha}"); // 이 로그는 너무 자주 뜨므로 필요할 때만 활성화
         }
         else
         {
@@ -728,7 +714,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    // 깜빡임 코루틴
     IEnumerator BlinkOnDeath()
     {
         Debug.Log($"[{playerType}] BlinkOnDeath 코루틴 시작. isDead: {isDead}");
@@ -807,6 +792,17 @@ public class Player : MonoBehaviour
                 m_Gun.transform.localScale = gunScale;
                 m_Gun.transform.localPosition = gunPosition;
             }
+
+            // VacuumObject의 방향도 플레이어 방향에 따라 뒤집기
+            if (vacuumObject != null && currentWeaponType == WeaponType.VacuumCleaner)
+            {
+                Vector3 vacuumScale = vacuumObject.transform.localScale;
+                vacuumScale.x = h > 0f ? Mathf.Abs(vacuumScale.x) : -Mathf.Abs(vacuumScale.x);
+                vacuumObject.transform.localScale = vacuumScale;
+
+                // m_ShootPos가 부모가 아니라면 위치도 조정해야 합니다.
+                // vacuumObject.transform.position = m_ShootPos.position;
+            }
         }
     }
 
@@ -860,18 +856,16 @@ public class Player : MonoBehaviour
         {
             TakeDamage(30);
         }
-        // 다른 플레이어 콜라이더 감지 로직 개선: reviveDetectionTrigger로 감지
-        else if (coll == otherPlayer?.reviveDetectionTrigger) // 다른 플레이어의 부활 감지 트리거와 겹칠 때
+        else if (coll == otherPlayer?.reviveDetectionTrigger)
         {
-            // 이 플레이어가 죽은 상태일 때만 다른 플레이어가 나를 부활시키러 온 것으로 간주
             if (isDead)
             {
                 isOverlappingWithOther = true;
                 Debug.Log($"[{playerType}] 다른 플레이어({otherPlayer.playerType})의 reviveDetectionTrigger가 나({playerType})를 감지! isOverlappingWithOther: {isOverlappingWithOther}");
                 if (reviveImage != null)
                 {
-                    reviveImage.gameObject.SetActive(true); // 부활 UI 활성화
-                    reviveBar.fillAmount = reviveProgress / reviveRequired; // 현재 진행도 표시
+                    reviveImage.gameObject.SetActive(true);
+                    reviveBar.fillAmount = reviveProgress / reviveRequired;
                 }
             }
         }
@@ -885,7 +879,6 @@ public class Player : MonoBehaviour
             if (coll.CompareTag("BlockVine"))
             {
                 Destroy(coll.gameObject, 0.2f);
-                Debug.Log($"[{playerType}] 카타나로 BlockVine 파괴 시도.");
             }
         }
         else if (coll.CompareTag("Tentacle"))
@@ -898,29 +891,25 @@ public class Player : MonoBehaviour
             isboom = true;
             Debug.Log($"[{playerType}] Boom과 충돌! isboom: {isboom}");
         }
-
     }
 
     private void OnTriggerExit2D(Collider2D coll)
     {
         Debug.Log($"[{playerType}] OnTriggerExit2D 진입: {coll.gameObject.name}, Tag: {coll.tag}");
 
-        // 다른 플레이어 콜라이더 감지 로직 개선: reviveDetectionTrigger로 감지
         if (coll == otherPlayer?.reviveDetectionTrigger)
         {
-            // 다른 플레이어의 부활 감지 트리거에서 벗어날 때
             isOverlappingWithOther = false;
             reviveProgress = 0f;
             if (reviveBar != null)
                 reviveBar.fillAmount = 0f;
             if (reviveImage != null)
-                reviveImage.gameObject.SetActive(false); // 벗어나면 부활 UI 비활성화
+                reviveImage.gameObject.SetActive(false);
             Debug.Log($"[{playerType}] 다른 플레이어({otherPlayer.playerType})의 reviveDetectionTrigger에서 벗어남. isOverlappingWithOther: {isOverlappingWithOther}");
         }
         else if (coll.CompareTag("JumpBoost"))
         {
             m_JumpForce -= 5.0f;
-            Debug.Log($"[{playerType}] JumpBoost 효과 종료. 점프력: {m_JumpForce}");
         }
     }
 
@@ -935,35 +924,95 @@ public class Player : MonoBehaviour
         else if (coll.CompareTag("MiddleBoss"))
         {
             TakeDamage(1);
-            isDoubleJumpAvailable = true; // 중간 보스와 충돌 시 더블 점프 가능
+            isDoubleJumpAvailable = true;
             Debug.Log($"[{playerType}] MiddleBoss와 충돌.");
+        }
+        // Vacuum Cleaner 흡수 로직 (Player 스크립트에서 직접 처리)
+        // Vacuum Cleaner 흡수 로직
+        else if (currentWeaponType == WeaponType.VacuumCleaner && vacuumObject != null && vacuumObject.activeSelf)
+        {
+            if (((1 << coll.gameObject.layer) & smallMonsterLayer) != 0)
+            {
+                if (coll.CompareTag("SmallMonster"))
+                {
+                    Rigidbody2D monsterRb = coll.GetComponent<Rigidbody2D>();
+                    if (monsterRb != null)
+                    {
+                        // 플레이어의 ShootPos 방향으로 끌어당김
+                        Vector2 directionToPlayer = (m_ShootPos.position - coll.transform.position).normalized;
+                        // 적용될 힘의 크기 계산
+                        Vector2 forceToApply = directionToPlayer * suckForce * Time.deltaTime; // Time.deltaTime을 곱하는 이유 확인
+
+                        monsterRb.AddForce(forceToApply, ForceMode2D.Force);
+
+                        // --- 디버그 로그 추가 ---
+                        Debug.Log($"[Vacuum] 몬스터({coll.gameObject.name}) 감지됨.");
+                        Debug.Log($"[Vacuum] ShootPos: {m_ShootPos.position}, 몬스터 위치: {coll.transform.position}");
+                        Debug.Log($"[Vacuum] 흡입 방향: {directionToPlayer}, 적용 힘: {forceToApply}");
+                        Debug.Log($"[Vacuum] 몬스터 질량: {monsterRb.mass}, 현재 속도: {monsterRb.linearVelocity}");
+                        // --------------------------
+
+                        // 특정 거리 안에 들어오면 소멸
+                        if (Vector2.Distance(m_ShootPos.position, coll.transform.position) < consumeDistance)
+                        {
+                            Destroy(coll.gameObject);
+                            Debug.Log($"[Vacuum] 몬스터({coll.gameObject.name}) 흡수됨. 소멸 거리({consumeDistance}) 도달.");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"[Vacuum] 몬스터 ({coll.gameObject.name})에 Rigidbody2D 컴포넌트가 없습니다!");
+                    }
+                }
+            }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
-        // Debug.Log($"[{playerType}] OnCollisionEnter2D: {coll.gameObject.name}");
+
     }
 
     private void OnCollisionStay2D(Collision2D coll)
     {
-        // Debug.Log($"[{playerType}] OnCollisionStay2D: {coll.gameObject.name}");
+
     }
 
     private void OnCollisionExit2D(Collision2D coll)
     {
-        // Debug.Log($"[{playerType}] OnCollisionExit2D: {coll.gameObject.name}");
+
     }
 
 #if UNITY_EDITOR
+    // 에디터에서 흡수 범위를 시각적으로 표시
     void OnDrawGizmosSelected()
     {
         if (m_ShootPos != null && currentWeaponType == WeaponType.VacuumCleaner)
         {
+            // Gizmo는 이제 vacuumObject의 콜라이더 크기에 맞춰 그리는 것이 좋습니다.
+            // 하지만 여전히 suckRadius를 변수로 가지고 있으니 이를 활용할 수도 있습니다.
             Gizmos.color = new Color(0f, 0.5f, 1f, 0.3f);
-            Gizmos.DrawWireSphere(m_ShootPos.position, suckRadius);
-            Gizmos.color = new Color(0f, 0.5f, 1f, 0.1f);
-            Gizmos.DrawSphere(m_ShootPos.position, suckRadius);
+            Gizmos.DrawWireSphere(m_ShootPos.position, suckRadius); // 기존 suckRadius Gizmo
+
+            // VacuumObject의 콜라이더가 있다면 그 콜라이더 크기에 맞게 그릴 수도 있습니다.
+            if (vacuumObject != null)
+            {
+                Collider2D collider = vacuumObject.GetComponent<Collider2D>();
+                if (collider != null)
+                {
+                    Gizmos.color = Color.green; // VacuumObject 콜라이더를 녹색으로 표시
+                    if (collider is CircleCollider2D circleCollider)
+                    {
+                        // VacuumObject의 월드 포지션과 콜라이더 오프셋을 고려
+                        Gizmos.DrawWireSphere(vacuumObject.transform.position + (Vector3)circleCollider.offset, circleCollider.radius);
+                    }
+                    else if (collider is BoxCollider2D boxCollider)
+                    {
+                        // VacuumObject의 월드 포지션과 콜라이더 오프셋을 고려
+                        Gizmos.DrawWireCube(vacuumObject.transform.position + (Vector3)boxCollider.offset, boxCollider.size);
+                    }
+                }
+            }
         }
     }
 #endif
