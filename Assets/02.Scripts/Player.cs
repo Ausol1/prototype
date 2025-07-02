@@ -105,6 +105,7 @@ public class Player : MonoBehaviour
     // --- 부활 관련 변수 추가 ---
     public bool isDead = false;
     private bool isBeingRevived = false;
+    bool isboom = false;
     private float reviveProgress = 0f;
     public float reviveRequired = 10f;
     private Player otherPlayer;
@@ -117,7 +118,7 @@ public class Player : MonoBehaviour
 
     // Collider 참조
     public Collider2D mainPlayerCollider;
-    public Collider2D reviveDetectionTrigger;
+    public Collider2D reviveDetectionTrigger; // 부활 감지용 트리거
 
     //---애니메이션 관련 변수
     SpriteRenderer SpriteRenderer;
@@ -138,7 +139,7 @@ public class Player : MonoBehaviour
 
         if (mainPlayerCollider == null)
         {
-            Debug.LogError("mainPlayerCollider가 할당되지 않았습니다. Player GameObject의 주 Collider를 여기에 드래그해주세요.");
+            Debug.LogError($"[{playerType}] mainPlayerCollider가 할당되지 않았습니다. Player GameObject의 주 Collider를 여기에 드래그해주세요.");
             mainPlayerCollider = GetComponent<Collider2D>();
         }
         foreach (var otherPlayerComp in FindObjectsByType<Player>(FindObjectsInactive.Include, FindObjectsSortMode.None))
@@ -147,15 +148,19 @@ public class Player : MonoBehaviour
 
             if (mainPlayerCollider != null && otherPlayerComp.mainPlayerCollider != null)
             {
+                // 두 플레이어의 메인 콜라이더는 서로 무시
                 Physics2D.IgnoreCollision(mainPlayerCollider, otherPlayerComp.mainPlayerCollider, true);
+                Debug.Log($"[{playerType}] {otherPlayerComp.playerType}와(과) 메인 콜라이더 충돌 무시 설정.");
             }
             otherPlayer = otherPlayerComp;
+            Debug.Log($"[{playerType}] 다른 플레이어 ({otherPlayer.playerType}) 참조 설정 완료.");
         }
 
         if (reviveBar != null)
         {
             reviveBar.fillAmount = 0f;
             reviveImage.gameObject.SetActive(false);
+            Debug.Log($"[{playerType}] reviveBar 및 reviveImage 초기화 완료.");
         }
         if (m_ReloadImage != null)
         {
@@ -171,6 +176,7 @@ public class Player : MonoBehaviour
         if (katanaAttackCollider != null)
         {
             katanaAttackCollider.enabled = false;
+            Debug.Log($"[{playerType}] KatanaAttackCollider 초기 비활성화.");
         }
 
         if (playerType == PlayerType.Player1)
@@ -189,8 +195,10 @@ public class Player : MonoBehaviour
             shootKey = KeyCode.Return;
             reloadKey = KeyCode.RightControl;
         }
+        Debug.Log($"[{playerType}] 입력 키 설정 완료.");
 
         InitializeWeaponStats();
+        Debug.Log($"[{playerType}] Start 함수 종료.");
     }
 
     void InitializeWeaponStats()
@@ -257,42 +265,55 @@ public class Player : MonoBehaviour
             katanaAttackCollider.enabled = false;
         }
         UpdateBulletUI();
+        Debug.Log($"[{playerType}] 무기 스탯 초기화 완료. 현재 무기: {currentWeaponType}");
     }
 
     void Update()
     {
+        // **이전 답변에서 제시했던 중요한 수정입니다: isDead 상태일 때 reviveImage를 비활성화하는 불필요한 코드 이동**
+        // Update() 함수 시작 부분에서 reviveImage를 무조건 false로 만드는 코드가 부활 UI를 꺼버리는 원인이었습니다.
+        // 이 코드를 isDead 상태일 때만 처리하도록 옮깁니다.
+        // 기존: if (reviveImage != null) reviveImage.gameObject.SetActive(false);
+        // 이 코드는 아래 isDead 블록 내에서만 필요합니다.
+
         if (isDead)
         {
             if (isOverlappingWithOther && otherPlayer != null && !otherPlayer.isDead)
             {
-                if (reviveImage != null)
+                if (reviveImage != null && !reviveImage.gameObject.activeSelf) // 이미 활성화되어 있지 않을 때만 로그
+                {
                     reviveImage.gameObject.SetActive(true);
+                    Debug.Log($"[{playerType}] 죽은 플레이어 ({playerType}) 근처에 다른 플레이어({otherPlayer.playerType}) 진입, reviveImage 활성화 시도. isOverlappingWithOther: {isOverlappingWithOther}");
+                }
 
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     reviveProgress += 1f;
                     if (reviveBar != null)
                         reviveBar.fillAmount = reviveProgress / reviveRequired;
+                    Debug.Log($"[{playerType}] Space bar pressed. reviveProgress: {reviveProgress}/{reviveRequired}");
                 }
                 if (reviveProgress >= reviveRequired)
                 {
                     Revive();
+                    Debug.Log($"[{playerType}] 부활 진행도 충족. Revive() 호출됨.");
                 }
             }
-            else
+            else // 다른 플레이어가 근처에 없거나, 다른 플레이어가 죽었을 때
             {
-                if (reviveImage != null)
+                if (reviveImage != null && reviveImage.gameObject.activeSelf) // 활성화되어 있을 때만 비활성화
                 {
                     reviveImage.gameObject.SetActive(false);
                     reviveBar.fillAmount = 0f;
+                    Debug.Log($"[{playerType}] 다른 플레이어 ({otherPlayer?.playerType})가 근처에 없거나 죽었음. reviveImage 비활성화.");
                 }
             }
+
+            // 죽은 상태에서는 무기 및 이동 관련 로직을 스킵
             return;
         }
 
-        if (reviveImage != null)
-            reviveImage.gameObject.SetActive(false);
-
+        // isDead가 false일 때만 실행되는 부분
         if (currentWeaponType != WeaponType.Katana)
         {
             if (isReloading && m_ReloadImage != null)
@@ -317,10 +338,9 @@ public class Player : MonoBehaviour
             }
         }
 
-
         if (vacuumImage != null)
         {
-            if (currentWeaponType == WeaponType.VacuumCleaner && !isDead)
+            if (currentWeaponType == WeaponType.VacuumCleaner && !isDead) // isDead 조건은 위에 이미 처리됨. 여기서는 안전장치
             {
                 bool isActive = Input.GetKey(shootKey);
                 vacuumImage.gameObject.SetActive(isActive);
@@ -558,7 +578,7 @@ public class Player : MonoBehaviour
         if (katanaAttackCollider != null)
         {
             katanaAttackCollider.enabled = true;
-            // Debug.Log("카타나 공격 콜라이더 활성화!");
+            Debug.Log($"[{playerType}] 카타나 공격 콜라이더 활성화!");
         }
 
         // 콜라이더 활성화를 원하는 시간만큼 대기
@@ -568,7 +588,7 @@ public class Player : MonoBehaviour
         if (katanaAttackCollider != null)
         {
             katanaAttackCollider.enabled = false;
-            // Debug.Log("카타나 공격 콜라이더 비활성화!");
+            Debug.Log($"[{playerType}] 카타나 공격 콜라이더 비활성화!");
         }
         isAttacking = false;
     }
@@ -583,7 +603,7 @@ public class Player : MonoBehaviour
             isReloading = true;
             reloadTimer = 0.0f;
             Invoke("ReloadComplete", currentReloadTime);
-            Debug.Log("재장전 시작!");
+            Debug.Log($"[{playerType}] 재장전 시작!");
             if (m_ReloadImage != null)
             {
                 m_ReloadImage.gameObject.SetActive(true);
@@ -595,7 +615,7 @@ public class Player : MonoBehaviour
     {
         currentBulletCount = currentMaxBulletCount;
         isReloading = false;
-        Debug.Log("재장전 완료!");
+        Debug.Log($"[{playerType}] 재장전 완료!");
         if (m_ReloadImage != null)
         {
             m_ReloadImage.gameObject.SetActive(false);
@@ -607,6 +627,7 @@ public class Player : MonoBehaviour
 
     void Die()
     {
+        Debug.Log($"[{playerType}] Die() 함수 호출됨. 현재 HP: {m_CurHp}");
         isDead = true;
         m_CurHp = 0.0f;
         if (Anim != null)
@@ -620,40 +641,78 @@ public class Player : MonoBehaviour
 
         rb.linearVelocity = Vector2.zero;
         rb.angularVelocity = 0f;
-        rb.bodyType = RigidbodyType2D.Kinematic;
-        rb.simulated = false;
+        rb.bodyType = RigidbodyType2D.Kinematic; // 중력 영향만 끄고, 시뮬레이션은 유지
+        // rb.simulated = false; // <<< 이 줄을 주석 처리했습니다. (이전 답변에서 제안한 가장 유력한 원인)
+        Debug.Log($"[{playerType}] Rigidbody2D bodyType을 Kinematic으로 설정. Simulated 상태: {rb.simulated}");
+
+        // 메인 플레이어 콜라이더 비활성화 (다른 물체와의 충돌 방지)
+        if (mainPlayerCollider != null)
+        {
+            mainPlayerCollider.enabled = false;
+            Debug.Log($"[{playerType}] mainPlayerCollider 비활성화.");
+        }
+        // 부활 감지 트리거는 계속 활성화되어야 함
+        if (reviveDetectionTrigger != null)
+        {
+            reviveDetectionTrigger.enabled = true; // 혹시 모르니 명시적으로 활성화
+            Debug.Log($"[{playerType}] reviveDetectionTrigger 활성화 상태: {reviveDetectionTrigger.enabled}");
+        }
+
 
         if (GameMgr.Inst != null)
             GameMgr.Inst.OnPlayerDead();
 
         // 깜빡임 코루틴 시작
         if (blinkCoroutine != null)
+        {
             StopCoroutine(blinkCoroutine);
+            Debug.Log($"[{playerType}] 기존 blinkCoroutine 중지.");
+        }
         blinkCoroutine = StartCoroutine(BlinkOnDeath());
+        Debug.Log($"[{playerType}] BlinkOnDeath 코루틴 시작됨.");
     }
 
     void Revive()
     {
+        Debug.Log($"[{playerType}] Revive() 함수 호출됨. 현재 isDead: {isDead}");
         isDead = false;
         m_CurHp = m_MaxHp * 0.5f;
         reviveProgress = 0f;
+        isboom = false; // isboom도 리셋
+        Debug.Log($"[{playerType}] isboom 리셋. isboom: {isboom}");
+
         if (reviveBar != null)
             reviveBar.fillAmount = 0f;
         if (reviveImage != null)
             reviveImage.gameObject.SetActive(false);
         if (m_Gun != null) m_Gun.SetActive(true);
 
-        rb.bodyType = RigidbodyType2D.Dynamic;
-        rb.simulated = true;
+        rb.bodyType = RigidbodyType2D.Dynamic; // 원래대로 Dynamic으로 복구
+        rb.simulated = true; // 시뮬레이션 다시 활성화 (이 줄은 굳이 없어도 Dynamic으로 바뀌면 자동으로 true가 됨)
+        Debug.Log($"[{playerType}] Rigidbody2D bodyType을 Dynamic으로 설정. Simulated 상태: {rb.simulated}");
+
+        // 메인 플레이어 콜라이더 다시 활성화
+        if (mainPlayerCollider != null)
+        {
+            mainPlayerCollider.enabled = true;
+            Debug.Log($"[{playerType}] mainPlayerCollider 다시 활성화.");
+        }
+        // 부활 감지 트리거는 계속 활성화되어 있어야 하므로 특별히 비활성화할 필요 없음.
 
         // 깜빡임 코루틴 정지 및 알파 복구
         if (blinkCoroutine != null)
+        {
             StopCoroutine(blinkCoroutine);
+            Debug.Log($"[{playerType}] blinkCoroutine 정지.");
+        }
         SetSpriteAlpha(1f);
+        Debug.Log($"[{playerType}] 스프라이트 알파 1로 복구.");
 
         if (GameMgr.Inst != null)
             GameMgr.Inst.OnPlayerRevive();
+        Debug.Log($"[{playerType}] Revive() 함수 종료. isDead: {isDead}, m_CurHp: {m_CurHp}");
     }
+
     void SetSpriteAlpha(float alpha)
     {
         if (SpriteRenderer != null)
@@ -661,12 +720,18 @@ public class Player : MonoBehaviour
             Color c = SpriteRenderer.color;
             c.a = alpha;
             SpriteRenderer.color = c;
+            // Debug.Log($"[{playerType}] 스프라이트 알파 설정: {alpha}"); // 이 로그는 너무 자주 뜨므로 필요할 때만 활성화
+        }
+        else
+        {
+            Debug.LogError($"[{playerType}] SpriteRenderer가 null입니다! 알파 값을 설정할 수 없습니다.");
         }
     }
 
     // 깜빡임 코루틴
     IEnumerator BlinkOnDeath()
     {
+        Debug.Log($"[{playerType}] BlinkOnDeath 코루틴 시작. isDead: {isDead}");
         while (isDead)
         {
             SetSpriteAlpha(0.3f);
@@ -674,6 +739,7 @@ public class Player : MonoBehaviour
             SetSpriteAlpha(1f);
             yield return new WaitForSeconds(0.15f);
         }
+        Debug.Log($"[{playerType}] BlinkOnDeath 코루틴 종료. isDead: {isDead}");
     }
 
     void Move()
@@ -695,11 +761,13 @@ public class Player : MonoBehaviour
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, m_JumpForce);
                 isDoubleJumpAvailable = true;
+                Debug.Log($"[{playerType}] 첫 점프. isGrounded: {isGrounded}");
             }
             else if (isDoubleJumpAvailable)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, m_JumpForce);
                 isDoubleJumpAvailable = false;
+                Debug.Log($"[{playerType}] 더블 점프. isDoubleJumpAvailable: {isDoubleJumpAvailable}");
             }
         }
     }
@@ -751,6 +819,7 @@ public class Player : MonoBehaviour
         if (m_CurHp < 0.0f)
             m_CurHp = 0.0f;
 
+        Debug.Log($"[{playerType}] 데미지 {a_Value} 받음. 현재 HP: {m_CurHp}");
         ApplyKnockback();
 
         if (m_CurHp <= 0.0f)
@@ -767,6 +836,7 @@ public class Player : MonoBehaviour
         Vector2 knockback = new Vector2(dir * knockbackForce, knockbackUpForce);
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(knockback, ForceMode2D.Impulse);
+        Debug.Log($"[{playerType}] 넉백 적용. 방향: {dir}");
     }
 
     public void ChangeWeapon(WeaponType newWeapon)
@@ -774,11 +844,13 @@ public class Player : MonoBehaviour
         currentWeaponType = newWeapon;
         CancelInvoke("ReloadComplete");
         InitializeWeaponStats();
-        Debug.Log($"무기 변경: {newWeapon}");
+        Debug.Log($"[{playerType}] 무기 변경: {newWeapon}");
     }
 
     void OnTriggerEnter2D(Collider2D coll)
     {
+        Debug.Log($"[{playerType}] OnTriggerEnter2D 진입: {coll.gameObject.name}, Tag: {coll.tag}");
+
         if (coll.CompareTag("EnemyBullet"))
         {
             TakeDamage(10);
@@ -788,59 +860,67 @@ public class Player : MonoBehaviour
         {
             TakeDamage(30);
         }
-        else if (coll.CompareTag("Player1") && coll.gameObject != this.gameObject)
+        // 다른 플레이어 콜라이더 감지 로직 개선: reviveDetectionTrigger로 감지
+        else if (coll == otherPlayer?.reviveDetectionTrigger) // 다른 플레이어의 부활 감지 트리거와 겹칠 때
         {
-            if (coll == otherPlayer?.mainPlayerCollider)
+            // 이 플레이어가 죽은 상태일 때만 다른 플레이어가 나를 부활시키러 온 것으로 간주
+            if (isDead)
             {
                 isOverlappingWithOther = true;
+                Debug.Log($"[{playerType}] 다른 플레이어({otherPlayer.playerType})의 reviveDetectionTrigger가 나({playerType})를 감지! isOverlappingWithOther: {isOverlappingWithOther}");
+                if (reviveImage != null)
+                {
+                    reviveImage.gameObject.SetActive(true); // 부활 UI 활성화
+                    reviveBar.fillAmount = reviveProgress / reviveRequired; // 현재 진행도 표시
+                }
             }
         }
-        else if (coll.CompareTag("Player2") && coll.gameObject != this.gameObject)
-        {
-            if (coll == otherPlayer?.mainPlayerCollider)
-            {
-                isOverlappingWithOther = true;
-            }
-        }
-        if (coll.CompareTag("JumpBoost"))
+        else if (coll.CompareTag("JumpBoost"))
         {
             m_JumpForce += 5.0f;
+            Debug.Log($"[{playerType}] JumpBoost 획득. 점프력: {m_JumpForce}");
         }
-
-        if (currentWeaponType == WeaponType.Katana && isAttacking)
+        else if (currentWeaponType == WeaponType.Katana && isAttacking)
         {
             if (coll.CompareTag("BlockVine"))
             {
-                Destroy(coll.gameObject,0.2f);
+                Destroy(coll.gameObject, 0.2f);
+                Debug.Log($"[{playerType}] 카타나로 BlockVine 파괴 시도.");
             }
         }
+        else if (coll.CompareTag("Tentacle"))
+        {
+            TakeDamage(20);
+        }
+        else if (coll.CompareTag("Boom") && !isboom)
+        {
+            TakeDamage(30);
+            isboom = true;
+            Debug.Log($"[{playerType}] Boom과 충돌! isboom: {isboom}");
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D coll)
     {
-        if (coll.CompareTag("Player1") && coll.gameObject != this.gameObject)
+        Debug.Log($"[{playerType}] OnTriggerExit2D 진입: {coll.gameObject.name}, Tag: {coll.tag}");
+
+        // 다른 플레이어 콜라이더 감지 로직 개선: reviveDetectionTrigger로 감지
+        if (coll == otherPlayer?.reviveDetectionTrigger)
         {
-            if (coll == otherPlayer?.mainPlayerCollider)
-            {
-                isOverlappingWithOther = false;
-                reviveProgress = 0f;
-                if (reviveBar != null)
-                    reviveBar.fillAmount = 0f;
-            }
+            // 다른 플레이어의 부활 감지 트리거에서 벗어날 때
+            isOverlappingWithOther = false;
+            reviveProgress = 0f;
+            if (reviveBar != null)
+                reviveBar.fillAmount = 0f;
+            if (reviveImage != null)
+                reviveImage.gameObject.SetActive(false); // 벗어나면 부활 UI 비활성화
+            Debug.Log($"[{playerType}] 다른 플레이어({otherPlayer.playerType})의 reviveDetectionTrigger에서 벗어남. isOverlappingWithOther: {isOverlappingWithOther}");
         }
-        if (coll.CompareTag("Player2") && coll.gameObject != this.gameObject)
-        {
-            if (coll == otherPlayer?.mainPlayerCollider)
-            {
-                isOverlappingWithOther = false;
-                reviveProgress = 0f;
-                if (reviveBar != null)
-                    reviveBar.fillAmount = 0f;
-            }
-        }
-        if (coll.CompareTag("JumpBoost"))
+        else if (coll.CompareTag("JumpBoost"))
         {
             m_JumpForce -= 5.0f;
+            Debug.Log($"[{playerType}] JumpBoost 효과 종료. 점프력: {m_JumpForce}");
         }
     }
 
@@ -850,19 +930,29 @@ public class Player : MonoBehaviour
         {
             TakeDamage(10);
             m_LavaCool = 0.25f;
+            Debug.Log($"[{playerType}] 용암에 의해 데미지 받음.");
+        }
+        else if (coll.CompareTag("MiddleBoss"))
+        {
+            TakeDamage(1);
+            isDoubleJumpAvailable = true; // 중간 보스와 충돌 시 더블 점프 가능
+            Debug.Log($"[{playerType}] MiddleBoss와 충돌.");
         }
     }
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
+        // Debug.Log($"[{playerType}] OnCollisionEnter2D: {coll.gameObject.name}");
     }
 
     private void OnCollisionStay2D(Collision2D coll)
     {
+        // Debug.Log($"[{playerType}] OnCollisionStay2D: {coll.gameObject.name}");
     }
 
     private void OnCollisionExit2D(Collision2D coll)
     {
+        // Debug.Log($"[{playerType}] OnCollisionExit2D: {coll.gameObject.name}");
     }
 
 #if UNITY_EDITOR

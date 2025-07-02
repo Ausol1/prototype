@@ -20,6 +20,8 @@ TagManager:
   - Sawtooth
   - Stone
   - BlockVine
+  - Boom
+  - Tentacle
   layers:
   - Default
   - TransparentFX

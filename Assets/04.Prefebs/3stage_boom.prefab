@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4063546797462080771}
   m_Layer: 0
   m_Name: 3stage_boom
-  m_TagString: Untagged
+  m_TagString: Boom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

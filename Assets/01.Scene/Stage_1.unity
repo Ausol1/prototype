@@ -9336,6 +9336,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   vacuumImage: {fileID: 0}
+  sawtoothBulletPrefab: {fileID: 0}
+  sawtoothGunShootForce: 12
+  sawtoothGunFireRate: 0.7
+  sawtoothGunMaxCount: 5
+  sawtoothGunReloadTime: 1.8
+  katanaAttackCooldown: 0.7
+  katanaColliderActiveDuration: 0.2
+  katanaAttackCollider: {fileID: 0}
   currentWeaponType: 0
   BulletCount: {fileID: 1115336899}
   isDead: 0
@@ -12625,6 +12633,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   vacuumImage: {fileID: 0}
+  sawtoothBulletPrefab: {fileID: 0}
+  sawtoothGunShootForce: 12
+  sawtoothGunFireRate: 0.7
+  sawtoothGunMaxCount: 5
+  sawtoothGunReloadTime: 1.8
+  katanaAttackCooldown: 0.7
+  katanaColliderActiveDuration: 0.2
+  katanaAttackCollider: {fileID: 0}
   currentWeaponType: 0
   BulletCount: {fileID: 25522005}
   isDead: 0

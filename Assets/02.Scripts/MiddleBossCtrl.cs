@@ -29,6 +29,13 @@ public class MiddleBossCtrl : MonoBehaviour
     public float boomSpawnInterval = 3.0f;
     private float boomTimer = 0f;
 
+    // --- 3스테이지 팁 패널 관련 변수 ---
+    public GameObject stage3TipPanel; // 인스펙터에서 팁 패널 연결
+    private bool isStage3TipActive = false;
+
+    // 씬 최초 진입 체크용(정적 변수)
+    private static bool isFirstLoad = true;
+
     void Start()
     {
         player1 = GameObject.Find("Player1");
@@ -42,10 +49,31 @@ public class MiddleBossCtrl : MonoBehaviour
                 Debug.LogError("UI Canvas를 찾을 수 없습니다. tentacleWarningPrefab이 올바르게 표시되지 않을 수 있습니다.");
             }
         }
+
+        // 3스테이지 최초 진입 시에만 팁 패널 보여주기
+        if (isFirstLoad && stage3TipPanel != null)
+        {
+            stage3TipPanel.SetActive(true);
+            Time.timeScale = 0.0f;
+            isStage3TipActive = true;
+            isFirstLoad = false;
+        }
     }
 
     void Update()
     {
+        // 팁 패널이 활성화되어 있으면 스페이스바로 끄기
+        if (isStage3TipActive && stage3TipPanel != null && stage3TipPanel.activeSelf)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                stage3TipPanel.SetActive(false);
+                Time.timeScale = 1.0f;
+                isStage3TipActive = false;
+            }
+            return; // 팁 패널이 켜져있으면 나머지 Update 로직 실행 안 함
+        }
+
         if (m_HpBar != null)
         {
             m_HpBar.fillAmount = m_CurBossHp / m_MaxBossHp;
