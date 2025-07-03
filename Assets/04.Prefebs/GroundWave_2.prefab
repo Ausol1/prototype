@@ -52,7 +52,7 @@ MonoBehaviour:
   - {fileID: 7096795623003853161}
   - {fileID: 7614226474249512808}
   VinePrefab: {fileID: 6534380646290613371, guid: 0563f10e9cc7f46409d75bb760cc7822, type: 3}
-  TrapPrefab: {fileID: 7901899639354881062, guid: c324ddb5a187bf544bf0d703610fed09, type: 3}
+  TrapPrefab: {fileID: 1259594590585263000, guid: 7a62bf7cb79b64340af150094702007b, type: 3}
 --- !u!1001 &1296513895206742927
 PrefabInstance:
   m_ObjectHideFlags: 0

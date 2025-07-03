@@ -193,6 +193,6 @@ public class MiddleBossCtrl : MonoBehaviour
     }
     void Clear()
     {
-        SceneManager.LoadScene("EndingScene"); // ClearScene으로 이동
+        SceneManager.LoadScene("Stage_4"); // ClearScene으로 이동
     }
 }

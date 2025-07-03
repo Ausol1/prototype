@@ -60,6 +60,7 @@ public class EnemyController : MonoBehaviour
     {
         UpdateTarget();
         HandleMark();
+        FacePlayer();
         MoveAndTrack();
         HandleShooting();
         UpdateHpBar();
@@ -96,7 +97,11 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
-
+    private void FacePlayer()
+    {
+        if (target == null || spriteRenderer == null) return;
+        spriteRenderer.flipX = (target.position.x < transform.position.x);
+    }
     private void MoveAndTrack()
     {
         if (target == null) return;
@@ -133,6 +138,7 @@ public class EnemyController : MonoBehaviour
     private void HandleShooting()
     {
         if (target == null) return;
+        if (isMarked) return; // 마크 상태면 총알을 쏘지 않음
 
         float dx = Mathf.Abs(target.position.x - transform.position.x);
         if (dx <= attackRange)

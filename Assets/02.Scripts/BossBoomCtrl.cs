@@ -6,6 +6,7 @@ public class BossBoomCtrl : MonoBehaviour
     public float riseSpeed = 4f;
     private float boomTime;
     private bool isExploding = false;
+    private bool isboom = false;
     private Animator anim;
     private bool explodedByPlayer = false;
     private bool boomAnimStarted = false;
@@ -13,6 +14,7 @@ public class BossBoomCtrl : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D boxCollider;
     private Sprite lastSprite;
+    public Player player;
 
     void Awake()
     {
@@ -22,6 +24,7 @@ public class BossBoomCtrl : MonoBehaviour
 
     void Start()
     {
+        
         anim = GetComponent<Animator>();
         boomTime = Random.Range(4f, 5f);
         if (anim != null)
@@ -84,10 +87,16 @@ public class BossBoomCtrl : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (!isExploding && (coll.CompareTag("Player1") || coll.CompareTag("Player2")))
+        if (!isExploding && (coll.CompareTag("Player1") || coll.CompareTag("Player2"))&&!isboom)
         {
             explodedByPlayer = true;
             Explode();
+            player = coll.GetComponent<Player>();
+            if (player != null)
+            {
+                player.TakeDamage(20f); 
+            }
+            isboom = true; // 한번만 폭발하도록 설정
         }
     }
 }

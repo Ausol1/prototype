@@ -110,7 +110,6 @@ public class Player : MonoBehaviour
     // --- 부활 관련 변수 추가 ---
     public bool isDead = false;
     private bool isBeingRevived = false;
-    bool isboom = false;
     private float reviveProgress = 0f;
     public float reviveRequired = 10f;
     private Player otherPlayer;
@@ -665,8 +664,7 @@ public class Player : MonoBehaviour
         isDead = false;
         m_CurHp = m_MaxHp * 0.5f;
         reviveProgress = 0f;
-        isboom = false;
-        Debug.Log($"[{playerType}] isboom 리셋. isboom: {isboom}");
+
 
         if (reviveBar != null)
             reviveBar.fillAmount = 0f;
@@ -808,7 +806,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float a_Value)
     {
-        if (m_CurHp <= 0.0f)
+        if (m_CurHp <= 0.0f || m_DamageCool > 0f)
             return;
 
         m_CurHp -= a_Value;
@@ -817,6 +815,8 @@ public class Player : MonoBehaviour
 
         Debug.Log($"[{playerType}] 데미지 {a_Value} 받음. 현재 HP: {m_CurHp}");
         ApplyKnockback();
+
+        m_DamageCool = 2.0f; // 2초 쿨타임 설정
 
         if (m_CurHp <= 0.0f)
         {
@@ -881,16 +881,6 @@ public class Player : MonoBehaviour
                 Destroy(coll.gameObject, 0.2f);
             }
         }
-        else if (coll.CompareTag("Tentacle"))
-        {
-            TakeDamage(20);
-        }
-        else if (coll.CompareTag("Boom") && !isboom)
-        {
-            TakeDamage(30);
-            isboom = true;
-            Debug.Log($"[{playerType}] Boom과 충돌! isboom: {isboom}");
-        }
     }
 
     private void OnTriggerExit2D(Collider2D coll)
@@ -923,7 +913,7 @@ public class Player : MonoBehaviour
         }
         else if (coll.CompareTag("MiddleBoss"))
         {
-            TakeDamage(1);
+            TakeDamage(50);
             isDoubleJumpAvailable = true;
             Debug.Log($"[{playerType}] MiddleBoss와 충돌.");
         }
@@ -982,38 +972,4 @@ public class Player : MonoBehaviour
     {
 
     }
-
-#if UNITY_EDITOR
-    // 에디터에서 흡수 범위를 시각적으로 표시
-    void OnDrawGizmosSelected()
-    {
-        if (m_ShootPos != null && currentWeaponType == WeaponType.VacuumCleaner)
-        {
-            // Gizmo는 이제 vacuumObject의 콜라이더 크기에 맞춰 그리는 것이 좋습니다.
-            // 하지만 여전히 suckRadius를 변수로 가지고 있으니 이를 활용할 수도 있습니다.
-            Gizmos.color = new Color(0f, 0.5f, 1f, 0.3f);
-            Gizmos.DrawWireSphere(m_ShootPos.position, suckRadius); // 기존 suckRadius Gizmo
-
-            // VacuumObject의 콜라이더가 있다면 그 콜라이더 크기에 맞게 그릴 수도 있습니다.
-            if (vacuumObject != null)
-            {
-                Collider2D collider = vacuumObject.GetComponent<Collider2D>();
-                if (collider != null)
-                {
-                    Gizmos.color = Color.green; // VacuumObject 콜라이더를 녹색으로 표시
-                    if (collider is CircleCollider2D circleCollider)
-                    {
-                        // VacuumObject의 월드 포지션과 콜라이더 오프셋을 고려
-                        Gizmos.DrawWireSphere(vacuumObject.transform.position + (Vector3)circleCollider.offset, circleCollider.radius);
-                    }
-                    else if (collider is BoxCollider2D boxCollider)
-                    {
-                        // VacuumObject의 월드 포지션과 콜라이더 오프셋을 고려
-                        Gizmos.DrawWireCube(vacuumObject.transform.position + (Vector3)boxCollider.offset, boxCollider.size);
-                    }
-                }
-            }
-        }
-    }
-#endif
 }

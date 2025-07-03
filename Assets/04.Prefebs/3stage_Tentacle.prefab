@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8821449985302611837}
   - component: {fileID: 4049172000276425010}
   - component: {fileID: 912491087447163528}
+  - component: {fileID: 4969202775596627163}
   m_Layer: 0
   m_Name: 3stage_Tentacle
   m_TagString: Tentacle
@@ -134,3 +135,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 32, y: 2.906137}
   m_EdgeRadius: 0
+--- !u!114 &4969202775596627163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3293147965881100941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d1c365099717e4e86888612b8c9579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

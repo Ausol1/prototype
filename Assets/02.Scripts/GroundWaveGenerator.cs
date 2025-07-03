@@ -40,12 +40,12 @@ public class GroundWaveGenerator : MonoBehaviour
     void SpawnGroundWave(float height)
     {
         // 두 종류 중 랜덤으로 프리팹 선택
-        GameObject prefab = (Random.value < 0.5f) ? GroundWavePrefabA : GroundWavePrefabB;
+        GameObject prefab = (Random.value < 0.4f) ? GroundWavePrefabA : GroundWavePrefabB;
         GameObject groundWave = Instantiate(prefab);
         groundWave.transform.position = new Vector3(0.0f, height, 0.0f);
 
         // 20% 확률 + y좌표 10f 이상일 때만 벽 생성
-        if (WallPrefab != null && height >= 10f && Random.value < 0.2f)
+        if (WallPrefab != null && height >= 10f && Random.value < 0.3f)
         {
             GameObject wall = Instantiate(WallPrefab);
             wall.transform.position = new Vector3(0.0f, height, 0.0f);
