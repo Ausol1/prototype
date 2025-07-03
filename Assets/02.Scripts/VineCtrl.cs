@@ -1,0 +1,40 @@
+using UnityEngine;
+
+public class VineCtrl : MonoBehaviour
+{
+    public Sprite cutVineSprite;         // Àß¸° µ¢±¼ ½ºÇÁ¶óÀÌÆ®
+    public Transform StonePos;           // ½ºÅæ »ý¼º À§Ä¡
+    public GameObject StonePrefab;       // »ý¼ºÇÒ ½ºÅæ ÇÁ¸®ÆÕ
+    private bool iscut = false; // µ¢±¼ÀÌ Àß·È´ÂÁö ¿©ºÎ
+
+    private SpriteRenderer spriteRenderer;
+
+    void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!iscut&&other.gameObject.CompareTag("Sawtooth"))
+        {
+            iscut = true; // µ¢±¼ÀÌ Àß·ÈÀ½À» Ç¥½Ã
+            // ½ºÇÁ¶óÀÌÆ® º¯°æ
+            if (cutVineSprite != null && spriteRenderer != null)
+            {
+                spriteRenderer.sprite = cutVineSprite;
+            }
+
+            // Stone »ý¼º
+            if (StonePrefab != null && StonePos != null)
+            {
+                Instantiate(StonePrefab, StonePos.position, Quaternion.identity);
+            }
+        }
+    }
+
+    void Update()
+    {
+
+    }
+}

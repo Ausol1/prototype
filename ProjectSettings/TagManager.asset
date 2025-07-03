@@ -16,6 +16,12 @@ TagManager:
   - Player1
   - Player2
   - JumpBoost
+  - MiddleBoss
+  - Sawtooth
+  - Stone
+  - BlockVine
+  - Boom
+  - Tentacle
   layers:
   - Default
   - TransparentFX
@@ -26,9 +32,9 @@ TagManager:
   - Ground
   - Player
   - Enemy
-  - 
-  - 
-  - 
+  - Vine
+  - SmallMonster
+  - Player_Dead
   - 
   - 
   - 
