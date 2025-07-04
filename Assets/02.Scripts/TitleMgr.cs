@@ -9,6 +9,7 @@ public class TitleMgr : MonoBehaviour
     public Button StartBtn;
     public Button GuideBtn;
     public Button ExitBtn;
+    public Button GuideBtn2;
     public GameObject GuidePanel;
     public Image FadeImage; // 검은색 이미지(알파 0)로 캔버스에 추가 필요
 
@@ -17,6 +18,7 @@ public class TitleMgr : MonoBehaviour
         StartBtn.onClick.AddListener(OnClickStartBtn);
         GuideBtn.onClick.AddListener(OnClickGuideBtn);
         ExitBtn.onClick.AddListener(OnClickExitBtn);
+        GuideBtn2.onClick.AddListener(OnClickGuidBtn2);
     }
 
     private void OnClickExitBtn()
@@ -27,6 +29,11 @@ public class TitleMgr : MonoBehaviour
     private void OnClickGuideBtn()
     {
         GuidePanel.SetActive(true);
+    }
+
+    void OnClickGuidBtn2()
+    {
+        GuidePanel.SetActive(false);
     }
 
     private void OnClickStartBtn()
