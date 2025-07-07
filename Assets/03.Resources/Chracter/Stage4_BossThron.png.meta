@@ -1,0 +1,483 @@
+fileFormatVersion: 2
+guid: 50e0a7fdb8f26c3439d6b1ad188b61fa
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2023158785354640742
+    second: Stage4_BossThron_0
+  - first:
+      213: 5280068939113588237
+    second: Stage4_BossThron_1
+  - first:
+      213: 6862785420016136358
+    second: Stage4_BossThron_2
+  - first:
+      213: -5869272333506833332
+    second: Stage4_BossThron_3
+  - first:
+      213: 6881802727158338029
+    second: Stage4_BossThron_4
+  - first:
+      213: 4300986240355147552
+    second: Stage4_BossThron_5
+  - first:
+      213: -7978444573229741476
+    second: Stage4_BossThron_6
+  - first:
+      213: 4782143017002416428
+    second: Stage4_BossThron_7
+  - first:
+      213: -5097687326259215993
+    second: Stage4_BossThron_8
+  - first:
+      213: -6320919207952562268
+    second: Stage4_BossThron_9
+  - first:
+      213: 7911013336224054814
+    second: Stage4_BossThron_10
+  - first:
+      213: -4954177102613377170
+    second: Stage4_BossThron_11
+  - first:
+      213: -2652697752224135006
+    second: Stage4_BossThron_12
+  - first:
+      213: 703490045491198807
+    second: Stage4_BossThron_13
+  - first:
+      213: -7916278499388295073
+    second: Stage4_BossThron_14
+  - first:
+      213: -3689571442234592254
+    second: Stage4_BossThron_15
+  - first:
+      213: -4431016891653983034
+    second: Stage4_BossThron_16
+  - first:
+      213: 8289702923033938474
+    second: Stage4_BossThron_17
+  - first:
+      213: -1449393370639998630
+    second: Stage4_BossThron_18
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Stage4_BossThron_0
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a92d9bacdcb4ce3e0800000000000000
+      internalID: -2023158785354640742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossThron_1
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d066071a9b2964940800000000000000
+      internalID: 5280068939113588237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossThron_2
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a0bac99af28d3f50800000000000000
+      internalID: 6862785420016136358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossThron_3
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c441c4fc8e72c8ea0800000000000000
+      internalID: -5869272333506833332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossThron_4
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de156967e13118f50800000000000000
+      internalID: 6881802727158338029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossThron_5
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02f1630b23c20bb30800000000000000
+      internalID: 4300986240355147552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossThron_6
+      rect:
+        serializedVersion: 2
+        x: 1400
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5a8f78aeeed64190800000000000000
+      internalID: -7978444573229741476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossThron_7
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c293b81bcb59d5240800000000000000
+      internalID: 4782143017002416428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossThron_8
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7810f4ea2606149b0800000000000000
+      internalID: -5097687326259215993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossThron_9
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a74b0458759748a0800000000000000
+      internalID: -6320919207952562268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossThron_10
+      rect:
+        serializedVersion: 2
+        x: 2200
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1e330707b099cd60800000000000000
+      internalID: 7911013336224054814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossThron
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2a84f443e0fa0370800000000000000
+      internalID: 8289702923033938474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 43770cf365a26bd4abf327b5451532eb
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Stage4_BossThron: 8289702923033938474
+      Stage4_BossThron_0: -2023158785354640742
+      Stage4_BossThron_1: 5280068939113588237
+      Stage4_BossThron_10: 7911013336224054814
+      Stage4_BossThron_11: -4954177102613377170
+      Stage4_BossThron_12: -2652697752224135006
+      Stage4_BossThron_13: 703490045491198807
+      Stage4_BossThron_14: -7916278499388295073
+      Stage4_BossThron_15: -3689571442234592254
+      Stage4_BossThron_16: -4431016891653983034
+      Stage4_BossThron_18: -1449393370639998630
+      Stage4_BossThron_2: 6862785420016136358
+      Stage4_BossThron_3: -5869272333506833332
+      Stage4_BossThron_4: 6881802727158338029
+      Stage4_BossThron_5: 4300986240355147552
+      Stage4_BossThron_6: -7978444573229741476
+      Stage4_BossThron_7: 4782143017002416428
+      Stage4_BossThron_8: -5097687326259215993
+      Stage4_BossThron_9: -6320919207952562268
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

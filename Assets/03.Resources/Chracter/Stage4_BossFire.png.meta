@@ -1,0 +1,647 @@
+fileFormatVersion: 2
+guid: 9dadce5953c129344a28e305c67d84fc
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1702773918475128760
+    second: Stage4_BossFire_0
+  - first:
+      213: -1994963961305855948
+    second: Stage4_BossFire_1
+  - first:
+      213: 8564843937167323873
+    second: Stage4_BossFire_2
+  - first:
+      213: 1710829492050365779
+    second: Stage4_BossFire_3
+  - first:
+      213: -370035448883745403
+    second: Stage4_BossFire_4
+  - first:
+      213: -6246251630922975639
+    second: Stage4_BossFire_5
+  - first:
+      213: 6800758966477112279
+    second: Stage4_BossFire_6
+  - first:
+      213: -6668475088400787909
+    second: Stage4_BossFire_7
+  - first:
+      213: -5994224087586534532
+    second: Stage4_BossFire_8
+  - first:
+      213: -8120573638213595538
+    second: Stage4_BossFire_9
+  - first:
+      213: -3916971812724813629
+    second: Stage4_BossFire_10
+  - first:
+      213: 8719822918293874231
+    second: Stage4_BossFire_11
+  - first:
+      213: -4493072058738009809
+    second: Stage4_BossFire_12
+  - first:
+      213: 5136674152572460128
+    second: Stage4_BossFire_13
+  - first:
+      213: -398460792951232880
+    second: Stage4_BossFire_14
+  - first:
+      213: 1514040008841887680
+    second: Stage4_BossFire_15
+  - first:
+      213: -1299749562818614540
+    second: Stage4_BossFire_16
+  - first:
+      213: 662555425878568421
+    second: Stage4_BossFire_17
+  - first:
+      213: -2743302428966075582
+    second: Stage4_BossFire_18
+  - first:
+      213: 6988795311054973383
+    second: Stage4_BossFire_19
+  - first:
+      213: -6791594064118928259
+    second: Stage4_BossFire_20
+  - first:
+      213: -6498037612371118643
+    second: Stage4_BossFire_21
+  - first:
+      213: 2828392415906778860
+    second: Stage4_BossFire_22
+  - first:
+      213: -4910805692577436239
+    second: Stage4_BossFire_23
+  - first:
+      213: -6687052031895801767
+    second: Stage4_BossFire_24
+  - first:
+      213: -1119515732100574480
+    second: Stage4_BossFire_25
+  - first:
+      213: 4565519492382389796
+    second: Stage4_BossFire_26
+  - first:
+      213: 8482957338997522591
+    second: Stage4_BossFire_27
+  - first:
+      213: 7651610759106390400
+    second: Stage4_BossFire_28
+  - first:
+      213: -4119381563768928763
+    second: Stage4_BossFire_29
+  - first:
+      213: 9052954725070715101
+    second: Stage4_BossFire_30
+  - first:
+      213: -3619484983362658094
+    second: Stage4_BossFire_31
+  - first:
+      213: -7114618354517503326
+    second: Stage4_BossFire_32
+  - first:
+      213: 5006816391041199367
+    second: Stage4_BossFire_33
+  - first:
+      213: 4293726972708463312
+    second: Stage4_BossFire_34
+  - first:
+      213: 2547065426934308770
+    second: Stage4_BossFire_35
+  - first:
+      213: -3196727479124317634
+    second: Stage4_BossFire_36
+  - first:
+      213: 8362123810327101945
+    second: Stage4_BossFire_37
+  - first:
+      213: -912905265925588041
+    second: Stage4_BossFire_38
+  - first:
+      213: 6266564232067721811
+    second: Stage4_BossFire_39
+  - first:
+      213: -856016304090486417
+    second: Stage4_BossFire_40
+  - first:
+      213: -4256540536019843262
+    second: Stage4_BossFire_41
+  - first:
+      213: 1096497973138071325
+    second: Stage4_BossFire_42
+  - first:
+      213: 7880929037808076819
+    second: Stage4_BossFire_43
+  - first:
+      213: 4397354949895278051
+    second: Stage4_BossFire_44
+  - first:
+      213: -2433230054689904331
+    second: Stage4_BossFire_45
+  - first:
+      213: -6069404244414187394
+    second: Stage4_BossFire_46
+  - first:
+      213: 367565311570784307
+    second: Stage4_BossFire_47
+  - first:
+      213: -8629983204380247558
+    second: Stage4_BossFire_48
+  - first:
+      213: -1470380510300980944
+    second: Stage4_BossFire_49
+  - first:
+      213: 3917322907605780615
+    second: Stage4_BossFire_50
+  - first:
+      213: 218685544234038482
+    second: Stage4_BossFire_51
+  - first:
+      213: -242042214203348374
+    second: Stage4_BossFire_52
+  - first:
+      213: -4026893495555378146
+    second: Stage4_BossFire_53
+  - first:
+      213: 5548625571062316072
+    second: Stage4_BossFire_54
+  - first:
+      213: -1903079459171224978
+    second: Stage4_BossFire_55
+  - first:
+      213: -598979283815470617
+    second: Stage4_BossFire_56
+  - first:
+      213: -3637508690970810838
+    second: Stage4_BossFire_57
+  - first:
+      213: -1884923243404895111
+    second: Stage4_BossFire_58
+  - first:
+      213: 6251247038635833722
+    second: Stage4_BossFire_59
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Stage4_BossFire_0
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8407d7094288e58e0800000000000000
+      internalID: -1702773918475128760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossFire_1
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43888a2d8d67054e0800000000000000
+      internalID: -1994963961305855948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossFire_2
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e2348fae207cd670800000000000000
+      internalID: 8564843937167323873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossFire_3
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35d8ce0db561eb710800000000000000
+      internalID: 1710829492050365779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossFire_4
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58d6bf248be5ddaf0800000000000000
+      internalID: -370035448883745403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossFire_5
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 966b1295c3bd059a0800000000000000
+      internalID: -6246251630922975639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossFire_6
+      rect:
+        serializedVersion: 2
+        x: 1400
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d3cbef7f36216e50800000000000000
+      internalID: 6800758966477112279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossFire_7
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b36545afc31d473a0800000000000000
+      internalID: -6668475088400787909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossFire_8
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7b805b73fc30dca0800000000000000
+      internalID: -5994224087586534532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossFire_9
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6e80e9fc4ded4f80800000000000000
+      internalID: -8120573638213595538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossFire_10
+      rect:
+        serializedVersion: 2
+        x: 2200
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c0d15ba3ee14a9c0800000000000000
+      internalID: -3916971812724813629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossFire
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 200
+        height: 80
+      alignment: 9
+      pivot: {x: 0.11, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc5fd79383552d5a0800000000000000
+      internalID: -6498037612371118643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: db27f378aa361a34e8f97e2658cde1c5
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Stage4_BossFire: -6498037612371118643
+      Stage4_BossFire_0: -1702773918475128760
+      Stage4_BossFire_1: -1994963961305855948
+      Stage4_BossFire_10: -3916971812724813629
+      Stage4_BossFire_11: 8719822918293874231
+      Stage4_BossFire_12: -4493072058738009809
+      Stage4_BossFire_13: 5136674152572460128
+      Stage4_BossFire_14: -398460792951232880
+      Stage4_BossFire_15: 1514040008841887680
+      Stage4_BossFire_16: -1299749562818614540
+      Stage4_BossFire_17: 662555425878568421
+      Stage4_BossFire_18: -2743302428966075582
+      Stage4_BossFire_19: 6988795311054973383
+      Stage4_BossFire_2: 8564843937167323873
+      Stage4_BossFire_20: -6791594064118928259
+      Stage4_BossFire_22: 2828392415906778860
+      Stage4_BossFire_23: -4910805692577436239
+      Stage4_BossFire_24: -6687052031895801767
+      Stage4_BossFire_25: -1119515732100574480
+      Stage4_BossFire_26: 4565519492382389796
+      Stage4_BossFire_27: 8482957338997522591
+      Stage4_BossFire_28: 7651610759106390400
+      Stage4_BossFire_29: -4119381563768928763
+      Stage4_BossFire_3: 1710829492050365779
+      Stage4_BossFire_30: 9052954725070715101
+      Stage4_BossFire_31: -3619484983362658094
+      Stage4_BossFire_32: -7114618354517503326
+      Stage4_BossFire_33: 5006816391041199367
+      Stage4_BossFire_34: 4293726972708463312
+      Stage4_BossFire_35: 2547065426934308770
+      Stage4_BossFire_36: -3196727479124317634
+      Stage4_BossFire_37: 8362123810327101945
+      Stage4_BossFire_38: -912905265925588041
+      Stage4_BossFire_39: 6266564232067721811
+      Stage4_BossFire_4: -370035448883745403
+      Stage4_BossFire_40: -856016304090486417
+      Stage4_BossFire_41: -4256540536019843262
+      Stage4_BossFire_42: 1096497973138071325
+      Stage4_BossFire_43: 7880929037808076819
+      Stage4_BossFire_44: 4397354949895278051
+      Stage4_BossFire_45: -2433230054689904331
+      Stage4_BossFire_46: -6069404244414187394
+      Stage4_BossFire_47: 367565311570784307
+      Stage4_BossFire_48: -8629983204380247558
+      Stage4_BossFire_49: -1470380510300980944
+      Stage4_BossFire_5: -6246251630922975639
+      Stage4_BossFire_50: 3917322907605780615
+      Stage4_BossFire_51: 218685544234038482
+      Stage4_BossFire_52: -242042214203348374
+      Stage4_BossFire_53: -4026893495555378146
+      Stage4_BossFire_54: 5548625571062316072
+      Stage4_BossFire_55: -1903079459171224978
+      Stage4_BossFire_56: -598979283815470617
+      Stage4_BossFire_57: -3637508690970810838
+      Stage4_BossFire_58: -1884923243404895111
+      Stage4_BossFire_59: 6251247038635833722
+      Stage4_BossFire_6: 6800758966477112279
+      Stage4_BossFire_7: -6668475088400787909
+      Stage4_BossFire_8: -5994224087586534532
+      Stage4_BossFire_9: -8120573638213595538
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

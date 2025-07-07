@@ -1,0 +1,375 @@
+fileFormatVersion: 2
+guid: 138dbae4dab744e4698eb6c472154b2d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8262982207060770247
+    second: Stage4_BossAttack_0
+  - first:
+      213: -1063698434872645588
+    second: Stage4_BossAttack_1
+  - first:
+      213: -3158454761971716576
+    second: Stage4_BossAttack_2
+  - first:
+      213: -7997837408391937953
+    second: Stage4_BossAttack_3
+  - first:
+      213: 164619388841952632
+    second: Stage4_BossAttack_4
+  - first:
+      213: -7377363643753285684
+    second: Stage4_BossAttack_5
+  - first:
+      213: -3045157794098331363
+    second: Stage4_BossAttack_6
+  - first:
+      213: 1771611962381817485
+    second: Stage4_BossAttack_7
+  - first:
+      213: 9088074828610383576
+    second: Stage4_BossAttack_8
+  - first:
+      213: -1227407734100934446
+    second: Stage4_BossAttack_9
+  - first:
+      213: 1845008004436062270
+    second: Stage4_BossAttack_10
+  - first:
+      213: 7462177762729895820
+    second: Stage4_BossAttack_11
+  - first:
+      213: 2391816389754079577
+    second: Stage4_BossAttack_12
+  - first:
+      213: -4471966180995903719
+    second: Stage4_BossAttack_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Stage4_BossAttack_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 0
+        width: 40
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93205ca367df35d80800000000000000
+      internalID: -8262982207060770247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossAttack_1
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 0
+        width: 40
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c28e641c8ebfc31f0800000000000000
+      internalID: -1063698434872645588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossAttack_2
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 0
+        width: 40
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02ee881d02aea24d0800000000000000
+      internalID: -3158454761971716576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossAttack_3
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 0
+        width: 40
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f50c77d5049f10190800000000000000
+      internalID: -7997837408391937953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossAttack_4
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 0
+        width: 40
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87501134678d84200800000000000000
+      internalID: 164619388841952632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossAttack_5
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 0
+        width: 48
+        height: 80
+      alignment: 9
+      pivot: {x: 0.45, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc7343b5ad65e9990800000000000000
+      internalID: -7377363643753285684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossAttack_6
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 0
+        width: 48
+        height: 80
+      alignment: 9
+      pivot: {x: 0.45, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d11c1c5ce1d6db5d0800000000000000
+      internalID: -3045157794098331363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossAttack_7
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 0
+        width: 48
+        height: 80
+      alignment: 9
+      pivot: {x: 0.45, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d86d99181b7069810800000000000000
+      internalID: 1771611962381817485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 43622da219cfd764d88960a4e2a7aa0d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Stage4_BossAttack_0: -8262982207060770247
+      Stage4_BossAttack_1: -1063698434872645588
+      Stage4_BossAttack_10: 1845008004436062270
+      Stage4_BossAttack_11: 7462177762729895820
+      Stage4_BossAttack_12: 2391816389754079577
+      Stage4_BossAttack_13: -4471966180995903719
+      Stage4_BossAttack_2: -3158454761971716576
+      Stage4_BossAttack_3: -7997837408391937953
+      Stage4_BossAttack_4: 164619388841952632
+      Stage4_BossAttack_5: -7377363643753285684
+      Stage4_BossAttack_6: -3045157794098331363
+      Stage4_BossAttack_7: 1771611962381817485
+      Stage4_BossAttack_8: 9088074828610383576
+      Stage4_BossAttack_9: -1227407734100934446
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

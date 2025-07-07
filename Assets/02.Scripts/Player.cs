@@ -816,7 +816,7 @@ public class Player : MonoBehaviour
         Debug.Log($"[{playerType}] 데미지 {a_Value} 받음. 현재 HP: {m_CurHp}");
         ApplyKnockback();
 
-        m_DamageCool = 2.0f; // 2초 쿨타임 설정
+        m_DamageCool = 0.5f; // 0.5초 쿨타임 설정
 
         if (m_CurHp <= 0.0f)
         {

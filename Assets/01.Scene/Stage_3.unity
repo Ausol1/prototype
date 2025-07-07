@@ -1655,6 +1655,10 @@ MonoBehaviour:
   gateObject: {fileID: 1830184077}
   gameOverPanel: {fileID: 1973817241}
   gamePausePanel: {fileID: 636768923}
+  stage1TipPanel: {fileID: 0}
+  stage2TipPanel: {fileID: 0}
+  stage3TipPanel: {fileID: 51100599}
+  stage4TipPanel: {fileID: 0}
   currentStage: 3
   restartButton: {fileID: 583435394}
   exitButton: {fileID: 2110282728}
@@ -7602,7 +7606,6 @@ MonoBehaviour:
   tentacleWarningPrefab: {fileID: 5567022941846044554, guid: b096efe4f34918b44a2e2b65bee0dc19, type: 3}
   uiCanvas: {fileID: 784265916}
   boomSpawnInterval: 7
-  stage3TipPanel: {fileID: 51100599}
 --- !u!1 &1973817241
 GameObject:
   m_ObjectHideFlags: 0

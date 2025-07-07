@@ -1,0 +1,471 @@
+fileFormatVersion: 2
+guid: 4de9560507c54964e87e21c2e26fba5f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7554934573814680306
+    second: Stage4_Thron_0
+  - first:
+      213: 9217413803558237712
+    second: Stage4_Thron_1
+  - first:
+      213: -168226298203445759
+    second: Stage4_Thron_2
+  - first:
+      213: 6601209613827144815
+    second: Stage4_Thron_3
+  - first:
+      213: 7153126847443492926
+    second: Stage4_Thron_4
+  - first:
+      213: 473203559356480656
+    second: Stage4_Thron_5
+  - first:
+      213: 1537925578611687239
+    second: Stage4_Thron_6
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Stage4_Thron_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 24
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape:
+      - - {x: 10, y: -23}
+        - {x: 7, y: -20}
+        - {x: 0, y: -19}
+        - {x: -5, y: -20}
+        - {x: -10, y: -22}
+        - {x: -10, y: -24}
+        - {x: 10, y: -24}
+      tessellationDetail: 1
+      bones: []
+      spriteID: e05757a680b772790800000000000000
+      internalID: -7554934573814680306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_Thron_1
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 24
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape:
+      - - {x: 10, y: -23}
+        - {x: 8, y: -21}
+        - {x: 8, y: -17}
+        - {x: 6, y: -15}
+        - {x: 6, y: -6}
+        - {x: 4, y: -3}
+        - {x: 5, y: -2}
+        - {x: 5, y: 4}
+        - {x: 3, y: 6}
+        - {x: 3, y: 13}
+        - {x: 1, y: 15}
+        - {x: -2, y: 14}
+        - {x: -4, y: 8}
+        - {x: -5, y: -10}
+        - {x: -7, y: -12}
+        - {x: -7, y: -20}
+        - {x: -10, y: -23}
+        - {x: -10, y: -24}
+        - {x: 10, y: -24}
+      tessellationDetail: 1
+      bones: []
+      spriteID: 016fed4b405daef70800000000000000
+      internalID: 9217413803558237712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_Thron_2
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 24
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape:
+      - - {x: 12, y: -23}
+        - {x: 10, y: -21}
+        - {x: 11, y: -20}
+        - {x: 11, y: -17}
+        - {x: 8, y: -13}
+        - {x: 8, y: -10}
+        - {x: 6, y: -8}
+        - {x: 5, y: -4}
+        - {x: 6, y: -2}
+        - {x: 4, y: 2}
+        - {x: 2, y: 2}
+        - {x: 3, y: 3}
+        - {x: 2, y: 6}
+        - {x: -2, y: 7}
+        - {x: -4, y: 5}
+        - {x: -4, y: 2}
+        - {x: -7, y: 1}
+        - {x: -8, y: -4}
+        - {x: -7, y: -5}
+        - {x: -7, y: -7}
+        - {x: -10, y: -12}
+        - {x: -10, y: -14}
+        - {x: -9, y: -16}
+        - {x: -11, y: -18}
+        - {x: -11, y: -22}
+        - {x: -12, y: -24}
+        - {x: 12, y: -24}
+      tessellationDetail: 1
+      bones: []
+      spriteID: 10664b5b2175aadf0800000000000000
+      internalID: -168226298203445759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_Thron_3
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 0
+        width: 24
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape:
+      - - {x: 12, y: -23}
+        - {x: 10, y: -21}
+        - {x: 11, y: -20}
+        - {x: 11, y: -17}
+        - {x: 7, y: -11}
+        - {x: 8, y: -10}
+        - {x: 8, y: -8}
+        - {x: 6, y: -3}
+        - {x: 1, y: -1}
+        - {x: -3, y: -5}
+        - {x: -4, y: -1}
+        - {x: -6, y: -1}
+        - {x: -10, y: -5}
+        - {x: -10, y: -8}
+        - {x: -11, y: -10}
+        - {x: -12, y: -13}
+        - {x: -12, y: -16}
+        - {x: -10, y: -17}
+        - {x: -12, y: -20}
+        - {x: -12, y: -24}
+        - {x: 12, y: -24}
+      tessellationDetail: 1
+      bones: []
+      spriteID: f6c7f084b253c9b50800000000000000
+      internalID: 6601209613827144815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_Thron_4
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 24
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape:
+      - - {x: 12, y: -21}
+        - {x: 11, y: -20}
+        - {x: 10, y: -20}
+        - {x: 9, y: -19}
+        - {x: 10, y: -18}
+        - {x: 10, y: -16}
+        - {x: 6, y: -11}
+        - {x: 5, y: -11}
+        - {x: 3, y: -13}
+        - {x: 1, y: -13}
+        - {x: 0, y: -11}
+        - {x: 2, y: -10}
+        - {x: 3, y: -11}
+        - {x: 6, y: -9}
+        - {x: 4, y: -4}
+        - {x: 2, y: -4}
+        - {x: 0, y: -6}
+        - {x: -1, y: -5}
+        - {x: -5, y: -4}
+        - {x: -7, y: -7}
+        - {x: -5, y: -9}
+        - {x: -9, y: -9}
+        - {x: -11, y: -10}
+        - {x: -12, y: -13}
+        - {x: -12, y: -16}
+        - {x: -10, y: -17}
+        - {x: -12, y: -20}
+        - {x: -12, y: -24}
+        - {x: 12, y: -24}
+      tessellationDetail: 1
+      bones: []
+      spriteID: e30ed2708f2054360800000000000000
+      internalID: 7153126847443492926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_Thron_5
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 0
+        width: 24
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape:
+      - - {x: 12, y: -24}
+        - {x: 12, y: -16}
+        - {x: 7, y: -12}
+        - {x: -6.399994, y: -12}
+        - {x: -6, y: -11}
+        - {x: -8, y: -9}
+        - {x: -11, y: -10}
+        - {x: -12, y: -13}
+        - {x: -12, y: -24}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09cb4ed4128219600800000000000000
+      internalID: 473203559356480656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_Thron_6
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 24
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape:
+      - - {x: 12, y: -22}
+        - {x: 10, y: -21}
+        - {x: 6, y: -20}
+        - {x: -8, y: -20}
+        - {x: -9, y: -23}
+        - {x: -9, y: -24}
+        - {x: 12, y: -24}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74ff22c5a2fc75510800000000000000
+      internalID: 1537925578611687239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_Thron_7
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 0
+        width: 24
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape:
+      - - {x: -4, y: -24}
+        - {x: 5, y: -24}
+        - {x: 5, y: -22}
+        - {x: -4, y: -22}
+      tessellationDetail: 0
+      bones: []
+      spriteID: eee68c0d342ec8f4a8c2351ed8e77af9
+      internalID: 2031881106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 580f57ad2fbe45a499debb375622fb53
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Stage4_Thron_0: -7554934573814680306
+      Stage4_Thron_1: 9217413803558237712
+      Stage4_Thron_2: -168226298203445759
+      Stage4_Thron_3: 6601209613827144815
+      Stage4_Thron_4: 7153126847443492926
+      Stage4_Thron_5: 473203559356480656
+      Stage4_Thron_6: 1537925578611687239
+      Stage4_Thron_7: 2031881106
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

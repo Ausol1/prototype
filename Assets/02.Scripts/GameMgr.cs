@@ -4,9 +4,25 @@ using UnityEngine.SceneManagement;
 
 public class GameMgr : MonoBehaviour
 {
-    [SerializeField] private GameObject gateObject; 
+    [SerializeField] private GameObject gateObject;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject gamePausePanel;
+
+    // --- 스테이지별 팁 패널 ---
+    public GameObject stage1TipPanel;
+    public GameObject stage2TipPanel;
+    public GameObject stage3TipPanel;
+    public GameObject stage4TipPanel;
+
+    private bool isStage1TipActive = false;
+    private bool isStage2TipActive = false;
+    private bool isStage3TipActive = false;
+    private bool isStage4TipActive = false;
+
+    private static bool isStage1FirstLoad = true;
+    private static bool isStage2FirstLoad = true;
+    private static bool isStage3FirstLoad = true;
+    private static bool isStage4FirstLoad = true;
 
     //--- 싱글턴 패턴
     public static GameMgr Inst = null;
@@ -31,10 +47,87 @@ public class GameMgr : MonoBehaviour
             restartButton.onClick.AddListener(OnClickRestart);
         if (exitButton != null)
             exitButton.onClick.AddListener(OnClickExit);
+
+        // 스테이지별 팁 패널 최초 진입 시만 보여주기
+        if (currentStage == 1 && isStage1FirstLoad && stage1TipPanel != null)
+        {
+            stage1TipPanel.SetActive(true);
+            Time.timeScale = 0.0f;
+            isStage1TipActive = true;
+            isStage1FirstLoad = false;
+        }
+        else if (currentStage == 2 && isStage2FirstLoad && stage2TipPanel != null)
+        {
+            stage2TipPanel.SetActive(true);
+            Time.timeScale = 0.0f;
+            isStage2TipActive = true;
+            isStage2FirstLoad = false;
+        }
+        else if (currentStage == 3 && isStage3FirstLoad && stage3TipPanel != null)
+        {
+            stage3TipPanel.SetActive(true);
+            Time.timeScale = 0.0f;
+            isStage3TipActive = true;
+            isStage3FirstLoad = false;
+        }
+        else if (currentStage == 4 && isStage4FirstLoad && stage4TipPanel != null)
+        {
+            stage4TipPanel.SetActive(true);
+            Time.timeScale = 0.0f;
+            isStage4TipActive = true;
+            isStage4FirstLoad = false;
+        }
+
+        if (restartButton != null)
+            restartButton.onClick.AddListener(OnClickRestart);
+        if (exitButton != null)
+            exitButton.onClick.AddListener(OnClickExit);
     }
 
     void Update()
     {
+        // 팁 패널이 열려있으면 Space로 닫기
+        if (isStage1TipActive && stage1TipPanel != null && stage1TipPanel.activeSelf)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                stage1TipPanel.SetActive(false);
+                Time.timeScale = 1.0f;
+                isStage1TipActive = false;
+            }
+            return;
+        }
+        if (isStage2TipActive && stage2TipPanel != null && stage2TipPanel.activeSelf)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                stage2TipPanel.SetActive(false);
+                Time.timeScale = 1.0f;
+                isStage2TipActive = false;
+            }
+            return;
+        }
+        if (isStage3TipActive && stage3TipPanel != null && stage3TipPanel.activeSelf)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                stage3TipPanel.SetActive(false);
+                Time.timeScale = 1.0f;
+                isStage3TipActive = false;
+            }
+            return;
+        }
+        if (isStage4TipActive && stage4TipPanel != null && stage4TipPanel.activeSelf)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                stage4TipPanel.SetActive(false);
+                Time.timeScale = 1.0f;
+                isStage4TipActive = false;
+            }
+            return;
+        }
+
         // "Enemy" 태그를 가진 오브젝트가 없으면 게이트 오브젝트 활성화
         if (gateObject != null && GameObject.FindGameObjectsWithTag("Enemy").Length == 0 &&
             GameObject.FindGameObjectsWithTag("SmallMonster").Length == 0 &&

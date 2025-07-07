@@ -1,0 +1,399 @@
+fileFormatVersion: 2
+guid: f17105e2f2d5bd94faf3f7249e5255ca
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3339390701353528152
+    second: Stage4_BossDash_0
+  - first:
+      213: 9206307758017845318
+    second: Stage4_BossDash_1
+  - first:
+      213: -7943403903325237597
+    second: Stage4_BossDash_2
+  - first:
+      213: 1610708013368223958
+    second: Stage4_BossDash_3
+  - first:
+      213: -4160519831784284565
+    second: Stage4_BossDash_4
+  - first:
+      213: -4304478937786231503
+    second: Stage4_BossDash_5
+  - first:
+      213: -3899793866272246858
+    second: Stage4_BossDash_6
+  - first:
+      213: -1633296980526057387
+    second: Stage4_BossDash_7
+  - first:
+      213: -4490717479128952268
+    second: Stage4_BossDash_8
+  - first:
+      213: -1818676368690204769
+    second: Stage4_BossDash_9
+  - first:
+      213: 9004067976998521522
+    second: Stage4_BossDash_10
+  - first:
+      213: -4127018471777625240
+    second: Stage4_BossDash_11
+  - first:
+      213: 3064208954548994986
+    second: Stage4_BossDash_12
+  - first:
+      213: -5733506016046426974
+    second: Stage4_BossDash_13
+  - first:
+      213: 4940580796549480842
+    second: Stage4_BossDash_14
+  - first:
+      213: 4501253599714647133
+    second: Stage4_BossDash_15
+  - first:
+      213: -8352745408936279780
+    second: Stage4_BossDash_16
+  - first:
+      213: 1095066143547264495
+    second: Stage4_BossDash_17
+  - first:
+      213: 5603450909132779877
+    second: Stage4_BossDash_18
+  - first:
+      213: 1283727540453918008
+    second: Stage4_BossDash_19
+  - first:
+      213: 4970408988722242473
+    second: Stage4_BossDash_20
+  - first:
+      213: -6364149996336124823
+    second: Stage4_BossDash_21
+  - first:
+      213: 7492265588125373465
+    second: Stage4_BossDash_22
+  - first:
+      213: 9094605122193417465
+    second: Stage4_BossDash_23
+  - first:
+      213: -4880425151185847588
+    second: Stage4_BossDash_24
+  - first:
+      213: -2003368372088544980
+    second: Stage4_BossDash_25
+  - first:
+      213: -7488122194580975447
+    second: Stage4_BossDash_26
+  - first:
+      213: -3532675520072309229
+    second: Stage4_BossDash_27
+  - first:
+      213: -5046111831991822133
+    second: Stage4_BossDash_28
+  - first:
+      213: -5708302839027837619
+    second: Stage4_BossDash_29
+  - first:
+      213: -6865081305086179954
+    second: Stage4_BossDash_30
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Stage4_BossDash_0
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 0
+        width: 200
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85b6b686626e75e20800000000000000
+      internalID: 3339390701353528152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossDash_1
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 0
+        width: 200
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6489399f02063cf70800000000000000
+      internalID: 9206307758017845318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossDash_2
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0
+        width: 200
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ae09d26c3c53c190800000000000000
+      internalID: -7943403903325237597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossDash_3
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 0
+        width: 200
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d820bd77626a5610800000000000000
+      internalID: 1610708013368223958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossDash_4
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 0
+        width: 200
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6e9781a14dd246c0800000000000000
+      internalID: -4160519831784284565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stage4_BossDash
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 200
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ba87769e10e4fc70800000000000000
+      internalID: 9004067976998521522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 6c5e94ba3a9f1ca4eaf25193466cd905
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Stage4_BossDash: 9004067976998521522
+      Stage4_BossDash_0: 3339390701353528152
+      Stage4_BossDash_1: 9206307758017845318
+      Stage4_BossDash_11: -4127018471777625240
+      Stage4_BossDash_12: 3064208954548994986
+      Stage4_BossDash_13: -5733506016046426974
+      Stage4_BossDash_14: 4940580796549480842
+      Stage4_BossDash_15: 4501253599714647133
+      Stage4_BossDash_16: -8352745408936279780
+      Stage4_BossDash_17: 1095066143547264495
+      Stage4_BossDash_18: 5603450909132779877
+      Stage4_BossDash_19: 1283727540453918008
+      Stage4_BossDash_2: -7943403903325237597
+      Stage4_BossDash_20: 4970408988722242473
+      Stage4_BossDash_21: -6364149996336124823
+      Stage4_BossDash_22: 7492265588125373465
+      Stage4_BossDash_23: 9094605122193417465
+      Stage4_BossDash_24: -4880425151185847588
+      Stage4_BossDash_25: -2003368372088544980
+      Stage4_BossDash_26: -7488122194580975447
+      Stage4_BossDash_27: -3532675520072309229
+      Stage4_BossDash_28: -5046111831991822133
+      Stage4_BossDash_29: -5708302839027837619
+      Stage4_BossDash_3: 1610708013368223958
+      Stage4_BossDash_30: -6865081305086179954
+      Stage4_BossDash_4: -4160519831784284565
+      Stage4_BossDash_5: -4304478937786231503
+      Stage4_BossDash_6: -3899793866272246858
+      Stage4_BossDash_7: -1633296980526057387
+      Stage4_BossDash_8: -4490717479128952268
+      Stage4_BossDash_9: -1818676368690204769
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
